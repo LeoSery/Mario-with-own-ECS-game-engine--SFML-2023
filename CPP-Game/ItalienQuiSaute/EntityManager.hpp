@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
-#include "Entity.hpp"
-#include "Component.hpp"
+
 #include <vector>
 #include <map>
+
+#include "Entity.hpp"
+#include "Component.hpp"
 
 class EntityManager
 {
@@ -53,12 +55,15 @@ public:
 		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
 	}
 
-	void AddComponent(Entity& entity, Component& component)
+	void addcomponent(const Entity& entity, Component& component)
 	{
-		std::vector<Component> componentList;
-		if (!componentMapping.contains(entity))
+		std::vector<Component> componentlist;
+
+		for (auto& [key, value] : componentMapping)
 		{
-			componentMapping[entity] = componentList;
+			if (key.UUID == entity.UUID) {
+				componentMapping[entity] = componentlist;
+			}
 		}
 		componentMapping[entity].push_back(component);
 	}
@@ -78,11 +83,12 @@ public:
 		}
 	}
 
-	Component GetComponent(Entity& entity, std::uint32_t compoentUUID)
+	Component GetComponent(const Entity& entity, std::uint32_t componentUUID)
 	{
-		for (Component currentComponent : componentMapping[entity])
+		const auto components = componentMapping.at(entity);
+		for (Component currentComponent : components)
 		{
-			if (currentComponent.UUID == compoentUUID)
+			if (currentComponent.UUID == componentUUID)
 			{
 				return currentComponent;
 			}

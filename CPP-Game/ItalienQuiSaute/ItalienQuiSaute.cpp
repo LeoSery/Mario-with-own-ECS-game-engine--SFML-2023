@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "EntityManager.hpp"
+
 int main()
 {
     std::cout << "Hello World!\n";
