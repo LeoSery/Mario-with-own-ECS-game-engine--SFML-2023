@@ -132,6 +132,9 @@
   <ItemGroup>
     <ClCompile Include="ItalienQuiSaute.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
