@@ -55,7 +55,7 @@ public:
 		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
 	}
 
-	void addcomponent(const Entity& entity, Component& component)
+	void addComponent(Entity& entity, Component& component)
 	{
 		std::vector<Component> componentlist;
 
