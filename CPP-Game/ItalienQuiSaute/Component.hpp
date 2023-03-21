@@ -1,11 +1,9 @@
 #pragma once
-
-#include <iostream>;
+#include <iostream>
 
 class Component
 {
 public:
-	std::uint32_t UID;
+	std::uint32_t UUID;
 	std::string name;
 };
-
