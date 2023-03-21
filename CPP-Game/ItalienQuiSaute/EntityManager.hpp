@@ -27,6 +27,17 @@ public:
 		livingEntityList.push_back(currentEntity);
 	}
 
+	Entity GetEntity(std::uint32_t UUID)
+	{
+		for (Entity& currentEntity : livingEntityList)
+		{
+			if (currentEntity.UUID == UUID)
+			{
+				return currentEntity;
+			}
+		}
+	}
+
 	void DestroyEntity(std::uint32_t UUID)
 	{
 		std::uint32_t index = 0;
@@ -42,7 +53,41 @@ public:
 		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
 	}
 
+	void AddComponent(Entity& entity, Component& component)
+	{
+		std::vector<Component> componentList;
+		if (!componentMapping.contains(entity))
+		{
+			componentMapping[entity] = componentList;
+		}
+		componentMapping[entity].push_back(component);
+	}
 
+	void RemoveComponent(Entity& entity, Component& component)
+	{
+		std::uint32_t index = 0;
+		std::uint32_t componentToRemove = 0;
+		for (Component currentComponent : componentMapping[entity])
+		{
+			index++;
+			if (currentComponent.UUID == component.UUID)
+			{
+				componentToRemove = index;
+			}
+			componentMapping[entity].erase(livingComponentList.begin() + componentToRemove);
+		}
+	}
+
+	Component GetComponent(Entity& entity, std::uint32_t compoentUUID)
+	{
+		for (Component currentComponent : componentMapping[entity])
+		{
+			if (currentComponent.UUID == compoentUUID)
+			{
+				return currentComponent;
+			}
+		}
+	}
 
 private:
 	std::vector<Entity> livingEntityList;
