@@ -27,7 +27,7 @@ public:
 		livingEntityList.push_back(currentEntity);
 	}
 
-	void DestoyEntity(std::uint32_t UUID)
+	void DestroyEntity(std::uint32_t UUID)
 	{
 		std::uint32_t index = 0;
 		std::uint32_t itemToRemove = 0;
@@ -39,16 +39,11 @@ public:
 				itemToRemove = index;
 			}
 		}
-		livingEntityList.erase(itemToRemove);
+		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
 	}
-	void DestoyEntity()
-	{
 
-	}
-	void DestoyEntity()
-	{
 
-	}
+
 private:
 	std::vector<Entity> livingEntityList;
 	std::vector<Component> livingComponentList;
