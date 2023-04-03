@@ -54,6 +54,7 @@ public:
 			if (currentEntity->UUID == UUID)
 			{
 				itemToRemove = index;
+				delete currentEntity;
 			}
 		}
 		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
@@ -108,6 +109,7 @@ public:
 			if (currentComponent->UUID == UUID)
 			{
 				itemToRemove = index;
+				delete currentComponent;
 			}
 		}
 		livingComponentList.erase(livingComponentList.begin() + itemToRemove);
