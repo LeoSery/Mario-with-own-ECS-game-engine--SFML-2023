@@ -11,30 +11,33 @@ class EntityManager
 {
 public:
 #pragma region Entity
-	void CreateEntity()
+	Entity* CreateEntity()
 	{
 		std::uint32_t UUID = livingEntityList.size() + 1;
-		Entity currentEntity(UUID, "", "");
+		Entity* currentEntity= new Entity(UUID, "", "");
 		livingEntityList.push_back(currentEntity);
+		return currentEntity;
 	}
-	void CreateEntity(std::string Name)
+	Entity* CreateEntity(std::string Name)
 	{
 		std::uint32_t UUID = livingEntityList.size() + 1;
-		Entity currentEntity(UUID, Name, "");
+		Entity* currentEntity = new Entity(UUID, Name, "");
 		livingEntityList.push_back(currentEntity);
+		return currentEntity;
 	}
-	void CreateEntity(std::string Name, std::string Tag)
+	Entity* CreateEntity(std::string Name, std::string Tag)
 	{
 		std::uint32_t UUID = livingEntityList.size() + 1;
-		Entity currentEntity(UUID, Name, Tag);
+		Entity* currentEntity = new Entity(UUID, Name, Tag);
 		livingEntityList.push_back(currentEntity);
+		return currentEntity;
 	}
 
-	Entity GetEntity(std::uint32_t UUID)
+	Entity* GetEntity(std::uint32_t UUID)
 	{
-		for (Entity& currentEntity : livingEntityList)
+		for (Entity* currentEntity : livingEntityList)
 		{
-			if (currentEntity.UUID == UUID)
+			if (currentEntity->UUID == UUID)
 			{
 				return currentEntity;
 			}
@@ -45,10 +48,10 @@ public:
 	{
 		std::uint32_t index = 0;
 		std::uint32_t itemToRemove = 0;
-		for (Entity& currentEntity : livingEntityList)
+		for (Entity* currentEntity : livingEntityList)
 		{
 			index++;
-			if (currentEntity.UUID == UUID)
+			if (currentEntity->UUID == UUID)
 			{
 				itemToRemove = index;
 			}
@@ -58,19 +61,28 @@ public:
 #pragma endregion
 
 #pragma region Component
-	void CreateComponent()
+	Component* CreateComponent()
 	{
 		std::uint32_t UUID = livingComponentList.size() + 1;
-		Component currentComponent(UUID, "");
+		Component* currentComponent = new Component(UUID, "");
 		livingComponentList.push_back(currentComponent);
+		return currentComponent;
 	}
 
-	Component GetComponent(const Entity& entity, std::uint32_t componentUUID)
+	Component* CreateComponent(std::string Name)
 	{
-		const auto components = componentMapping.at(entity);
-		for (Component currentComponent : components)
+		std::uint32_t UUID = livingComponentList.size() + 1;
+		Component* currentComponent = new Component(UUID, Name);
+		livingComponentList.push_back(currentComponent);
+		return currentComponent;
+	}
+
+	Component* GetComponent(Entity* entity, std::uint32_t componentUUID)
+	{
+		auto components = componentMapping.at(entity);
+		for (Component* currentComponent : components)
 		{
-			if (currentComponent.UUID == componentUUID)
+			if (currentComponent->UUID == componentUUID)
 			{
 				return currentComponent;
 			}
@@ -81,10 +93,10 @@ public:
 	{
 		std::uint32_t index = 0;
 		std::uint32_t itemToRemove = 0;
-		for (Component& currentComponent : livingComponentList)
+		for (Component* currentComponent : livingComponentList)
 		{
 			index++;
-			if (currentComponent.UUID == UUID)
+			if (currentComponent->UUID == UUID)
 			{
 				itemToRemove = index;
 			}
@@ -92,27 +104,27 @@ public:
 		livingComponentList.erase(livingComponentList.begin() + itemToRemove);
 	}
 
-	void AddComponent(Entity& entity, Component& component)
+	void AddComponent(Entity* entity, Component* component)
 	{
-		std::vector<Component> componentlist;
+		std::vector<Component*> componentlist;
 
 		for (auto& [key, value] : componentMapping)
 		{
-			if (key.UUID == entity.UUID) {
+			if (key->UUID == entity->UUID) {
 				componentMapping[entity] = componentlist;
 			}
 		}
 		componentMapping[entity].push_back(component);
 	}
 
-	void RemoveComponent(Entity& entity, Component& component)
+	void RemoveComponent(Entity* entity, Component* component)
 	{
 		std::uint32_t index = 0;
 		std::uint32_t componentToRemove = 0;
-		for (Component currentComponent : componentMapping[entity])
+		for (Component* currentComponent : componentMapping[entity])
 		{
 			index++;
-			if (currentComponent.UUID == component.UUID)
+			if (currentComponent->UUID == component->UUID)
 			{
 				componentToRemove = index;
 			}
@@ -122,7 +134,7 @@ public:
 #pragma endregion
 
 private:
-	std::vector<Entity> livingEntityList;
-	std::vector<Component> livingComponentList;
-	std::map<Entity, std::vector<Component>> componentMapping;
+	std::vector<Entity*> livingEntityList;
+	std::vector<Component*> livingComponentList;
+	std::map<Entity*, std::vector<Component*>> componentMapping;
 };
