@@ -80,11 +80,13 @@ public:
 		return currentComponent;
 	}
 
-	template<typename T>
-	void CreateComponent(std::string Name, T* currentComponent)
+	void CreateComponent(std::string Name, Component* currentComponent)
 	{
-		std::uint32_t UUID = livingComponentList.size() + 1;
+		const std::uint32_t UUID = livingComponentList.size();
 		livingComponentList.push_back(currentComponent);
+		
+		currentComponent->UUID = UUID;
+		currentComponent->Name = Name;
 	}
 
 	Component* GetComponent(Entity* entity, std::uint32_t componentUUID)

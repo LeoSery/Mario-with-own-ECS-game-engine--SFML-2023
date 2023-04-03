@@ -9,7 +9,7 @@
 class SpriteRendererComponent : public Component 
 {
 public:
-	SpriteRendererComponent(std::uint32_t UUID, std::string Name, sf::Texture& tex) : Component(UUID, Name) {
+	SpriteRendererComponent(sf::Texture& tex) : Component(0, "default") {
 
 		this->tex = tex;
 		this->sprite = loadSprite();
@@ -22,10 +22,11 @@ public:
 		sprite->setTexture(tex);
 		return sprite;
 	}
-	
+	std::string test = "waow";
 	
 
 private:
 	sf::Texture tex;
 	sf::Sprite* sprite;
+	
 };
