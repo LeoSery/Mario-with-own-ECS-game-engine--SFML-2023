@@ -17,16 +17,14 @@ public:
 
 	};
 
-	sf::Sprite* loadSprite() {
-		sprite = new sf::Sprite;
-		sprite->setTexture(tex);
+	sf::Sprite loadSprite() {
+		sprite.setTexture(tex);
 		return sprite;
 	}
-	std::string test = "waow";
 	
 
 private:
 	sf::Texture tex;
-	sf::Sprite* sprite;
+	sf::Sprite sprite;
 	
 };
