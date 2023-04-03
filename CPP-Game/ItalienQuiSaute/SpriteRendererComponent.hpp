@@ -6,10 +6,10 @@
 
 
 
-class SpriteRenderer : public Component 
+class SpriteRendererComponent : public Component 
 {
 public:
-	SpriteRenderer(std::uint32_t UUID, std::string Name, sf::Texture& tex) : Component(UUID, Name) {
+	SpriteRendererComponent(std::uint32_t UUID, std::string Name, sf::Texture& tex) : Component(UUID, Name) {
 
 		this->tex = tex;
 		this->sprite = loadSprite();
