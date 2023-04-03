@@ -68,6 +68,8 @@ public:
 		livingComponentList.push_back(currentComponent);
 		return currentComponent;
 	}
+	
+
 
 	Component* CreateComponent(std::string Name)
 	{
@@ -75,6 +77,13 @@ public:
 		Component* currentComponent = new Component(UUID, Name);
 		livingComponentList.push_back(currentComponent);
 		return currentComponent;
+	}
+
+	template<typename T>
+	void CreateComponent(std::string Name, T* currentComponent)
+	{
+		std::uint32_t UUID = livingComponentList.size() + 1;
+		livingComponentList.push_back(currentComponent);
 	}
 
 	Component* GetComponent(Entity* entity, std::uint32_t componentUUID)
@@ -103,8 +112,8 @@ public:
 		}
 		livingComponentList.erase(livingComponentList.begin() + itemToRemove);
 	}
-
-	void AddComponent(Entity* entity, Component* component)
+	template<typename T>
+	void AddComponent(Entity* entity, T* component)
 	{
 		std::vector<Component*> componentlist;
 
@@ -136,5 +145,6 @@ public:
 private:
 	std::vector<Entity*> livingEntityList;
 	std::vector<Component*> livingComponentList;
+	
 	std::map<Entity*, std::vector<Component*>> componentMapping;
 };
