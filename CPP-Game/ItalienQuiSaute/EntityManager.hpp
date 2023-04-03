@@ -82,7 +82,7 @@ public:
 
 	void CreateComponent(std::string Name, Component* currentComponent)
 	{
-		const std::uint32_t UUID = livingComponentList.size();
+		const std::uint32_t UUID = livingComponentList.size()+1;
 		livingComponentList.push_back(currentComponent);
 		
 		currentComponent->UUID = UUID;
@@ -92,6 +92,7 @@ public:
 	Component* GetComponent(Entity* entity, std::uint32_t componentUUID)
 	{
 		auto components = componentMapping.at(entity);
+
 		for (Component* currentComponent : components)
 		{
 			if (currentComponent->UUID == componentUUID)
@@ -116,17 +117,8 @@ public:
 		}
 		livingComponentList.erase(livingComponentList.begin() + itemToRemove);
 	}
-	template<typename T>
-	void AddComponent(Entity* entity, T* component)
+	void AddComponent(Entity* entity, Component* component)
 	{
-		std::vector<Component*> componentlist;
-
-		for (auto& [key, value] : componentMapping)
-		{
-			if (key->UUID == entity->UUID) {
-				componentMapping[entity] = componentlist;
-			}
-		}
 		componentMapping[entity].push_back(component);
 	}
 
