@@ -10,6 +10,7 @@
 class EntityManager
 {
 public:
+#pragma region Entity
 	void CreateEntity()
 	{
 		std::uint32_t UUID = livingEntityList.size() + 1;
@@ -54,8 +55,44 @@ public:
 		}
 		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
 	}
+#pragma endregion
 
-	void addComponent(Entity& entity, Component& component)
+#pragma region Component
+	void CreateComponent()
+	{
+		std::uint32_t UUID = livingComponentList.size() + 1;
+		Component currentComponent(UUID, "");
+		livingComponentList.push_back(currentComponent);
+	}
+
+	Component GetComponent(const Entity& entity, std::uint32_t componentUUID)
+	{
+		const auto components = componentMapping.at(entity);
+		for (Component currentComponent : components)
+		{
+			if (currentComponent.UUID == componentUUID)
+			{
+				return currentComponent;
+			}
+		}
+	}
+
+	void DestroyComponent(std::uint32_t UUID)
+	{
+		std::uint32_t index = 0;
+		std::uint32_t itemToRemove = 0;
+		for (Component& currentComponent : livingComponentList)
+		{
+			index++;
+			if (currentComponent.UUID == UUID)
+			{
+				itemToRemove = index;
+			}
+		}
+		livingComponentList.erase(livingComponentList.begin() + itemToRemove);
+	}
+
+	void AddComponent(Entity& entity, Component& component)
 	{
 		std::vector<Component> componentlist;
 
@@ -82,18 +119,7 @@ public:
 			componentMapping[entity].erase(livingComponentList.begin() + componentToRemove);
 		}
 	}
-
-	Component GetComponent(const Entity& entity, std::uint32_t componentUUID)
-	{
-		const auto components = componentMapping.at(entity);
-		for (Component currentComponent : components)
-		{
-			if (currentComponent.UUID == componentUUID)
-			{
-				return currentComponent;
-			}
-		}
-	}
+#pragma endregion
 
 private:
 	std::vector<Entity> livingEntityList;
