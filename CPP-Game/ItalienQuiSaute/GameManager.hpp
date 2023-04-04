@@ -33,6 +33,7 @@ public:
 
 
         Entity* entity = EM.CreateEntity("MY ENEMYYYY");
+        Entity* entity2 = EM.CreateEntity("Momo");
 
         SpriteRendererComponent* spriteComp = new SpriteRendererComponent(tex);
 
@@ -49,7 +50,7 @@ public:
         SpriteRendererComponent* spriteComp2 = new SpriteRendererComponent(tex2);
 
         EM.CreateComponent("sprt2", spriteComp2);
-        EM.AddComponent(entity, spriteComp2);
+        EM.AddComponent(entity2, spriteComp2);
         // SpriteRendererComponent* compi = (SpriteRendererComponent*)EM.GetComponent(entity, 0);
         SpriteRendererComponent* compi = static_cast<SpriteRendererComponent*>(EM.GetComponent(entity, 1));
         SpriteRendererComponent* compi2 = static_cast<SpriteRendererComponent*>(EM.GetComponent(entity, 2));
@@ -59,12 +60,6 @@ public:
         Entity* ent2 = EM.GetEntity(entity->UUID);
 
         ent2->Name = "OPOPO";
-
-        std::cout << "Hello World!\n";
-        std::cout << entity->Name << "\n";
-        std::cout << ent2->Name << "\n";
-        std::cout << spriteComp->Name << "\n";
-        std::cout << compi->Name << "\n";
 
 
         sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
@@ -82,6 +77,7 @@ public:
             window.clear();
             for (Entity* ent : EM.livingEntityList) 
             {
+               
                 for (Component* currentComponent : EM.componentMapping[ent])
                 {
                     SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
