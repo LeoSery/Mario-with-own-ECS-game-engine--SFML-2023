@@ -4,7 +4,32 @@
 
 class Textures {
 public:
-	sf::Texture loadTexture(const std::string& filename)
+
+
+	static sf::Texture getTexture(const int& texEnum) {
+		switch (texEnum)
+		{
+		case 0:
+			return loadTexture("Assets/Sprites/BlueContainer.png");
+			break;
+		case 1:
+			return loadTexture("Assets/Sprites/rat.png");
+			break;
+		case 2:
+			return loadTexture("Assets/Sprites/BlueContainer.png");
+			break;
+		case 3:
+			return loadTexture("Assets/Sprites/BlueContainer.png");
+			break;
+		case 4:
+			return loadTexture("Assets/Sprites/BlueContainer.png");
+			break;
+		default:
+			break;
+		}
+	}
+
+	static sf::Texture loadTexture(const std::string& filename)
 	{
 		sf::Texture texture;
 

@@ -13,9 +13,8 @@ class GameManager
 public:
 
     EntityManager EM;
-    Textures TEX;
-    sf::Texture tex = TEX.loadTexture("Assets/Sprites/BlueContainer.png");
-    sf::Texture tex2 = TEX.loadTexture("Assets/Sprites/rat.png");
+    sf::Texture tex = Textures::getTexture(0);
+    sf::Texture tex2 = Textures::getTexture(1);
 
 	GameManager() {
 
