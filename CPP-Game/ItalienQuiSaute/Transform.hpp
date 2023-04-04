@@ -3,7 +3,7 @@
 #include "Component.hpp"
 #include "Maths/Vector2.h"
 
-class TransformComponent : Component
+class TransformComponent : public Component
 {
 public:
 	TransformComponent()
