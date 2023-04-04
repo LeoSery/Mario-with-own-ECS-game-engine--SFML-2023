@@ -21,19 +21,19 @@ public:
 	{
 		Vector2<float> direction(0.0f, 0.0f);
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		{
 			direction.x -= 1.0f;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
 			direction.x += 1.0f;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 		{
 			direction.y -= 1.0f;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			direction.y += 1.0f;
 		}

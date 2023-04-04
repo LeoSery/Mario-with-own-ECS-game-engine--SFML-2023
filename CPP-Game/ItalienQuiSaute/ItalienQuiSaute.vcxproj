@@ -137,9 +137,12 @@
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="EntityManager.hpp" />
-    <ClInclude Include="Input.hpp" />
+    <ClInclude Include="GameManager.hpp" />
+    <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="Maths\Vector2.h" />
-    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="PlayerControllerComponent.hpp" />
+    <ClInclude Include="SpriteRendererComponent.hpp" />
+    <ClInclude Include="Textures.hpp" />
     <ClInclude Include="TransformComponent.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

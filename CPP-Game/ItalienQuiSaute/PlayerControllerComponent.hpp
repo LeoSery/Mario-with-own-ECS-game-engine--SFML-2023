@@ -2,8 +2,9 @@
 
 #include "Inputmanager.hpp";
 #include "Entity.hpp";
+#include <string>
 
-class PlayerControllerComponent : Entity
+class PlayerControllerComponent : public Component
 {
 public:
 	PlayerControllerComponent()
@@ -15,6 +16,17 @@ public:
 	void Move(Vector2<float> moveDirection)
 	{
 		playerDirection = moveDirection;
+	}
+
+	//debug func
+	int GetDirectionX()
+	{
+		return playerDirection.x;
+	}
+
+	int GetDirectionY()
+	{
+		return playerDirection.y;
 	}
 
 private:
