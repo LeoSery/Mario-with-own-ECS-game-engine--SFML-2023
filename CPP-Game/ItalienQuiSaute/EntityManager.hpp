@@ -10,6 +10,12 @@
 class EntityManager
 {
 public:
+
+	std::vector<Entity*> livingEntityList;
+	std::vector<Component*> livingComponentList;
+
+	std::map<Entity*, std::vector<Component*>> componentMapping;
+
 #pragma region Entity
 	Entity* CreateEntity()
 	{
@@ -138,9 +144,5 @@ public:
 	}
 #pragma endregion
 
-private:
-	std::vector<Entity*> livingEntityList;
-	std::vector<Component*> livingComponentList;
 	
-	std::map<Entity*, std::vector<Component*>> componentMapping;
 };
