@@ -19,6 +19,7 @@ public:
 		rotation = _rotation;
 		scale = _scale;
 	}
+
 	Vector2<float> position;
 	Vector2<float> rotation;
 	Vector2<float> scale;
