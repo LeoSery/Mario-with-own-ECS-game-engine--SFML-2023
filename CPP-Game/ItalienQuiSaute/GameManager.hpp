@@ -87,5 +87,21 @@ public:
 			}
 			window.display();
 		}
+
+
+		//clean pointers
+		for (Entity* ent : EM.livingEntityList)
+		{
+			for (Component* currentComponent : EM.componentMapping[ent])
+			{
+				
+				delete currentComponent;
+			}
+			EM.componentMapping.erase(ent);
+			delete ent;
+		}
 	}
+
+
+	
 };
