@@ -31,7 +31,7 @@ public:
 		EM->AddComponent(this, spriteRendererComponent);
 	};
 
-	void Move(Vector2<float> moveDirection) {
+	void Move(Vector2<float> moveDirection, sf::Time deltaTime) {
 		playerControllerComponent->Move(moveDirection);
 		transformComponent->position += playerControllerComponent->getDirectionVector();
 		spriteRendererComponent->setPosition(transformComponent->position);

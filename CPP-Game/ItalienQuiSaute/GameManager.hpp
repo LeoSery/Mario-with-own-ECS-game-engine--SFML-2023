@@ -28,7 +28,9 @@ public:
 		Update();
 	}
 
+	
 	void Update() {
+
 		Entity* entity = EM->CreateEntity("MY ENEMYYYY");
 		Entity* entity2 = EM->CreateEntity("Momo");
 
@@ -72,9 +74,13 @@ public:
 		EM->destroyQueue.push_back(entity2);
 
 
-
+		sf::Time deltaTime = sf::Time(sf::seconds(0));
 		while (window.isOpen())
 		{
+
+			sf::Clock clock;
+			
+
 			while (window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
@@ -87,7 +93,7 @@ public:
 			std::cout << "current input : " << playerControllerComponent->GetDirectionX() << ";" << playerControllerComponent->GetDirectionY() << std::endl;
 			*/
 
-			player->Move(inputManager.GetDirection());
+			player->Move(inputManager.GetDirection(), deltaTime);
 			window.clear();
 			
 			for (Entity* ent : EM->livingEntityList)
@@ -107,6 +113,7 @@ public:
 			EM->Purge();
 			
 			window.display();
+			deltaTime = clock.getElapsedTime();
 		}
 
 		//clean pointers
