@@ -17,12 +17,13 @@ public:
 	std::map<Entity*, std::vector<Component*>> componentMapping;
 
 #pragma region Entity
-	Entity* CreateEntity()
+
+	void CreateEntity(std::string Name, Entity* entity)
 	{
 		std::uint32_t UUID = livingEntityList.size() + 1;
-		Entity* currentEntity= new Entity(UUID, "", "");
-		livingEntityList.push_back(currentEntity);
-		return currentEntity;
+		entity->Name = Name;
+		entity->UUID = UUID;
+		livingEntityList.push_back(entity);
 	}
 	Entity* CreateEntity(std::string Name)
 	{

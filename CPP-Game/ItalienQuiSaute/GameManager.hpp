@@ -9,12 +9,13 @@
 #include "TransformComponent.hpp"
 #include "InputManager.hpp"
 #include "PlayerControllerComponent.hpp"
+#include "PlayerEntity.hpp"
 
 class GameManager
 {
 public:
 
-	EntityManager EM;
+	EntityManager* EM = new EntityManager();
 	sf::Texture tex = Textures::getTexture(0);
 	sf::Texture tex2 = Textures::getTexture(1);
 
@@ -27,30 +28,30 @@ public:
 	}
 
 	void Update() {
-		Entity* entity = EM.CreateEntity("MY ENEMYYYY");
-		Entity* entity2 = EM.CreateEntity("Momo");
+		Entity* entity = EM->CreateEntity("MY ENEMYYYY");
+		Entity* entity2 = EM->CreateEntity("Momo");
 
 		SpriteRendererComponent* spriteComp = new SpriteRendererComponent(tex);
 
-		EM.CreateComponent("sprt", spriteComp);
-		EM.AddComponent(entity, spriteComp);
+		EM->CreateComponent("sprt", spriteComp);
+		EM->AddComponent(entity, spriteComp);
 
 
 		TransformComponent* transComp = new TransformComponent();
 
-		EM.CreateComponent("trsf", transComp);
-		EM.AddComponent(entity, transComp);
+		EM->CreateComponent("trsf", transComp);
+		EM->AddComponent(entity, transComp);
 
 
-		SpriteRendererComponent* spriteComp2 = new SpriteRendererComponent(tex2);
+		SpriteRendererComponent* spriteComp2 = new SpriteRendererComponent(tex);
 
-		EM.CreateComponent("sprt2", spriteComp2);
-		EM.AddComponent(entity2, spriteComp2);
+		EM->CreateComponent("sprt2", spriteComp2);
+		EM->AddComponent(entity2, spriteComp2);
 		// SpriteRendererComponent* compi = (SpriteRendererComponent*)EM.GetComponent(entity, 0);
-		SpriteRendererComponent* compi = static_cast<SpriteRendererComponent*>(EM.GetComponent(entity, 1));
-		SpriteRendererComponent* compi2 = static_cast<SpriteRendererComponent*>(EM.GetComponent(entity, 2));
+		SpriteRendererComponent* compi = static_cast<SpriteRendererComponent*>(EM->GetComponent(entity, 1));
+		SpriteRendererComponent* compi2 = static_cast<SpriteRendererComponent*>(EM->GetComponent(entity, 2));
 
-		Entity* ent2 = EM.GetEntity(entity->UUID);
+		Entity* ent2 = EM->GetEntity(entity->UUID);
 
 		ent2->Name = "OPOPO";
 
@@ -60,8 +61,13 @@ public:
 		sf::Event event{};
 		InputManager inputManager(event);
 		PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
-		EM.CreateComponent("PlayerController", playerControllerComponent);
-		EM.AddComponent(entity2, playerControllerComponent);
+		EM->CreateComponent("PlayerController", playerControllerComponent);
+		EM->AddComponent(entity2, playerControllerComponent);
+
+
+		PlayerEntity* player = new PlayerEntity(EM);
+
+		
 
 		while (window.isOpen())
 		{
@@ -72,36 +78,40 @@ public:
 			}
 
 			inputManager.UpdateEvent(event);
-			playerControllerComponent->Move(inputManager.GetDirection());
+			/*playerControllerComponent->Move(inputManager.GetDirection());
 
 			std::cout << "current input : " << playerControllerComponent->GetDirectionX() << ";" << playerControllerComponent->GetDirectionY() << std::endl;
+			*/
 
+			player->Move(inputManager.GetDirection());
 			window.clear();
-			for (Entity* ent : EM.livingEntityList)
+			for (Entity* ent : EM->livingEntityList)
 			{
-				for (Component* currentComponent : EM.componentMapping[ent])
+				for (Component* currentComponent : EM->componentMapping[ent])
 				{
 					SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 					window.draw(sprite->loadSprite());
 				}
+
 			}
 			window.display();
 		}
 
 
 		//clean pointers
-		for (Entity* ent : EM.livingEntityList)
+		for (Entity* ent : EM->livingEntityList)
 		{
-			for (Component* currentComponent : EM.componentMapping[ent])
+			for (Component* currentComponent : EM->componentMapping[ent])
 			{
-				
+
 				delete currentComponent;
 			}
-			EM.componentMapping.erase(ent);
+			EM->componentMapping.erase(ent);
 			delete ent;
 		}
+		delete EM;
 	}
 
 
-	
+
 };
