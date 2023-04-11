@@ -74,7 +74,7 @@ public:
 		EM->destroyQueue.push_back(entity2);
 
 
-		sf::Time deltaTime = sf::Time(sf::seconds(0));
+		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		while (window.isOpen())
 		{
 
