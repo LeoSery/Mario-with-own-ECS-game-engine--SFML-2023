@@ -12,8 +12,9 @@ class EntityManager
 public:
 
 	std::vector<Entity*> livingEntityList;
-	std::vector<Component*> livingComponentList;
+	std::vector<Entity*> destroyQueue;
 
+	std::vector<Component*> livingComponentList;
 	std::map<Entity*, std::vector<Component*>> componentMapping;
 
 #pragma region Entity
@@ -39,7 +40,6 @@ public:
 		livingEntityList.push_back(currentEntity);
 		return currentEntity;
 	}
-
 	Entity* GetEntity(std::uint32_t UUID)
 	{
 		for (Entity* currentEntity : livingEntityList)
@@ -66,6 +66,11 @@ public:
 		}
 		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
 	}
+
+	void Purge()
+	{
+
+	}
 #pragma endregion
 
 #pragma region Component
@@ -76,7 +81,7 @@ public:
 		livingComponentList.push_back(currentComponent);
 		return currentComponent;
 	}
-	
+
 
 
 	Component* CreateComponent(std::string Name)
@@ -89,9 +94,9 @@ public:
 
 	void CreateComponent(std::string Name, Component* currentComponent)
 	{
-		const std::uint32_t UUID = livingComponentList.size()+1;
+		const std::uint32_t UUID = livingComponentList.size() + 1;
 		livingComponentList.push_back(currentComponent);
-		
+
 		currentComponent->UUID = UUID;
 		currentComponent->Name = Name;
 	}
@@ -145,5 +150,5 @@ public:
 	}
 #pragma endregion
 
-	
+
 };

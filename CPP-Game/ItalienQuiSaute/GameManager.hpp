@@ -9,6 +9,7 @@
 #include "TransformComponent.hpp"
 #include "InputManager.hpp"
 #include "PlayerControllerComponent.hpp"
+#include "EntityHealthComponent.hpp"
 #include "PlayerEntity.hpp"
 
 class GameManager
@@ -67,7 +68,7 @@ public:
 
 		PlayerEntity* player = new PlayerEntity(EM);
 
-		
+
 
 		while (window.isOpen())
 		{
@@ -91,12 +92,17 @@ public:
 				{
 					SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 					window.draw(sprite->loadSprite());
-				}
 
+					EntityHealthComponent* entityHealth = static_cast<EntityHealthComponent*>(currentComponent);
+					if (entityHealth->GetHealth() <= 0)
+					{
+						EM->destroyQueue.push_back(ent);
+					}
+				}
 			}
+			EM->Purge();
 			window.display();
 		}
-
 
 		//clean pointers
 		for (Entity* ent : EM->livingEntityList)
