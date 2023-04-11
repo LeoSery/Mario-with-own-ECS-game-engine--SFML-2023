@@ -28,7 +28,9 @@ public:
 		Update();
 	}
 
+	
 	void Update() {
+
 		Entity* entity = EM->CreateEntity("MY ENEMYYYY");
 		Entity* entity2 = EM->CreateEntity("Momo");
 
@@ -62,16 +64,23 @@ public:
 		sf::Event event{};
 		InputManager inputManager(event);
 		PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
-		EM->CreateComponent("PlayerController", playerControllerComponent);
+		EM->CreateComponent("c'est ouf", playerControllerComponent);
 		EM->AddComponent(entity2, playerControllerComponent);
 
 
 		PlayerEntity* player = new PlayerEntity(EM);
 
+		EM->destroyQueue.push_back(entity);
+		EM->destroyQueue.push_back(entity2);
 
 
+		sf::Time deltaTime = sf::Time(sf::seconds(0));
 		while (window.isOpen())
 		{
+
+			sf::Clock clock;
+			
+
 			while (window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
@@ -84,8 +93,9 @@ public:
 			std::cout << "current input : " << playerControllerComponent->GetDirectionX() << ";" << playerControllerComponent->GetDirectionY() << std::endl;
 			*/
 
-			player->Move(inputManager.GetDirection());
+			player->Move(inputManager.GetDirection(), deltaTime);
 			window.clear();
+			
 			for (Entity* ent : EM->livingEntityList)
 			{
 				for (Component* currentComponent : EM->componentMapping[ent])
@@ -94,14 +104,16 @@ public:
 					window.draw(sprite->loadSprite());
 
 					EntityHealthComponent* entityHealth = static_cast<EntityHealthComponent*>(currentComponent);
-					if (entityHealth->GetHealth() <= 0)
+					if (entityHealth->isDead == true)
 					{
 						EM->destroyQueue.push_back(ent);
 					}
 				}
 			}
 			EM->Purge();
+			
 			window.display();
+			deltaTime = clock.getElapsedTime();
 		}
 
 		//clean pointers
