@@ -62,11 +62,14 @@ public:
 		sf::Event event{};
 		InputManager inputManager(event);
 		PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
-		EM->CreateComponent("PlayerController", playerControllerComponent);
+		EM->CreateComponent("c'est ouf", playerControllerComponent);
 		EM->AddComponent(entity2, playerControllerComponent);
 
 
 		PlayerEntity* player = new PlayerEntity(EM);
+
+		EM->destroyQueue.push_back(entity);
+		EM->destroyQueue.push_back(entity2);
 
 
 
@@ -86,6 +89,7 @@ public:
 
 			player->Move(inputManager.GetDirection());
 			window.clear();
+			
 			for (Entity* ent : EM->livingEntityList)
 			{
 				for (Component* currentComponent : EM->componentMapping[ent])
@@ -94,13 +98,14 @@ public:
 					window.draw(sprite->loadSprite());
 
 					EntityHealthComponent* entityHealth = static_cast<EntityHealthComponent*>(currentComponent);
-					if (entityHealth->GetHealth() <= 0)
+					if (entityHealth->isDead == true)
 					{
 						EM->destroyQueue.push_back(ent);
 					}
 				}
 			}
 			EM->Purge();
+			
 			window.display();
 		}
 
