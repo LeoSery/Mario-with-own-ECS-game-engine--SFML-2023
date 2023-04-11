@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Inputmanager.hpp";
-#include "Entity.hpp";
+#include "Component.hpp";
 #include <string>
 
 class PlayerControllerComponent : public Component
@@ -16,6 +16,11 @@ public:
 	void Move(Vector2<float> moveDirection)
 	{
 		playerDirection = moveDirection;
+	}
+
+
+	Vector2<float> getDirectionVector() {
+		return playerDirection;
 	}
 
 	//debug func
