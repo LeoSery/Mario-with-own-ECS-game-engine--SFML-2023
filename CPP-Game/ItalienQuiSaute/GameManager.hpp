@@ -75,6 +75,8 @@ public:
 
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
+		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
+		sf::Time timer = sf::Time(sf::microseconds(0));
 		while (window.isOpen())
 		{
 
@@ -92,8 +94,11 @@ public:
 
 			std::cout << "current input : " << playerControllerComponent->GetDirectionX() << ";" << playerControllerComponent->GetDirectionY() << std::endl;
 			*/
-
-			player->Move(inputManager.GetDirection(), deltaTime);
+			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
+				player->Move(inputManager.GetDirection(), deltaTime);
+				timer += sf::Time(sf::microseconds(2000));
+			}
+			
 			window.clear();
 			
 			for (Entity* ent : EM->livingEntityList)
@@ -114,6 +119,7 @@ public:
 			
 			window.display();
 			deltaTime = clock.getElapsedTime();
+			timeSinceStart += deltaTime;
 		}
 
 		//clean pointers
