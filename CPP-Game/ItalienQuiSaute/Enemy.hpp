@@ -2,6 +2,7 @@
 
 #include "SpriteRendererComponent.hpp"
 #include "TransformComponent.hpp"
+#include "GravityComponent.hpp"
 #include "Maths/Vector2.h"
 #include "Textures.hpp"
 #include "Entity.hpp"
@@ -10,6 +11,7 @@ class Enemy : public Entity
 {
 public:
 	sf::Texture playerTexture = Textures::getTexture(1);
+	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(playerTexture);
 
@@ -19,9 +21,9 @@ public:
 		direction = { 0.0f, 0.0f };
 	}
 
-	void Move(Vector2<float> moveDirection)
+	void Move(Vector2<float> moveDirection, sf::Time deltaTime)
 	{
-		transformComponent->position += moveDirection;
+		transformComponent->position += gravityComponent->ApplyGravity(moveDirection, deltaTime.asMicroseconds());
 		spriteRendererComponent->setPosition(transformComponent->position);
 	}
 
