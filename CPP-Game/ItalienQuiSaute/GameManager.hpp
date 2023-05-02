@@ -11,11 +11,11 @@
 #include "PlayerControllerComponent.hpp"
 #include "EntityHealthComponent.hpp"
 #include "PlayerEntity.hpp"
+#include "FileReader.hpp"
 
 class GameManager
 {
 public:
-
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = Textures::getTexture(0);
 	sf::Texture tex2 = Textures::getTexture(1);
@@ -28,7 +28,6 @@ public:
 		Update();
 	}
 
-	
 	void Update() {
 
 		Entity* entity = EM->CreateEntity("MY ENEMYYYY");
@@ -39,12 +38,10 @@ public:
 		EM->CreateComponent("sprt", spriteComp);
 		EM->AddComponent(entity, spriteComp);
 
-
 		TransformComponent* transComp = new TransformComponent();
 
 		EM->CreateComponent("trsf", transComp);
 		EM->AddComponent(entity, transComp);
-
 
 		SpriteRendererComponent* spriteComp2 = new SpriteRendererComponent(tex);
 
@@ -58,7 +55,6 @@ public:
 
 		ent2->Name = "OPOPO";
 
-
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
 
 		sf::Event event{};
@@ -67,21 +63,23 @@ public:
 		EM->CreateComponent("c'est ouf", playerControllerComponent);
 		EM->AddComponent(entity2, playerControllerComponent);
 
-
 		PlayerEntity* player = new PlayerEntity(EM);
 
 		EM->destroyQueue.push_back(entity);
 		EM->destroyQueue.push_back(entity2);
 
-
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
 		sf::Time timer = sf::Time(sf::microseconds(0));
+
+		std::map<char, sf::Texture> gameMap;
+		ReadMap mapReader;
+
+		mapReader.ReadFile("Map.txt", gameMap);
+
 		while (window.isOpen())
 		{
-
 			sf::Clock clock;
-			
 
 			while (window.pollEvent(event))
 			{
@@ -98,9 +96,9 @@ public:
 				player->Move(inputManager.GetDirection(), deltaTime);
 				timer += sf::Time(sf::microseconds(2000));
 			}
-			
+
 			window.clear();
-			
+
 			for (Entity* ent : EM->livingEntityList)
 			{
 				for (Component* currentComponent : EM->componentMapping[ent])
@@ -116,7 +114,6 @@ public:
 				}
 			}
 			EM->Purge();
-			
 			window.display();
 			deltaTime = clock.getElapsedTime();
 			timeSinceStart += deltaTime;
@@ -135,7 +132,4 @@ public:
 		}
 		delete EM;
 	}
-
-
-
 };
