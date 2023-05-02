@@ -13,9 +13,9 @@ public:
 		playerDirection = { 0.0f, 0.0f };
 	}
 
-	void Move(Vector2<float> moveDirection)
+	void Move(Vector2<float> moveDirection, float deltatime)
 	{
-		playerDirection = moveDirection;
+		playerDirection = (moveDirection * deltatime);
 	}
 
 

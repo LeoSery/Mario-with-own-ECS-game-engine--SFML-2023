@@ -95,7 +95,7 @@ public:
 			std::cout << "current input : " << playerControllerComponent->GetDirectionX() << ";" << playerControllerComponent->GetDirectionY() << std::endl;
 			*/
 			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
-				player->Move(inputManager.GetDirection(), deltaTime);
+				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)));
 				timer += sf::Time(sf::microseconds(2000));
 			}
 			

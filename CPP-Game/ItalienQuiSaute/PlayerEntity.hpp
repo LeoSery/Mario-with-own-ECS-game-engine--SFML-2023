@@ -34,7 +34,7 @@ public:
 	};
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime) {
-		playerControllerComponent->Move(moveDirection);
+		playerControllerComponent->Move(moveDirection, deltaTime.asMilliseconds());
 		transformComponent->position += gravityComponent->ApplyGravity(playerControllerComponent->getDirectionVector(), deltaTime.asMicroseconds());
 		spriteRendererComponent->setPosition(transformComponent->position);
 
