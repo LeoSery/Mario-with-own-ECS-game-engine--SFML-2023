@@ -36,13 +36,16 @@ public:
 		}
 
 		else if (direction == "FLOOR") {
-			nextpos.y = (_position.y < nextpos.y) ? nextpos.y : _position.y;
+			if (_position.y > 0.0f) {
+				nextpos.x += _position.x;
+				return;
+			}
+
+			nextpos.y += _position.y;
 			nextpos.x += _position.x;
 		}
 		else if (direction == "TOP")
 		{
-			std::cout << position.y << "\n";
-			std::cout << _position.y << "\n";
 
 			if (_position.y < 0.0f) {
 				nextpos.x += _position.x;
