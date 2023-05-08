@@ -24,6 +24,8 @@ public:
 	PlayerEntity(EntityManager* EM) {
 		EM->CreateEntity("Player", this);
 		RegisterComponents(EM);
+
+		Tag = "PLAYER";
 	};
 
 
@@ -39,9 +41,13 @@ public:
 	};
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime) {
+		if (colliderComponent->collided) {
+			transformComponent->nextpos = transformComponent->position;
+		}
 		playerControllerComponent->Move(moveDirection, deltaTime.asMilliseconds());
-		transformComponent->position += gravityComponent->ApplyGravity(playerControllerComponent->getDirectionVector(), deltaTime.asMicroseconds());
-		spriteRendererComponent->setPosition(transformComponent->position);
+		transformComponent->addPos(gravityComponent->ApplyGravity(playerControllerComponent->getDirectionVector(), deltaTime.asMicroseconds()));
+		spriteRendererComponent->setPosition(transformComponent->nextpos);
+		
 
 	};
 

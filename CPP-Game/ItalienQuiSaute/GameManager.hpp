@@ -6,12 +6,14 @@
 #include "EntityManager.hpp"
 #include "Textures.hpp"
 #include "SpriteRendererComponent.hpp"
-#include "TransformComponent.hpp"
+#include "ColliderComponent.hpp"
 #include "InputManager.hpp"
 #include "PlayerControllerComponent.hpp"
 #include "HealthComponent.hpp"
 #include "PlayerEntity.hpp"
 #include "FileReader.hpp"
+
+#include "Maths/Vector2.h"
 
 class GameManager
 {
@@ -31,29 +33,23 @@ public:
 	void Update() {
 
 		Entity* entity = EM->CreateEntity("MY ENEMYYYY");
-		Entity* entity2 = EM->CreateEntity("Momo");
 
 		SpriteRendererComponent* spriteComp = new SpriteRendererComponent(tex);
+
+		spriteComp->setPosition({ 200,200 });
 
 		EM->CreateComponent("sprt", spriteComp);
 		EM->AddComponent(entity, spriteComp);
 
-		TransformComponent* transComp = new TransformComponent();
+		ColliderComponent* colliderComp = new ColliderComponent(spriteComp->getSprite());
 
-		EM->CreateComponent("trsf", transComp);
-		EM->AddComponent(entity, transComp);
+		EM->CreateComponent("collider", colliderComp);
+		EM->AddComponent(entity, colliderComp);
 
-		SpriteRendererComponent* spriteComp2 = new SpriteRendererComponent(tex);
-
-		EM->CreateComponent("sprt2", spriteComp2);
-		EM->AddComponent(entity2, spriteComp2);
 		// SpriteRendererComponent* compi = (SpriteRendererComponent*)EM.GetComponent(entity, 0);
 		SpriteRendererComponent* compi = static_cast<SpriteRendererComponent*>(EM->GetComponent(entity, 1));
 		SpriteRendererComponent* compi2 = static_cast<SpriteRendererComponent*>(EM->GetComponent(entity, 2));
 
-		Entity* ent2 = EM->GetEntity(entity->UUID);
-
-		ent2->Name = "OPOPO";
 
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
 
@@ -61,8 +57,6 @@ public:
 		InputManager inputManager(event);
 
 		PlayerEntity* player = new PlayerEntity(EM);
-
-		EM->destroyQueue.push_back(entity);
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
@@ -87,6 +81,7 @@ public:
 			std::cout << "current input : " << playerControllerComponent->GetDirectionX() << ";" << playerControllerComponent->GetDirectionY() << std::endl;
 			*/
 			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
+			
 				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)));
 				timer += sf::Time(sf::microseconds(2000));
 			}
@@ -100,6 +95,11 @@ public:
 					if (currentComponent->Tag == "SPRITE_RENDERER") {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 						window.draw(sprite->loadSprite());
+
+						if (ent->Tag != "PLAYER") {
+							player->colliderComponent->Collision(sprite->getSprite());
+						}
+						
 					}
 					
 					else if (currentComponent->Tag == "HEALTH") {
