@@ -9,7 +9,7 @@
 #include "TransformComponent.hpp"
 #include "InputManager.hpp"
 #include "PlayerControllerComponent.hpp"
-#include "EntityHealthComponent.hpp"
+#include "HealthComponent.hpp"
 #include "PlayerEntity.hpp"
 #include "FileReader.hpp"
 
@@ -59,26 +59,20 @@ public:
 
 		sf::Event event{};
 		InputManager inputManager(event);
-		PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
-		EM->CreateComponent("c'est ouf", playerControllerComponent);
-		EM->AddComponent(entity2, playerControllerComponent);
 
 		PlayerEntity* player = new PlayerEntity(EM);
 
 		EM->destroyQueue.push_back(entity);
-		EM->destroyQueue.push_back(entity2);
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
 		sf::Time timer = sf::Time(sf::microseconds(0));
 
-		std::map<char, sf::Texture> gameMap;
-		ReadMap mapReader;
-
-		mapReader.ReadFile("Map.txt", gameMap);
-
+		EM->Purge();
 		while (window.isOpen())
 		{
+
+			
 			sf::Clock clock;
 
 			while (window.pollEvent(event))
@@ -103,17 +97,25 @@ public:
 			{
 				for (Component* currentComponent : EM->componentMapping[ent])
 				{
-					SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-					window.draw(sprite->loadSprite());
-
-					EntityHealthComponent* entityHealth = static_cast<EntityHealthComponent*>(currentComponent);
-					if (entityHealth->isDead == true)
-					{
-						EM->destroyQueue.push_back(ent);
+					if (currentComponent->Tag == "SPRITE_RENDERER") {
+						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
+						window.draw(sprite->loadSprite());
 					}
+					
+					else if (currentComponent->Tag == "HEALTH") {
+						HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
+						if (entityHealth->isDead == true)
+						{
+							EM->destroyQueue.push_back(ent);
+						}
+					}
+
+					
 				}
 			}
+			
 			EM->Purge();
+
 			window.display();
 			deltaTime = clock.getElapsedTime();
 			timeSinceStart += deltaTime;
@@ -122,14 +124,9 @@ public:
 		//clean pointers
 		for (Entity* ent : EM->livingEntityList)
 		{
-			for (Component* currentComponent : EM->componentMapping[ent])
-			{
-
-				delete currentComponent;
-			}
-			EM->componentMapping.erase(ent);
-			delete ent;
+			EM->destroyQueue.push_back(ent);
 		}
+		EM->Purge();
 		delete EM;
 	}
 };

@@ -2,12 +2,13 @@
 
 #include "Component.hpp";
 
-class EntityHealthComponent : public Component
+class HealthComponent : public Component
 {
 public:
 	bool isDead;
-	EntityHealthComponent()
+	HealthComponent()
 	{
+		Tag = "HEALTH";
 		Health = 100.0f;
 		isDead = false;
 	}

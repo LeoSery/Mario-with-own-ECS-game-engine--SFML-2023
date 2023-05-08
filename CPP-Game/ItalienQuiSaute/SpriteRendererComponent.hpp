@@ -11,7 +11,7 @@ class SpriteRendererComponent : public Component
 {
 public:
 	SpriteRendererComponent(sf::Texture& tex) : Component(0, "default") {
-
+		Tag = "SPRITE_RENDERER";
 		this->tex = tex;
 		this->sprite = loadSprite();
 		pos = sf::Vector2f(0, 0);
@@ -24,6 +24,10 @@ public:
 		sprite.setTexture(tex);
 		sprite.setPosition(pos);
 		return sprite;
+	}
+
+	sf::Sprite* getSprite() {
+		return &sprite;
 	}
 
 	void setPosition(Vector2<float> worldpos) {

@@ -4,6 +4,7 @@
 #include "PlayerControllerComponent.hpp";
 #include "TransformComponent.hpp";
 #include "SpriteRendererComponent.hpp";
+#include "ColliderComponent.hpp"
 #include "Textures.hpp";
 #include "EntityManager.hpp";
 #include "GravityComponent.hpp";
@@ -18,6 +19,8 @@ public:
 	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(tex);
+	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
+
 	PlayerEntity(EntityManager* EM) {
 		EM->CreateEntity("Player", this);
 		RegisterComponents(EM);
@@ -31,6 +34,8 @@ public:
 		EM->AddComponent(this, transformComponent);
 		EM->CreateComponent("SpriteRenderer", spriteRendererComponent);
 		EM->AddComponent(this, spriteRendererComponent);
+		EM->CreateComponent("Collider", colliderComponent);
+		EM->AddComponent(this, colliderComponent);
 	};
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime) {
