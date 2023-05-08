@@ -41,11 +41,16 @@ public:
 	};
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime) {
-		if (colliderComponent->collided) {
-			transformComponent->nextpos = transformComponent->position;
-		}
+
+		std::cout << colliderComponent->direction << "\n";
+
 		playerControllerComponent->Move(moveDirection, deltaTime.asMilliseconds());
-		transformComponent->addPos(gravityComponent->ApplyGravity(playerControllerComponent->getDirectionVector(), deltaTime.asMicroseconds()));
+		Vector2<float> newpos = playerControllerComponent->getDirectionVector();
+		//Aplly Gravity if not on floor
+		if (colliderComponent->direction != "FLOOR") {
+			newpos = gravityComponent->ApplyGravity(playerControllerComponent->getDirectionVector(), deltaTime.asMicroseconds());
+		}
+		transformComponent->addPos(newpos, colliderComponent->direction);
 		spriteRendererComponent->setPosition(transformComponent->nextpos);
 		
 

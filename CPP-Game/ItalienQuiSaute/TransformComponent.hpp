@@ -22,11 +22,38 @@ public:
 		scale = _scale;
 	}
 
-	void addPos(Vector2<float> _position) {
+	void addPos(Vector2<float> _position, std::string direction) {
+
+		
 		position = nextpos;
-		nextpos +=  _position;
-		//std::cout << "x: " << position.x << " y:" << position.y << "\n";
-		std::cout << "nextpos: " << "x: " << nextpos.x << " y:" << nextpos.y << "\n";
+		
+		if (direction == "ALL") {
+			nextpos += _position;
+		}
+
+		else if (direction == "SIDE") {
+			nextpos.y += _position.y;
+		}
+
+		else if (direction == "FLOOR") {
+			nextpos.y = (_position.y < nextpos.y) ? nextpos.y : _position.y;
+			nextpos.x += _position.x;
+		}
+		else if (direction == "TOP")
+		{
+			std::cout << position.y << "\n";
+			std::cout << _position.y << "\n";
+
+			if (_position.y < 0.0f) {
+				nextpos.x += _position.x;
+				return;
+			}
+			
+			nextpos.y += _position.y;
+			nextpos.x += _position.x;
+
+		}
+
 	}
 	Vector2<float> nextpos;
 	Vector2<float> position;
