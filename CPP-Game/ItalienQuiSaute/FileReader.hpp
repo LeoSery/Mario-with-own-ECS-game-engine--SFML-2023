@@ -36,17 +36,14 @@ public:
 				{
 				case ' ':
 				{
-					std::cout << "void " << std::endl;
 					break;
 				}
 				case '1':
 				{
 					GameObject* gobj = new GameObject(EM, Textures::getTexture(0), { x,y });
-					std::cout << "ground " << std::endl;
 					break;
 				}
 				case '2':
-					std::cout << "bloc " << std::endl;
 					break;
 				default:
 				{
@@ -55,9 +52,10 @@ public:
 				}
 				x++;
 			}
+			std::cout << x * 64 << std::endl;
 			y++;
 		}
-		std::cout << std::endl;
+		std::cout << y * 64<< std::endl;
 		inputFile.close();
 	}
 };
