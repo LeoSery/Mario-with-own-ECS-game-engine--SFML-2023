@@ -26,15 +26,16 @@ public:
 
 		
 		position = nextpos;
-
+		bool side = false;
 		for(std::string direction : directions)
 		{
 			 if (direction == "SIDE") {
-				 _position.x = 0.0f;;
+				 _position.x = 0.0f;
+				 side = true;
 			}
 
 			else if (direction == "FLOOR") {
-				if (_position.y > 0.0f) {
+				if (_position.y > 0.0f && !side) {
 					_position.y = 0.0f;
 				}
 			}
