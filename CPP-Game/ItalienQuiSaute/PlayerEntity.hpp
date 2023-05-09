@@ -4,7 +4,7 @@
 #include "PlayerControllerComponent.hpp";
 #include "TransformComponent.hpp";
 #include "SpriteRendererComponent.hpp";
-#include "ColliderComponent.hpp"
+#include "ColliderComponent.hpp";
 #include "Textures.hpp";
 #include "EntityManager.hpp";
 #include "GravityComponent.hpp";
@@ -53,12 +53,12 @@ public:
 		transformComponent->addPos(newpos, colliderComponent->activeDirections);
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);
-		
+
 
 	};
 
 
-	
+
 
 
 
