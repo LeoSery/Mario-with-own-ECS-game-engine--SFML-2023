@@ -28,7 +28,7 @@ set(SOURCES
     ItalienQuiSaute/Component.hpp
     ItalienQuiSaute/Enemy.hpp
     ItalienQuiSaute/Entity.hpp
-    ItalienQuiSaute/EntityHealthComponent.hpp
+    ItalienQuiSaute/HealthComponent.hpp
     ItalienQuiSaute/EntityManager.hpp
     ItalienQuiSaute/GameManager.hpp
     ItalienQuiSaute/GravityComponent.hpp
