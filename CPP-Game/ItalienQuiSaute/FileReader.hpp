@@ -4,20 +4,20 @@
 #include <vector>
 #include <array>
 #include <map>
+#include "GameObject.hpp"
+#include "Textures.hpp"
 
-using MapData = std::vector<std::vector<sf::Sprite*>>;
 
 class ReadMap
 {
 public:
-	MapData ReadFile(std::string path, std::map<char, sf::Texture>& targetMap)
+	void ReadFile(std::string path, std::map<char, sf::Texture>& targetMap, EntityManager* EM)
 	{
 		std::string filename(path);
 		std::ifstream inputFile(filename);
 		std::vector<char> bytes;
 		std::string line;
 		char byte = 0;
-		MapData res;
 
 		if (!inputFile.is_open())
 		{
@@ -25,21 +25,23 @@ public:
 			throw std::runtime_error("ckc");
 		}
 
+		int y = 1;
 		while (std::getline(inputFile, line))
 		{
-			std::vector<sf::Sprite*> lineSprites;
+			int x = 1;
+			
 			for (auto lineChar : line)
 			{
-				std::map<char, sf::Texture>::iterator it = targetMap.end();
 				switch (lineChar)
 				{
-				case '0':
+				case ' ':
 				{
 					std::cout << "void " << std::endl;
 					break;
 				}
 				case '1':
 				{
+					GameObject* gobj = new GameObject(EM, Textures::getTexture(0), { x,y });
 					std::cout << "ground " << std::endl;
 					break;
 				}
@@ -48,21 +50,14 @@ public:
 					break;
 				default:
 				{
-					lineSprites.push_back(nullptr);
 					break;
 				}
 				}
-				if (it != targetMap.end())
-				{
-					sf::Sprite* sprite = new sf::Sprite();
-					sprite->setTexture(it->second);
-					lineSprites.push_back(sprite);
-				}
+				x++;
 			}
-			res.push_back(lineSprites);
+			y++;
 		}
 		std::cout << std::endl;
 		inputFile.close();
-		return res;
 	}
 };

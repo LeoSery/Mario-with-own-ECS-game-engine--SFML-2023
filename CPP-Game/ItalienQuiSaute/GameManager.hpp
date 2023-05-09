@@ -32,35 +32,7 @@ public:
 
 	void Update() {
 
-		Entity* entity = EM->CreateEntity("MY ENEMYYYY");
-		Entity* entity2 = EM->CreateEntity("MY ENEMYYYY2");
-
-		SpriteRendererComponent* spriteComp = new SpriteRendererComponent(tex);
-
-		spriteComp->setPosition({ 200,200 });
-
-		EM->CreateComponent("sprt", spriteComp);
-		EM->AddComponent(entity, spriteComp);
-
-
-		SpriteRendererComponent* spriteComp2 = new SpriteRendererComponent(tex);
-
-		spriteComp2->setPosition({ 264,200 });
-
-		EM->CreateComponent("sprt2", spriteComp2);
-		EM->AddComponent(entity2, spriteComp2);
-
-		ColliderComponent* colliderComp = new ColliderComponent(spriteComp->getSprite());
-
-		EM->CreateComponent("collider", colliderComp);
-		EM->AddComponent(entity, colliderComp);
-
-
-		ColliderComponent* colliderComp2 = new ColliderComponent(spriteComp->getSprite());
-
-		EM->CreateComponent("collider2", colliderComp2);
-		EM->AddComponent(entity2, colliderComp2);
-
+		
 
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
 
@@ -72,6 +44,15 @@ public:
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
 		sf::Time timer = sf::Time(sf::microseconds(0));
+
+		std::map<char, sf::Texture> gameMap;
+		ReadMap mapReader;
+
+		mapReader.ReadFile("Map.txt", gameMap, EM);
+
+		
+
+
 
 		EM->Purge();
 		while (window.isOpen())

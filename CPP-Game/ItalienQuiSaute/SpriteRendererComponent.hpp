@@ -34,7 +34,7 @@ public:
 		pos = sf::Vector2f(worldpos.x, worldpos.y);
 	}
 
-	void setBlockPosition(Vector2<float> worldpos) {
+	void setBlockPosition(Vector2<int> worldpos) {
 		pos = sf::Vector2f(worldpos.x* width, worldpos.y * width);
 	}
 
