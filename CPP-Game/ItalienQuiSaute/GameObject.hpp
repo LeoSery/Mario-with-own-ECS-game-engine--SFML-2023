@@ -21,7 +21,7 @@ public:
 		EM->CreateEntity("GameObject", this);
 		RegisterComponents(EM);
 
-		Tag = "PLAYER";
+		Tag = "GAMEOBJECT";
 	};
 
 	void RegisterComponents(EntityManager* EM) {
