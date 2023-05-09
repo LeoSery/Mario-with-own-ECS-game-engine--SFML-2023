@@ -149,6 +149,21 @@ public:
 				return currentComponent;
 			}
 		}
+		return NULL;
+	}
+
+	Component* GetComponentByTag(Entity* entity, std::string Tag)
+	{
+		auto components = componentMapping.at(entity);
+
+		for (Component* currentComponent : components)
+		{
+			if (currentComponent->Tag == Tag)
+			{
+				return currentComponent;
+			}
+		}
+		return NULL;
 	}
 
 	void DestroyComponent(std::uint32_t UUID)

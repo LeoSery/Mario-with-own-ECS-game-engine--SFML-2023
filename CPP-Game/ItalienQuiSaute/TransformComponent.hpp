@@ -22,40 +22,34 @@ public:
 		scale = _scale;
 	}
 
-	void addPos(Vector2<float> _position, std::string direction) {
+	void addPos(Vector2<float> _position, std::vector<std::string> directions) {
 
 		
 		position = nextpos;
-		
-		if (direction == "ALL") {
-			nextpos += _position;
-		}
 
-		else if (direction == "SIDE") {
-			nextpos.y += _position.y;
-		}
-
-		else if (direction == "FLOOR") {
-			if (_position.y > 0.0f) {
-				nextpos.x += _position.x;
-				return;
-			}
-
-			nextpos.y += _position.y;
-			nextpos.x += _position.x;
-		}
-		else if (direction == "TOP")
+		for(std::string direction : directions)
 		{
-
-			if (_position.y < 0.0f) {
-				nextpos.x += _position.x;
-				return;
+			 if (direction == "SIDE") {
+				 _position.x = 0.0f;;
 			}
-			
-			nextpos.y += _position.y;
-			nextpos.x += _position.x;
 
+			else if (direction == "FLOOR") {
+				if (_position.y > 0.0f) {
+					_position.y = 0.0f;
+				}
+			}
+			else if (direction == "TOP")
+			{
+				if (_position.y < 0.0f) {
+					_position.y = 0.0f;
+				}
+
+			}
 		}
+
+		nextpos += _position;
+		
+		
 
 	}
 	Vector2<float> nextpos;

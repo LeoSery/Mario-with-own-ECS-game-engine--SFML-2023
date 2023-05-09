@@ -4,24 +4,25 @@
 #include "Maths/Vector2.h";
 #include <SFML/Graphics.hpp>
 
+
 class ColliderComponent : public Component
 {
 public:
-	std::string direction;
+	
 	bool collided;
+	std::vector<std::string> activeDirections;
 
 	ColliderComponent(sf::Sprite* entitySprite)
 	{
 		this->entitySprite = entitySprite;
 		Tag = "COLLIDER";
-
-		direction = "ALL";
 		collided = false;
 		
 	}
 
 	bool Collision(sf::Sprite* otherSprite)
 	{
+		std::string direction;
 		sf::FloatRect entityHitbox = entitySprite->getGlobalBounds();
 		sf::FloatRect otherHitbox = otherSprite->getGlobalBounds();
 
@@ -50,7 +51,7 @@ public:
 				direction = "SIDE";
 			}
 
-
+			activeDirections.push_back(direction);
 
 			
 			collided = true;

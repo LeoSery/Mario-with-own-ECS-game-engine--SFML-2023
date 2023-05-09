@@ -33,6 +33,7 @@ public:
 	void Update() {
 
 		Entity* entity = EM->CreateEntity("MY ENEMYYYY");
+		Entity* entity2 = EM->CreateEntity("MY ENEMYYYY2");
 
 		SpriteRendererComponent* spriteComp = new SpriteRendererComponent(tex);
 
@@ -41,14 +42,24 @@ public:
 		EM->CreateComponent("sprt", spriteComp);
 		EM->AddComponent(entity, spriteComp);
 
+
+		SpriteRendererComponent* spriteComp2 = new SpriteRendererComponent(tex);
+
+		spriteComp2->setPosition({ 264,200 });
+
+		EM->CreateComponent("sprt2", spriteComp2);
+		EM->AddComponent(entity2, spriteComp2);
+
 		ColliderComponent* colliderComp = new ColliderComponent(spriteComp->getSprite());
 
 		EM->CreateComponent("collider", colliderComp);
 		EM->AddComponent(entity, colliderComp);
 
-		// SpriteRendererComponent* compi = (SpriteRendererComponent*)EM.GetComponent(entity, 0);
-		SpriteRendererComponent* compi = static_cast<SpriteRendererComponent*>(EM->GetComponent(entity, 1));
-		SpriteRendererComponent* compi2 = static_cast<SpriteRendererComponent*>(EM->GetComponent(entity, 2));
+
+		ColliderComponent* colliderComp2 = new ColliderComponent(spriteComp->getSprite());
+
+		EM->CreateComponent("collider2", colliderComp2);
+		EM->AddComponent(entity2, colliderComp2);
 
 
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
@@ -76,10 +87,7 @@ public:
 			}
 
 			inputManager.UpdateEvent(event);
-			/*playerControllerComponent->Move(inputManager.GetDirection());
 
-			std::cout << "current input : " << playerControllerComponent->GetDirectionX() << ";" << playerControllerComponent->GetDirectionY() << std::endl;
-			*/
 			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
 			
 				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)));
@@ -90,12 +98,13 @@ public:
 
 			for (Entity* ent : EM->livingEntityList)
 			{
+
 				for (Component* currentComponent : EM->componentMapping[ent])
 				{
 					if (currentComponent->Tag == "SPRITE_RENDERER") {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 						window.draw(sprite->loadSprite());
-
+						
 						if (ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
 						}
