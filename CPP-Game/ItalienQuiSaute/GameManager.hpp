@@ -88,11 +88,6 @@ public:
 
 			inputManager.UpdateEvent(event);
 
-			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
-			
-				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)));
-				timer += sf::Time(sf::microseconds(2000));
-			}
 
 			window.clear();
 
@@ -104,13 +99,13 @@ public:
 					if (currentComponent->Tag == "SPRITE_RENDERER") {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 						window.draw(sprite->loadSprite());
-						
+
 						if (ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
 						}
-						
+
 					}
-					
+
 					else if (currentComponent->Tag == "HEALTH") {
 						HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
 						if (entityHealth->isDead == true)
@@ -119,11 +114,19 @@ public:
 						}
 					}
 
-					
+
 				}
 			}
-			
+
 			EM->Purge();
+
+			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
+			
+				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)));
+				timer += sf::Time(sf::microseconds(2000));
+			}
+
+			
 
 			window.display();
 			deltaTime = clock.getElapsedTime();
