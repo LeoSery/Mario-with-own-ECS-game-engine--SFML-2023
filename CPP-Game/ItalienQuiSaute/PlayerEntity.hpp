@@ -48,7 +48,7 @@ public:
 		Vector2<float> newpos = playerControllerComponent->getDirectionVector();
 
 
-		newpos = gravityComponent->ApplyGravity(playerControllerComponent->getDirectionVector(), deltaTime.asMicroseconds());
+		newpos = gravityComponent->ApplyGravity(newpos, deltaTime.asMicroseconds());
 
 		transformComponent->addPos(newpos, colliderComponent->activeDirections);
 		colliderComponent->activeDirections.clear();

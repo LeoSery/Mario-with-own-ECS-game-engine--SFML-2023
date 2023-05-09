@@ -9,13 +9,28 @@ class PlayerControllerComponent : public Component
 public:
 	PlayerControllerComponent()
 	{
-		speed = 0.0f;
+		speed = 0.5f;
+		jump = 0.0f;
 		playerDirection = { 0.0f, 0.0f };
 	}
 
 	void Move(Vector2<float> moveDirection, float deltatime)
 	{
-		playerDirection = (moveDirection * deltatime);
+		
+		if (moveDirection.y < 0.0f && jump >= 0.0f) {
+			jump += moveDirection.y *deltatime;
+
+		}
+		if (jump < 0.0f) {
+			playerDirection.y = (jump);
+			std::cout << jump << "\n";
+			jump += (speed * 1 / 100);
+			std::cout << jump << "\n";
+		}
+
+		playerDirection.x = (moveDirection.x * deltatime);
+
+		
 	}
 
 
@@ -36,5 +51,6 @@ public:
 
 private:
 	float speed;
+	float jump;
 	Vector2<float> playerDirection;
 };

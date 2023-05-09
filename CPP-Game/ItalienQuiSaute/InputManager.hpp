@@ -23,19 +23,19 @@ public:
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		{
-			direction.x -= 1.0f;
+			direction.x = -1.0f;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			direction.x += 1.0f;
+			direction.x = 1.0f;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 		{
-			direction.y -= 2.0f;
+			direction.y = -2.0f;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			direction.y += 2.0f;
+			direction.y = 2.0f;
 		}
 
 		return direction;
