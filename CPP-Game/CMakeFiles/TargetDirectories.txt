@@ -1,3 +1,0 @@
-C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/ItalienQuiSaute.dir
-C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/ALL_BUILD.dir
-C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/ZERO_CHECK.dir
