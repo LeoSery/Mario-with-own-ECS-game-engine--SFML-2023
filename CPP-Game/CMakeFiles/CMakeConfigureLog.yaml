@@ -1,0 +1,237 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.4.0+18d5aef85 for .NET Framework
+      La génération a démarré 09/05/2023 14:29:54.
+      Projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" sur le nœud 1 (cibles par défaut).
+      PrepareForBuild:
+        Création du répertoire "Debug\\".
+        Création du répertoire "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Création de "Debug\\CompilerIdC.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+      VcpkgTripletSelection:
+        Using triplet "x64-windows" from "C:\\vcpkg\\installed\\x64-windows\\"
+        Using normalized configuration "Release"
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "C:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.exe
+      AppLocalFromInstalled:
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.exe" "C:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Mise à jour de l'horodatage "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Génération du projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" terminée (cibles par défaut).
+      
+      La génération a réussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps écoulé 00:00:01.62
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/3.26.3/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.4.0+18d5aef85 for .NET Framework
+      La génération a démarré 09/05/2023 14:29:56.
+      Projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" sur le nœud 1 (cibles par défaut).
+      PrepareForBuild:
+        Création du répertoire "Debug\\".
+        Création du répertoire "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Création de "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+      VcpkgTripletSelection:
+        Using triplet "x64-windows" from "C:\\vcpkg\\installed\\x64-windows\\"
+        Using normalized configuration "Release"
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "C:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      AppLocalFromInstalled:
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.exe" "C:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Mise à jour de l'horodatage "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Génération du projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" terminée (cibles par défaut).
+      
+      La génération a réussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps écoulé 00:00:00.97
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/3.26.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-c9n5qb"
+      binary: "C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-c9n5qb"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-c9n5qb
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_381bf.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.0+18d5aef85 for .NET Framework
+        La génération a démarré 09/05/2023 14:29:58.
+        Projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-c9n5qb\\cmTC_381bf.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_381bf.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-c9n5qb\\Debug\\".
+          Création du répertoire "cmTC_381bf.dir\\Debug\\cmTC_381bf.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_381bf.dir\\Debug\\cmTC_381bf.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_381bf.dir\\Debug\\\\" /Fd"cmTC_381bf.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.34.31935 pour x64
+          CMakeCCompilerABI.c
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_381bf.dir\\Debug\\\\" /Fd"cmTC_381bf.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-c9n5qb\\Debug\\cmTC_381bf.exe" /INCREMENTAL /ILK:"cmTC_381bf.dir\\Debug\\cmTC_381bf.ilk" /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-c9n5qb/Debug/cmTC_381bf.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-c9n5qb/Debug/cmTC_381bf.lib" /MACHINE:X64  /machine:x64 cmTC_381bf.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_381bf.vcxproj -> C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-c9n5qb\\Debug\\cmTC_381bf.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-c9n5qb\\Debug\\cmTC_381bf.exe" "C:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_381bf.dir\\Debug\\cmTC_381bf.tlog\\cmTC_381bf.write.1u.tlog" "cmTC_381bf.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_381bf.dir\\Debug\\cmTC_381bf.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_381bf.dir\\Debug\\cmTC_381bf.tlog\\cmTC_381bf.lastbuildstate".
+        Génération du projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-c9n5qb\\cmTC_381bf.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.96
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-8g8j2j"
+      binary: "C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-8g8j2j"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-8g8j2j
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_43705.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n && MSBuild version 17.4.0+18d5aef85 for .NET Framework
+        La génération a démarré 09/05/2023 14:29:59.
+        Projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-8g8j2j\\cmTC_43705.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_43705.dir\\Debug\\".
+          Création du répertoire "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-8g8j2j\\Debug\\".
+          Création du répertoire "cmTC_43705.dir\\Debug\\cmTC_43705.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_43705.dir\\Debug\\cmTC_43705.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_43705.dir\\Debug\\\\" /Fd"cmTC_43705.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          Compilateur d'optimisation Microsoft (R) C/C++ version 19.34.31935 pour x64
+          CMakeCXXCompilerABI.cpp
+          Copyright (C) Microsoft Corporation. Tous droits réservés.
+          cl /c /I"C:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_43705.dir\\Debug\\\\" /Fd"cmTC_43705.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.34.31933\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-8g8j2j\\Debug\\cmTC_43705.exe" /INCREMENTAL /ILK:"cmTC_43705.dir\\Debug\\cmTC_43705.ilk" /NOLOGO /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-8g8j2j/Debug/cmTC_43705.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/seryl/Desktop/fichiers/Ynov/cours/B3/ProjetB3/ItalienQuiSaute/CPP-Game/CMakeFiles/CMakeScratch/TryCompile-8g8j2j/Debug/cmTC_43705.lib" /MACHINE:X64  /machine:x64 cmTC_43705.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_43705.vcxproj -> C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-8g8j2j\\Debug\\cmTC_43705.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-8g8j2j\\Debug\\cmTC_43705.exe" "C:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_43705.dir\\Debug\\cmTC_43705.tlog\\cmTC_43705.write.1u.tlog" "cmTC_43705.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_43705.dir\\Debug\\cmTC_43705.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_43705.dir\\Debug\\cmTC_43705.tlog\\cmTC_43705.lastbuildstate".
+        Génération du projet "C:\\Users\\seryl\\Desktop\\fichiers\\Ynov\\cours\\B3\\ProjetB3\\ItalienQuiSaute\\CPP-Game\\CMakeFiles\\CMakeScratch\\TryCompile-8g8j2j\\cmTC_43705.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:01.02
+        
+      exitCode: 0
+...

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\seryl\Desktop\fichiers\Ynov\cours\B3\ProjetB3\ItalienQuiSaute\CPP-Game\CMakeFiles\2b8d24ae456fc127822a5d370f4e7fa7\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{DBC95ECB-8C97-36A6-B24B-6EA5272D53E9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

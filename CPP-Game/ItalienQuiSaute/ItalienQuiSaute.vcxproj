@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -139,13 +139,20 @@
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="EntityHealthComponent.hpp" />
     <ClInclude Include="EntityManager.hpp" />
+    <ClInclude Include="FileReader.hpp" />
     <ClInclude Include="GameManager.hpp" />
+    <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="GravityComponent.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="Maths\Vector2.h" />
     <ClInclude Include="PlayerControllerComponent.hpp" />
+    <ClInclude Include="PlayerEntity.hpp" />
     <ClInclude Include="SpriteRendererComponent.hpp" />
     <ClInclude Include="Textures.hpp" />
     <ClInclude Include="TransformComponent.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Map.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

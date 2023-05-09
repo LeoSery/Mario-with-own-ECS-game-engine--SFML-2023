@@ -8,11 +8,9 @@
 #include "EntityManager.hpp";
 #include "GravityComponent.hpp";
 
-
 class PlayerEntity : public Entity
 {
 public:
-
 	sf::Texture tex = Textures::getTexture(1);
 	PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
 	GravityComponent* gravityComponent = new GravityComponent();
@@ -22,7 +20,6 @@ public:
 		EM->CreateEntity("Player", this);
 		RegisterComponents(EM);
 	};
-
 
 	void RegisterComponents(EntityManager* EM) {
 		EM->CreateComponent("PlayerController", playerControllerComponent);
@@ -37,13 +34,5 @@ public:
 		playerControllerComponent->Move(moveDirection);
 		transformComponent->position += gravityComponent->ApplyGravity(playerControllerComponent->getDirectionVector(), deltaTime.asMicroseconds());
 		spriteRendererComponent->setPosition(transformComponent->position);
-
 	};
-
-
-	
-
-
-
-
 };
