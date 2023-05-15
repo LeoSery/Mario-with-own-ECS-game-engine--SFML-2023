@@ -5,12 +5,10 @@
 class HealthComponent : public Component
 {
 public:
-	bool isDead;
 	HealthComponent()
 	{
 		Tag = "HEALTH";
-		Health = 100.0f;
-		isDead = false;
+		Health = 100;
 	}
 
 	float GetHealth()
@@ -18,26 +16,30 @@ public:
 		return Health;
 	}
 
-	float SetHealth(float newHealth)
+	float SetHealth(int newHealth)
 	{
 		Health = newHealth;
 	}
 
-	void TakeDamage(float amount)
+	void TakeDamage(int amount)
 	{
 		Health -= amount;
-		if (Health <= 0) {
-			isDead = false;
-		}
+		
 	}
 
-	void TakeHeal(float amount)
+	void TakeHeal(int amount)
 	{
 		Health += amount;
 	}
 
+	bool GetisDead()
+	{
+		if (Health <= 0) {
+			return true;
+		}
+		return false;
+	}
+
 private:
-	
-	float Health;
-	
+	int Health;
 };
