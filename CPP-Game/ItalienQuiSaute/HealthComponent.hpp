@@ -5,7 +5,6 @@
 class HealthComponent : public Component
 {
 public:
-	bool isDead;
 	HealthComponent()
 	{
 		Tag = "HEALTH";
@@ -38,6 +37,12 @@ public:
 		Health += amount;
 	}
 
+	bool GetisDead()
+	{
+		return isDead;
+	}
+
 private:
 	int Health;
+	bool isDead;
 };

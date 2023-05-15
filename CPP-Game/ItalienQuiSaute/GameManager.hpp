@@ -96,8 +96,8 @@ public:
 					else if (currentComponent->Tag == "HEALTH") {
 						HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
 						std::cout << "ICI" << std::endl;
-						std::cout << "Main isDead : " << entityHealth->isDead << std::endl;
-						if (entityHealth->isDead == true)
+						std::cout << "Main isDead : " << entityHealth->GetisDead() << std::endl;
+						if (entityHealth->GetisDead() == true)
 						{
 							EM->destroyQueue.push_back(ent);
 							std::cout << "OK !" << std::endl;
