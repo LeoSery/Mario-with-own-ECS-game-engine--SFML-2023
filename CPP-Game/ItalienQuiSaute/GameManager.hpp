@@ -11,6 +11,7 @@
 #include "PlayerControllerComponent.hpp"
 #include "HealthComponent.hpp"
 #include "PlayerEntity.hpp"
+#include "Enemy.hpp"
 #include "FileReader.hpp"
 
 #include "Maths/Vector2.h"
@@ -32,13 +33,15 @@ public:
 
 	void Update() {
 
-		
+
 
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
 
 		sf::Event event{};
 		InputManager inputManager(event);
 		PlayerEntity* player = new PlayerEntity(EM, window);
+
+		Enemy* enemy = new Enemy(EM, { 200.0f, 200.0f });
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
@@ -49,15 +52,11 @@ public:
 
 		mapReader.ReadFile("Map.txt", gameMap, EM);
 
-		
-
-
-
 		EM->Purge();
 		while (window.isOpen())
 		{
 
-			
+
 			sf::Clock clock;
 
 			while (window.pollEvent(event))
@@ -88,10 +87,10 @@ public:
 
 						if (ent->Tag != "ENEMY") {
 							for (Entity* enemy : allEnemies) {
-
+								Enemy* enemyEntity = static_cast<Enemy*>(enemy);
+								enemyEntity->colliderComponent->Collision(sprite->getSprite());
 							}
 						}
-
 					}
 
 					else if (currentComponent->Tag == "HEALTH") {
@@ -101,20 +100,19 @@ public:
 							EM->destroyQueue.push_back(ent);
 						}
 					}
-
-
 				}
 			}
 
 			EM->Purge();
 
 			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
-			
+
 				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)), window);
+				enemy->Move(sf::Time(sf::microseconds(2000)));
 				timer += sf::Time(sf::microseconds(2000));
 			}
 
-			
+
 
 			window.display();
 			deltaTime = clock.getElapsedTime();
