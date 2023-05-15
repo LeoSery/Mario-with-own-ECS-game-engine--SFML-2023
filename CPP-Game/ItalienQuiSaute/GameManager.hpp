@@ -77,6 +77,8 @@ public:
 
 			window.clear();
 
+			std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
+
 			for (Entity* ent : EM->livingEntityList)
 			{
 
@@ -88,6 +90,12 @@ public:
 
 						if (ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
+						}
+
+						if (ent->Tag != "ENEMY") {
+							for (Entity* enemy : allEnemies) {
+
+							}
 						}
 
 					}

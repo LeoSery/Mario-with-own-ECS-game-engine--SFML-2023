@@ -49,6 +49,20 @@ public:
 			}
 		}
 	}
+
+
+	std::vector<Entity*> GetAllEntityByTag(std::string Tag)
+	{
+		std::vector<Entity*> allEntities;
+		for (Entity* currentEntity : livingEntityList)
+		{
+			if (currentEntity->Tag == Tag)
+			{
+				allEntities.push_back(currentEntity);
+			}
+		}
+		return allEntities;
+	}
 	
 
 	void DestroyEntity(std::uint32_t UUID)
