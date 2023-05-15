@@ -50,8 +50,9 @@ public:
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
-		mapReader.ReadFile("Map.txt", gameMap, EM);
-
+		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
+		std::cout << mapDimensions.x << " " << mapDimensions.y;
+		
 		EM->Purge();
 		while (window.isOpen())
 		{
