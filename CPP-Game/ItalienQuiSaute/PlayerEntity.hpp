@@ -48,6 +48,8 @@ public:
 		EM->AddComponent(this, gravityComponent);
 		EM->CreateComponent("Camera", cameraComponent);
 		EM->AddComponent(this, cameraComponent);
+		EM->CreateComponent("Health", healthComponent);
+		EM->AddComponent(this, healthComponent);
 	};
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window)

@@ -88,14 +88,14 @@ public:
 								if (ent->Tag == "PLAYER")
 								{
 									if (enemyEntity->colliderComponent->collided)
-										player->healthComponent->TakeDamage(100);
+										enemyEntity->healthComponent->TakeDamage(100);
 								}
 							}
 						}
 					}
 					else if (currentComponent->Tag == "HEALTH") {
 						HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
-						std::cout << "ICI" << std::endl;
+						std::cout << "ICI " << ent->Name << std::endl;
 						std::cout << "Main isDead : " << entityHealth->GetisDead() << std::endl;
 						if (entityHealth->GetisDead() == true)
 						{

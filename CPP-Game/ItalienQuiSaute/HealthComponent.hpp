@@ -9,7 +9,6 @@ public:
 	{
 		Tag = "HEALTH";
 		Health = 100;
-		isDead = false;
 	}
 
 	float GetHealth()
@@ -25,11 +24,7 @@ public:
 	void TakeDamage(int amount)
 	{
 		Health -= amount;
-		if (Health <= 0) {
-			isDead = true;
-			std::cout << "is dead : " << isDead << std::endl;
-		}
-		std::cout << "Health : " << Health << std::endl;
+		
 	}
 
 	void TakeHeal(int amount)
@@ -39,10 +34,13 @@ public:
 
 	bool GetisDead()
 	{
-		return isDead;
+		std::cout << "Health : " << Health << std::endl;
+		if (Health <= 0) {
+			return true;
+		}
+		return false;
 	}
 
 private:
 	int Health;
-	bool isDead;
 };
