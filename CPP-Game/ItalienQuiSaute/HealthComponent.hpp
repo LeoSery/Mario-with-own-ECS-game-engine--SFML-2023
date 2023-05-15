@@ -9,7 +9,7 @@ public:
 	HealthComponent()
 	{
 		Tag = "HEALTH";
-		Health = 100.0f;
+		Health = 100;
 		isDead = false;
 	}
 
@@ -18,26 +18,26 @@ public:
 		return Health;
 	}
 
-	float SetHealth(float newHealth)
+	float SetHealth(int newHealth)
 	{
 		Health = newHealth;
 	}
 
-	void TakeDamage(float amount)
+	void TakeDamage(int amount)
 	{
 		Health -= amount;
 		if (Health <= 0) {
-			isDead = false;
+			isDead = true;
+			std::cout << "is dead : " << isDead << std::endl;
 		}
+		std::cout << "Health : " << Health << std::endl;
 	}
 
-	void TakeHeal(float amount)
+	void TakeHeal(int amount)
 	{
 		Health += amount;
 	}
 
 private:
-	
-	float Health;
-	
+	int Health;
 };

@@ -21,6 +21,7 @@ public:
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(tex);
 	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
+	HealthComponent* healthComponent = new HealthComponent();
 	CameraComponent* cameraComponent;
 
 	PlayerEntity(EntityManager* EM, sf::RenderWindow& window) {
@@ -49,9 +50,8 @@ public:
 		EM->AddComponent(this, cameraComponent);
 	};
 
-	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window) {
-
-
+	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window)
+	{
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
 			playerControllerComponent->jumping = false;
 		}
@@ -71,14 +71,5 @@ public:
 
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);
-
-
 	};
-
-
-
-
-
-
-
 };
