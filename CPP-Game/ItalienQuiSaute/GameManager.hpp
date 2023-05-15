@@ -21,6 +21,7 @@ public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = Textures::getTexture(0);
 	sf::Texture tex2 = Textures::getTexture(1);
+	bool gameOver = false;
 
 	GameManager()
 	{
@@ -54,69 +55,76 @@ public:
 		EM->Purge();
 		while (window.isOpen())
 		{
-			sf::Clock clock;
+			if (!gameOver) {
+				sf::Clock clock;
 
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-					window.close();
-			}
-
-			inputManager.UpdateEvent(event);
-			window.clear();
-
-			std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
-
-			for (Entity* ent : EM->livingEntityList)
-			{
-				for (Component* currentComponent : EM->componentMapping[ent])
+				while (window.pollEvent(event))
 				{
-					if (currentComponent->Tag == "SPRITE_RENDERER")
+					if (event.type == sf::Event::Closed)
+						window.close();
+				}
+
+				inputManager.UpdateEvent(event);
+				window.clear();
+
+				std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
+
+				for (Entity* ent : EM->livingEntityList)
+				{
+					for (Component* currentComponent : EM->componentMapping[ent])
 					{
-						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-						window.draw(sprite->loadSprite());
-
-						if (ent->Tag != "PLAYER")
+						if (currentComponent->Tag == "SPRITE_RENDERER")
 						{
-							player->colliderComponent->Collision(sprite->getSprite());
-						}
+							SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
+							window.draw(sprite->loadSprite());
 
-						if (ent->Tag != "ENEMY") {
-							for (Entity* enemy : allEnemies) {
-								Enemy* enemyEntity = static_cast<Enemy*>(enemy);
-								enemyEntity->colliderComponent->Collision(sprite->getSprite());
-								if (ent->Tag == "PLAYER")
-								{
-									if (enemyEntity->colliderComponent->collided)
-										enemyEntity->healthComponent->TakeDamage(100);
+							if (ent->Tag != "PLAYER")
+							{
+								player->colliderComponent->Collision(sprite->getSprite());
+							}
+
+							if (ent->Tag != "ENEMY") {
+								for (Entity* enemy : allEnemies) {
+									Enemy* enemyEntity = static_cast<Enemy*>(enemy);
+									enemyEntity->colliderComponent->Collision(sprite->getSprite());
+									if (ent->Tag == "PLAYER")
+									{
+										if (enemyEntity->colliderComponent->collided)
+											player->healthComponent->TakeDamage(100);
+									}
 								}
 							}
 						}
-					}
-					else if (currentComponent->Tag == "HEALTH") {
-						HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
-						std::cout << "ICI " << ent->Name << std::endl;
-						std::cout << "Main isDead : " << entityHealth->GetisDead() << std::endl;
-						if (entityHealth->GetisDead() == true)
-						{
-							EM->destroyQueue.push_back(ent);
-							std::cout << "OK !" << std::endl;
+						else if (currentComponent->Tag == "HEALTH") {
+							HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
+							if (entityHealth->GetisDead() == true)
+							{
+								if (ent->Tag != "PLAYER") {
+									EM->destroyQueue.push_back(ent);
+								}
+								else {
+									//gameOver = true;
+									std::cout << "GameOver" << std::endl;
+								}
+
+							}
 						}
 					}
 				}
-			}
 
-			EM->Purge();
+				EM->Purge();
 
-			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds())
-			{
-				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)), window);
-				enemy->Move(sf::Time(sf::microseconds(2000)));
-				timer += sf::Time(sf::microseconds(2000));
+				if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds())
+				{
+					player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)), window);
+					enemy->Move(sf::Time(sf::microseconds(2000)));
+					timer += sf::Time(sf::microseconds(2000));
+				}
+				window.display();
+				deltaTime = clock.getElapsedTime();
+				timeSinceStart += deltaTime;
 			}
-			window.display();
-			deltaTime = clock.getElapsedTime();
-			timeSinceStart += deltaTime;
+			
 		}
 
 		//clean pointers
