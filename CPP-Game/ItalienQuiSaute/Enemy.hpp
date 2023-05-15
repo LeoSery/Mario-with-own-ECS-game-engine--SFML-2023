@@ -2,6 +2,7 @@
 
 #include "SpriteRendererComponent.hpp"
 #include "TransformComponent.hpp"
+#include "ColliderComponent.hpp"
 #include "GravityComponent.hpp"
 #include "Maths/Vector2.h"
 #include "Textures.hpp"
@@ -14,17 +15,51 @@ public:
 	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(playerTexture);
+	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
 
-	Enemy()
+	Enemy(EntityManager* EM, Vector2<float> startPos)
 	{
+		EM->CreateEntity("Enemy", this);
 		speed = 1.0f;
-		direction = { 0.0f, 0.0f };
+		direction = { 1.0f, 0.0f };
+
+		RegisterComponents(EM);
+		transformComponent->position = startPos;
+		transformComponent->nextpos = startPos;
+		Tag = "ENEMY";
+
 	}
 
-	void Move(Vector2<float> moveDirection, sf::Time deltaTime)
+	void RegisterComponents(EntityManager* EM)
 	{
-		transformComponent->position += gravityComponent->ApplyGravity(moveDirection, deltaTime.asMicroseconds());
-		spriteRendererComponent->setPosition(transformComponent->position);
+		EM->CreateComponent("Transform", transformComponent);
+		EM->AddComponent(this, transformComponent);
+		EM->CreateComponent("SpriteRenderer", spriteRendererComponent);
+		EM->AddComponent(this, spriteRendererComponent);
+		EM->CreateComponent("Collider", colliderComponent);
+		EM->AddComponent(this, colliderComponent);
+		EM->CreateComponent("Gravity", gravityComponent);
+		EM->AddComponent(this, gravityComponent);
+	}
+
+	void Move(sf::Time deltaTime)
+	{
+		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "LEFT") != colliderComponent->activeDirections.end())
+		{
+			direction = -direction;
+		}
+		else if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "RIGHT") != colliderComponent->activeDirections.end())
+		{
+			direction = -direction;
+		}
+
+		Vector2<float> newpos = direction;
+
+		newpos = gravityComponent->ApplyGravity(newpos, deltaTime.asMicroseconds());
+
+		transformComponent->addPos(newpos, colliderComponent->activeDirections);
+		colliderComponent->activeDirections.clear();
+		spriteRendererComponent->setPosition(transformComponent->nextpos);
 	}
 
 	float GetSpeed()

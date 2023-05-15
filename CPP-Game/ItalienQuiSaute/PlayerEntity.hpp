@@ -30,10 +30,9 @@ public:
 		cameraComponent = new CameraComponent(window, transformComponent->position);
 
 		RegisterComponents(EM);
-		
+
 		Tag = "PLAYER";
 	};
-
 
 	void RegisterComponents(EntityManager* EM) {
 		EM->CreateComponent("PlayerController", playerControllerComponent);
