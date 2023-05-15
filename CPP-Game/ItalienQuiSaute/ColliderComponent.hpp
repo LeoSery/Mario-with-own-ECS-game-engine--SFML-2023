@@ -42,13 +42,13 @@ public:
 			//Left Limit Diff
 			
 			else if (((entityHitbox.left + entityHitbox.width) - otherHitbox.left) <= 3) { //if diff is between 3 pixel
-				direction = "SIDE";
+				direction = "LEFT";
 			}
 
 			//Right Limit Diff
 
 			else if ((entityHitbox.left - (otherHitbox.left+otherHitbox.width)) >= -3) { //if diff is between 3 pixel
-				direction = "SIDE";
+				direction = "RIGHT";
 			}
 
 			activeDirections.push_back(direction);
