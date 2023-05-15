@@ -8,6 +8,7 @@
 #include "Textures.hpp";
 #include "EntityManager.hpp";
 #include "GravityComponent.hpp";
+#include "CameraComponent.hpp";
 
 
 class PlayerEntity : public Entity
@@ -20,11 +21,16 @@ public:
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(tex);
 	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
+	CameraComponent* cameraComponent;
 
-	PlayerEntity(EntityManager* EM) {
+	PlayerEntity(EntityManager* EM, sf::RenderWindow& window) {
 		EM->CreateEntity("Player", this);
-		RegisterComponents(EM);
 
+
+		cameraComponent = new CameraComponent(window);
+
+		RegisterComponents(EM);
+		
 		Tag = "PLAYER";
 	};
 
@@ -38,9 +44,13 @@ public:
 		EM->AddComponent(this, spriteRendererComponent);
 		EM->CreateComponent("Collider", colliderComponent);
 		EM->AddComponent(this, colliderComponent);
+		EM->CreateComponent("Gravity", gravityComponent);
+		EM->AddComponent(this, gravityComponent);
+		EM->CreateComponent("Camera", cameraComponent);
+		EM->AddComponent(this, cameraComponent);
 	};
 
-	void Move(Vector2<float> moveDirection, sf::Time deltaTime) {
+	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window) {
 
 
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
@@ -56,7 +66,10 @@ public:
 
 		newpos = gravityComponent->ApplyGravity(newpos, deltaTime.asMicroseconds());
 
-		transformComponent->addPos(newpos, colliderComponent->activeDirections);
+		newpos = transformComponent->addPos(newpos, colliderComponent->activeDirections);
+
+		cameraComponent->Move(newpos, window);
+
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);
 

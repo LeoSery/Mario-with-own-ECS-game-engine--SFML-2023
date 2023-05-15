@@ -35,16 +35,10 @@ public:
 		
 
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
-		sf::View view;
-		view.setCenter(sf::Vector2f(1000.f, 800.f));
-		view.setSize(sf::Vector2f(400.f, 400.f));
-		view.zoom(5.0f);
-		window.setView(view);
 
 		sf::Event event{};
 		InputManager inputManager(event);
-
-		PlayerEntity* player = new PlayerEntity(EM);
+		PlayerEntity* player = new PlayerEntity(EM, window);
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
@@ -116,7 +110,7 @@ public:
 
 			if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds()) {
 			
-				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)));
+				player->Move(inputManager.GetDirection(), sf::Time(sf::microseconds(2000)), window);
 				timer += sf::Time(sf::microseconds(2000));
 			}
 

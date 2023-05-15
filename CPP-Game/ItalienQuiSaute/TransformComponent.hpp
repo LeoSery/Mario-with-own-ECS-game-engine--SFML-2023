@@ -22,7 +22,7 @@ public:
 		scale = _scale;
 	}
 
-	void addPos(Vector2<float> _position, std::vector<std::string> directions) {
+	Vector2<float> addPos(Vector2<float> _position, std::vector<std::string> directions) {
 
 		
 		position = nextpos;
@@ -49,6 +49,8 @@ public:
 		}
 
 		nextpos += _position;
+
+		return _position;
 		
 		
 
