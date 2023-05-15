@@ -26,8 +26,10 @@ public:
 
 		
 		position = nextpos;
-		for(std::string direction : directions)
+		for (std::string direction : directions)
+			
 		{
+			std::cout << direction << " ";
 			 if (direction == "LEFT") {
 				 if (_position.x> 0.0f) {
 					 _position.x = 0.0f;
@@ -56,6 +58,7 @@ public:
 
 			}
 		}
+		std::cout << "\n";
 
 		nextpos += _position;
 

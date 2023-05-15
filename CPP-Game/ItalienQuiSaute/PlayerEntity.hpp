@@ -53,12 +53,16 @@ public:
 
 
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
-			playerControllerComponent->jumping = false;
+			playerControllerComponent->setJumping(false);
+			
 		}
 		else
 		{
-			playerControllerComponent->jumping = true;
+			playerControllerComponent->setJumping(true);
 		}
+
+
+
 		playerControllerComponent->Move(moveDirection, deltaTime.asMilliseconds());
 		Vector2<float> newpos = playerControllerComponent->getDirectionVector();
 
