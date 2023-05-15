@@ -34,7 +34,6 @@ public:
 
 	bool GetisDead()
 	{
-		std::cout << "Health : " << Health << std::endl;
 		if (Health <= 0) {
 			return true;
 		}
