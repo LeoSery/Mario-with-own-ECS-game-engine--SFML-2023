@@ -7,28 +7,35 @@
 class PlayerControllerComponent : public Component
 {
 public:
+	bool jumping = false;
 	PlayerControllerComponent()
 	{
-		speed = 0.5f;
+		speed = 1.0f;
 		jump = 0.0f;
 		playerDirection = { 0.0f, 0.0f };
 	}
 
 	void Move(Vector2<float> moveDirection, float deltatime)
 	{
+
+		playerDirection.x = (moveDirection.x * deltatime);
 		
-		if (moveDirection.y < 0.0f && jump >= 0.0f) {
+		if (moveDirection.y < 0.0f && !jumping) {
 			jump += moveDirection.y *deltatime;
+			jumping = true;
 
 		}
 		if (jump < 0.0f) {
 			playerDirection.y = (jump);
-			std::cout << jump << "\n";
 			jump += (speed * 1 / 100);
-			std::cout << jump << "\n";
+		}
+		else
+		{
+			jump = 0.0f;
+			jumping = false;
 		}
 
-		playerDirection.x = (moveDirection.x * deltatime);
+		
 
 		
 	}
