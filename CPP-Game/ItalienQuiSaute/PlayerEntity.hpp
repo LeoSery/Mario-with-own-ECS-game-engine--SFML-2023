@@ -27,7 +27,7 @@ public:
 		EM->CreateEntity("Player", this);
 
 
-		cameraComponent = new CameraComponent(window);
+		cameraComponent = new CameraComponent(window, transformComponent->position);
 
 		RegisterComponents(EM);
 		

@@ -7,9 +7,9 @@
 class CameraComponent : public Component
 {
 public:
-	CameraComponent(sf::RenderWindow& window)
+	CameraComponent(sf::RenderWindow& window, Vector2<float> center)
 	{
-		view.setCenter(sf::Vector2f(1000.f, 800.f));
+		view.setCenter(sf::Vector2f(center.x, center.y));
 		view.setSize(sf::Vector2f(400.f, 400.f));
 		view.zoom(5.0f);
 		window.setView(view);
