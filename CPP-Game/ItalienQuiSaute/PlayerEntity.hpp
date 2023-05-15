@@ -43,7 +43,9 @@ public:
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime) {
 
 
-
+		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
+			playerControllerComponent->jumping = false;
+		}
 		playerControllerComponent->Move(moveDirection, deltaTime.asMilliseconds());
 		Vector2<float> newpos = playerControllerComponent->getDirectionVector();
 

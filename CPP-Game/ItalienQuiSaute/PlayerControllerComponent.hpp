@@ -25,14 +25,13 @@ public:
 			jumping = true;
 
 		}
-		if (jump < 0.0f) {
+		if (jump < 0.0f && jumping) {
 			playerDirection.y = (jump);
 			jump += (speed * 1 / 100);
 		}
 		else
 		{
 			jump = 0.0f;
-			jumping = false;
 		}
 
 		
