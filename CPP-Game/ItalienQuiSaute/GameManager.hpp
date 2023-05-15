@@ -35,6 +35,11 @@ public:
 		
 
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+		sf::View view;
+		view.setCenter(sf::Vector2f(1000.f, 800.f));
+		view.setSize(sf::Vector2f(400.f, 400.f));
+		view.zoom(5.0f);
+		window.setView(view);
 
 		sf::Event event{};
 		InputManager inputManager(event);
