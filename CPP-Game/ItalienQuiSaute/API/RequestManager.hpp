@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 #include <curl/curl.h>
+#include <vector>
+#include <json/json.h>
 
 class RequestManager {
 public:
@@ -98,6 +100,68 @@ public:
             curl_slist_free_all(headers);
         }
     }
+
+    std::string Scorelist() {
+
+        struct PseudoScore {
+            std::string pseudo;
+            int score;
+        };
+        std::vector<PseudoScore> arr;
+
+
+        // Initialize libcurl
+        CURL* curl = curl_easy_init();
+
+        if (curl) {
+            // Fetch the player score list
+            std::string score_list_url = "http://192.168.0.23:7865/scoreboard/MARIO";
+            std::string score_list_response;
+            curl_easy_setopt(curl, CURLOPT_URL, score_list_url.c_str());
+            curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
+            curl_easy_setopt(curl, CURLOPT_WRITEDATA, &score_list_response);
+            CURLcode res = curl_easy_perform(curl);
+
+            if (res == CURLE_OK) {
+                std::cout << "Player score list response: " << score_list_response << std::endl;
+            }
+            else {
+                std::cerr << "Failed to fetch player score list: " << curl_easy_strerror(res) << std::endl;
+            }
+            // Clean up libcurl resources
+            curl_easy_cleanup(curl);
+
+            //Parse Results
+            Json::Value root;
+            Json::Reader reader;
+            bool parsingSuccessful = reader.parse(score_list_response, root);
+            if (parsingSuccessful) {
+                for (int i = 0; i < root.size(); i++) {
+
+                    std::string pseudo = root[i]["user"].asString();
+                    int score = root[i]["score"].asInt();
+                    PseudoScore ps = { pseudo, score };
+                    arr.push_back(ps);
+                }
+            }
+            else {
+                std::cout << "Failed to parse JSON string" << std::endl;
+            }
+
+            score_list_response = "";
+
+            for (int i = 0; i < arr.size(); i++) {
+                score_list_response += "Pseudo: " + arr[i].pseudo + ", Score: " + std::to_string(arr[i].score) + "\n";
+            }
+
+
+
+            return score_list_response;
+        }
+        return "no curl";
+    }
+
+
 private:
     // Callback function to write token to a string
     static size_t headerCallback(char* buffer, size_t size, size_t nitems, void* userData) {
