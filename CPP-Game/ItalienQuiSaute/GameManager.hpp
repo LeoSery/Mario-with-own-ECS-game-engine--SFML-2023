@@ -39,8 +39,6 @@ public:
 
 		sf::Event event{};
 		InputManager inputManager(event);
-		
-
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
@@ -73,10 +71,6 @@ public:
 
 				std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
 
-				
-
-				
-
 				if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds())
 				{
 
@@ -84,6 +78,11 @@ public:
 					
 					
 
+					for (Entity* entity : allEnemies)
+					{
+						Enemy* enemy = static_cast<Enemy*>(entity);
+						enemy->Move(sf::Time(sf::microseconds(2000)));
+					}
 
 					for (Entity* ent : EM->livingEntityList)
 					{
@@ -134,7 +133,6 @@ public:
 				deltaTime = clock.getElapsedTime();
 				timeSinceStart += deltaTime;
 			}
-			
 		}
 
 		//clean pointers

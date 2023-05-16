@@ -27,6 +27,7 @@ public:
 		RegisterComponents(EM);
 		transformComponent->position = startPos;
 		transformComponent->nextpos = startPos;
+		std::cout << "Construct > Pos x : " << startPos.x << "Pos y : " << startPos.y << std::endl;
 		Tag = "ENEMY";
 	}
 
