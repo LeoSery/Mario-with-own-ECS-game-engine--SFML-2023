@@ -134,6 +134,8 @@
     <ClCompile Include="ItalienQuiSaute.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationsManager.hpp" />
+    <ClInclude Include="CameraComponent.hpp" />
     <ClInclude Include="ColliderComponent.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Enemy.hpp" />
@@ -149,7 +151,7 @@
     <ClInclude Include="PlayerControllerComponent.hpp" />
     <ClInclude Include="PlayerEntity.hpp" />
     <ClInclude Include="SpriteRendererComponent.hpp" />
-    <ClInclude Include="Textures.hpp" />
+    <ClInclude Include="TexturesManager.hpp" />
     <ClInclude Include="TransformComponent.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -4,9 +4,9 @@
 #include <vector>
 #include <array>
 #include <map>
-#include "GameObject.hpp"
-#include "Textures.hpp"
 
+#include "TexturesManager.hpp"
+#include "GameObject.hpp"
 
 class ReadMap
 {
@@ -30,7 +30,7 @@ public:
 		while (std::getline(inputFile, line))
 		{
 			int x = 1;
-			
+
 			for (auto lineChar : line)
 			{
 				switch (lineChar)
@@ -41,7 +41,7 @@ public:
 				}
 				case '1':
 				{
-					GameObject* gobj = new GameObject(EM, Textures::getTexture(0), { x,y });
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(0), { x,y });
 					break;
 				}
 				case '2':
@@ -54,7 +54,7 @@ public:
 				x++;
 				dimensions.x = x * 64;
 			}
-			
+
 			y++;
 		}
 		dimensions.y = y * 64;

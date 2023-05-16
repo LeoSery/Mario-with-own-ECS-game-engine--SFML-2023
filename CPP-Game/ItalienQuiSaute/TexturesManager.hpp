@@ -1,12 +1,13 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Textures {
+class TexturesManager
+{
 public:
-
-
-	static sf::Texture getTexture(const int& texEnum) {
+	static sf::Texture getTexture(const int& texEnum)
+	{
 		switch (texEnum)
 		{
 		case 0:
@@ -21,7 +22,16 @@ public:
 		case 3:
 			return loadTexture("Assets/Sprites/brick.png");
 			break;
-		case 4:
+		case 5:
+			return loadTexture("Assets/Sprites/brick.png");
+			break;
+		case 6:
+			return loadTexture("Assets/Sprites/brick.png");
+			break;
+		case 7:
+			return loadTexture("Assets/Sprites/brick.png");
+			break;
+		case 8:
 			return loadTexture("Assets/Sprites/brick.png");
 			break;
 		default:
