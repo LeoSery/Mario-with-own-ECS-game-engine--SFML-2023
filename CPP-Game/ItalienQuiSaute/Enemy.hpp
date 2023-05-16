@@ -16,6 +16,7 @@ public:
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(playerTexture);
 	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
+	HealthComponent* healthComponent = new HealthComponent();
 
 	Enemy(EntityManager* EM, Vector2<float> startPos)
 	{
@@ -27,7 +28,6 @@ public:
 		transformComponent->position = startPos;
 		transformComponent->nextpos = startPos;
 		Tag = "ENEMY";
-
 	}
 
 	void RegisterComponents(EntityManager* EM)
@@ -40,6 +40,8 @@ public:
 		EM->AddComponent(this, colliderComponent);
 		EM->CreateComponent("Gravity", gravityComponent);
 		EM->AddComponent(this, gravityComponent);
+		EM->CreateComponent("Health", healthComponent);
+		EM->AddComponent(this, healthComponent);
 	}
 
 	void Move(sf::Time deltaTime)
