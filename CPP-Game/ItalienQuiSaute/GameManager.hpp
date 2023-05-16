@@ -82,8 +82,7 @@ public:
 
 
 					
-					player->Move(inputManager.GetDirection(), deltaTime, window);
-					timer += framerate;
+					
 
 
 					for (Entity* ent : EM->livingEntityList)
@@ -128,6 +127,8 @@ public:
 							}
 						}
 					}
+					player->Move(inputManager.GetDirection(), deltaTime, window);
+					timer += framerate;
 				}
 				window.display();
 				deltaTime = clock.getElapsedTime();
