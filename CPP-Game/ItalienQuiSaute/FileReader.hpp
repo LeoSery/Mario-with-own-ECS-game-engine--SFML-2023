@@ -6,6 +6,7 @@
 #include <map>
 #include "GameObject.hpp"
 #include "Textures.hpp"
+#include "Enemy.hpp"
 
 
 class ReadMap
@@ -19,6 +20,7 @@ public:
 		std::vector<char> bytes;
 		std::string line;
 		char byte = 0;
+		int blockSize = 64;
 
 		if (!inputFile.is_open())
 		{
@@ -30,7 +32,7 @@ public:
 		while (std::getline(inputFile, line))
 		{
 			int x = 1;
-			
+
 			for (auto lineChar : line)
 			{
 				switch (lineChar)
@@ -44,6 +46,11 @@ public:
 					GameObject* gobj = new GameObject(EM, Textures::getTexture(0), { x,y });
 					break;
 				}
+				case '*':
+				{
+					Enemy* enemy = new Enemy(EM, { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) });
+					break;
+				}
 				case '2':
 					break;
 				default:
@@ -52,15 +59,14 @@ public:
 				}
 				}
 				x++;
-				dimensions.x = x * 64;
+				dimensions.x = x * blockSize;
 			}
-			
+
 			y++;
 		}
-		dimensions.y = y * 64;
+		dimensions.y = y * blockSize;
 		inputFile.close();
 
 		return dimensions;
 	}
-
 };

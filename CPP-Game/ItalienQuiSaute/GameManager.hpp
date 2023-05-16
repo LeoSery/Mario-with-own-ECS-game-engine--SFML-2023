@@ -39,8 +39,6 @@ public:
 
 		sf::Event event{};
 		InputManager inputManager(event);
-		
-
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
@@ -52,9 +50,9 @@ public:
 
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.x << " " << mapDimensions.y;
-	
+
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions);
-		
+
 		EM->Purge();
 		while (window.isOpen())
 		{
@@ -73,18 +71,16 @@ public:
 
 				std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
 
-				
-
-				
-
 				if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds())
 				{
-
-
-					
 					player->Move(inputManager.GetDirection(), deltaTime, window);
 					timer += framerate;
 
+					for (Entity* entity : allEnemies)
+					{
+						Enemy* enemy = static_cast<Enemy*>(entity);
+						enemy->Move(sf::Time(sf::microseconds(2000)));
+					}
 
 					for (Entity* ent : EM->livingEntityList)
 					{
@@ -133,7 +129,6 @@ public:
 				deltaTime = clock.getElapsedTime();
 				timeSinceStart += deltaTime;
 			}
-			
 		}
 
 		//clean pointers
