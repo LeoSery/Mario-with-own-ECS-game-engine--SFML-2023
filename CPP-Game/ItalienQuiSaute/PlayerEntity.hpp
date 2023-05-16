@@ -24,10 +24,12 @@ public:
 	HealthComponent* healthComponent = new HealthComponent();
 	CameraComponent* cameraComponent;
 
-	PlayerEntity(EntityManager* EM, sf::RenderWindow& window, Vector2<int> mapDimensions) {
+	PlayerEntity(EntityManager* EM, sf::RenderWindow& window, Vector2<int> mapDimensions, Vector2<float> startpos) {
 		EM->CreateEntity("Player", this);
 
 
+		transformComponent->position = startpos;
+		transformComponent->nextpos = startpos;
 		cameraComponent = new CameraComponent(window, transformComponent->position, mapDimensions);
 
 		RegisterComponents(EM);
@@ -73,7 +75,7 @@ public:
 
 		newpos = transformComponent->addPos(newpos, colliderComponent->activeDirections);
 
-		cameraComponent->Move(newpos, window);
+		cameraComponent->Move(spriteRendererComponent->getSprite()->getPosition(), newpos, window);
 
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);

@@ -53,7 +53,7 @@ public:
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.x << " " << mapDimensions.y;
 	
-		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions);
+		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, {1000,500});
 		
 		EM->Purge();
 		while (window.isOpen())

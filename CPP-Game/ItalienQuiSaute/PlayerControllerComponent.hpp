@@ -25,7 +25,7 @@ public:
 			jumping = true;
 
 		}
-		if (jump < 0.0f && jumping) {
+		if (jump < 0.0f && jumping) { 
 			jump += (speed * 1 / 100)*deltatime;
 			playerDirection.y = (jump);
 			
