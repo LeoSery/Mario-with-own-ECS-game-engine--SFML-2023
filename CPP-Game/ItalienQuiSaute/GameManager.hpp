@@ -34,31 +34,25 @@ public:
 
 	void Update()
 	{
-		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
 
-		sf::Event event{};
-		InputManager inputManager(event);
+	sf::Event event{};
+	InputManager inputManager(event);
 
-		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
-		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
+	sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
+	sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
 
-		std::map<char, sf::Texture> gameMap;
-		ReadMap mapReader;
+	std::map<char, sf::Texture> gameMap;
+	ReadMap mapReader;
 
-		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
+	Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 	
-		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, {1000,500});
+	PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, {1000,500});
 		
-		EM->Purge();
-		while (window.isOpen())
-		{
-			if (gameOver) {
-				//Menu and purge all once
-			}
-
-
-
-
+	EM->Purge();
+	while (window.isOpen())
+	{
+		if (!gameOver) {
 			sf::Clock clock;
 
 			while (window.pollEvent(event))
@@ -73,10 +67,6 @@ public:
 
 			std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
 
-
-
-					
-					
 
 				for (Entity* entity : allEnemies)
 				{
@@ -140,7 +130,11 @@ public:
 			deltaTime = clock.getElapsedTime();
 			timeSinceStart += deltaTime;
 		}
-		
+		else {
+				
+
+		}
+	}
 
 		EM->PurgeAll();
 		delete EM;
