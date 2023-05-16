@@ -52,96 +52,97 @@ public:
 		EM->Purge();
 		while (window.isOpen())
 		{
-			if (!gameOver) {
-				sf::Clock clock;
+			if (gameOver) {
+				//Menu and purge all once
+			}
 
-				while (window.pollEvent(event))
+
+
+
+			sf::Clock clock;
+
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+			}
+
+			inputManager.UpdateEvent(event);
+			window.clear();
+			EM->Purge();
+
+			std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
+
+
+
+					
+					
+
+				for (Entity* entity : allEnemies)
 				{
-					if (event.type == sf::Event::Closed)
-						window.close();
+					Enemy* enemy = static_cast<Enemy*>(entity);
+					enemy->Move(sf::Time(sf::microseconds(2000)));
 				}
 
-				inputManager.UpdateEvent(event);
-				window.clear();
-				EM->Purge();
-
-				std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
-
-
-
-					
-					
-
-					for (Entity* entity : allEnemies)
+				for (Entity* ent : EM->livingEntityList)
+				{
+					for (Component* currentComponent : EM->componentMapping[ent])
 					{
-						Enemy* enemy = static_cast<Enemy*>(entity);
-						enemy->Move(sf::Time(sf::microseconds(2000)));
-					}
-
-					for (Entity* ent : EM->livingEntityList)
-					{
-						for (Component* currentComponent : EM->componentMapping[ent])
+						if (currentComponent->Tag == "SPRITE_RENDERER")
 						{
-							if (currentComponent->Tag == "SPRITE_RENDERER")
+							SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
+							window.draw(sprite->loadSprite());
+
+							if (ent->Tag != "PLAYER")
 							{
-								SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-								window.draw(sprite->loadSprite());
+								player->colliderComponent->Collision(sprite->getSprite());
+							}
 
-								if (ent->Tag != "PLAYER")
-								{
-									player->colliderComponent->Collision(sprite->getSprite());
-								}
-
-								if (ent->Tag != "ENEMY") {
-									for (Entity* enemy : allEnemies) {
-										Enemy* enemyEntity = static_cast<Enemy*>(enemy);
-										enemyEntity->colliderComponent->Collision(sprite->getSprite());
-										if (ent->Tag == "PLAYER")
-										{
-											if (enemyEntity->colliderComponent->collided) {
-												if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
-													enemyEntity->healthComponent->TakeDamage(100);
-												}
-												else {
-													player->healthComponent->TakeDamage(100);
-												}
+							if (ent->Tag != "ENEMY") {
+								for (Entity* enemy : allEnemies) {
+									Enemy* enemyEntity = static_cast<Enemy*>(enemy);
+									enemyEntity->colliderComponent->Collision(sprite->getSprite());
+									if (ent->Tag == "PLAYER")
+									{
+										if (enemyEntity->colliderComponent->collided) {
+											if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
+												enemyEntity->healthComponent->TakeDamage(100);
 											}
+											else {
+												player->healthComponent->TakeDamage(100);
+											}
+										}
 											
 												
-										}
 									}
-								}
-							}
-							else if (currentComponent->Tag == "HEALTH") {
-								HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
-								if (entityHealth->GetisDead() == true)
-								{
-									if (ent->Tag != "PLAYER") {
-										EM->destroyQueue.push_back(ent);
-									}
-									else {
-										//gameOver = true;
-										std::cout << "GameOver" << std::endl;
-									}
-
 								}
 							}
 						}
-					}
-				player->Move(inputManager.GetDirection(), deltaTime, window);
-				
-				window.display();
-				deltaTime = clock.getElapsedTime();
-				timeSinceStart += deltaTime;
-			}
-		}
+						else if (currentComponent->Tag == "HEALTH") {
+							HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
+							if (entityHealth->GetisDead() == true)
+							{
+								if (ent->Tag != "PLAYER") {
+									EM->destroyQueue.push_back(ent);
+								}
+								else {
+									gameOver = true;
+									std::cout << "GameOver" << std::endl;
+								}
 
-		//clean pointers
-		for (Entity* ent : EM->livingEntityList)
-		{
-			EM->destroyQueue.push_back(ent);
+							}
+						}
+					}
+				}
+			player->Move(inputManager.GetDirection(), deltaTime, window);
+				
+			window.display();
+			deltaTime = clock.getElapsedTime();
+			timeSinceStart += deltaTime;
 		}
-		EM->Purge();
+		
+
+		EM->PurgeAll();
 		delete EM;
 	}
 };
