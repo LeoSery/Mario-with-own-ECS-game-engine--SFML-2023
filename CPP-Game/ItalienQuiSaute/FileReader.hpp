@@ -11,8 +11,9 @@
 class ReadMap
 {
 public:
-	void ReadFile(std::string path, std::map<char, sf::Texture>& targetMap, EntityManager* EM)
+	Vector2<int> ReadFile(std::string path, std::map<char, sf::Texture>& targetMap, EntityManager* EM)
 	{
+		Vector2<int> dimensions = { 0,0 };
 		std::string filename(path);
 		std::ifstream inputFile(filename);
 		std::vector<char> bytes;
@@ -51,11 +52,15 @@ public:
 				}
 				}
 				x++;
+				dimensions.x = x * 64;
 			}
-			std::cout << x * 64 << std::endl;
+			
 			y++;
 		}
-		std::cout << y * 64<< std::endl;
+		dimensions.y = y * 64;
 		inputFile.close();
+
+		return dimensions;
 	}
+
 };

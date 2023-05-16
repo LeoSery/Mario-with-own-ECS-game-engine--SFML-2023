@@ -7,7 +7,7 @@
 class PlayerControllerComponent : public Component
 {
 public:
-	bool jumping = false;
+	
 	PlayerControllerComponent()
 	{
 		speed = 1.0f;
@@ -44,18 +44,18 @@ public:
 		return playerDirection;
 	}
 
-	//debug func
-	int GetDirectionX()
-	{
-		return playerDirection.x;
-	}
-
-	int GetDirectionY()
-	{
-		return playerDirection.y;
+	void setJumping(bool cond) {
+		if (cond) {
+			jumping = true;
+		}
+		else {
+			jumping = false;
+			jump = 0.0f;
+		}
 	}
 
 private:
+	bool jumping = false;
 	float speed;
 	float jump;
 	Vector2<float> playerDirection;
