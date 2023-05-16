@@ -20,7 +20,6 @@ class GameManager
 public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = TexturesManager::getTexture(0);
-	sf::Texture tex2 = TexturesManager::getTexture(1);
 	bool gameOver = false;
 
 	GameManager()
@@ -42,16 +41,14 @@ public:
 
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
-		sf::Time timer = sf::Time(sf::microseconds(0));
 
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
-		std::cout << mapDimensions.x << " " << mapDimensions.y;
-
-		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
-
+	
+		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, {1000,500});
+		
 		EM->Purge();
 		while (window.isOpen())
 		{

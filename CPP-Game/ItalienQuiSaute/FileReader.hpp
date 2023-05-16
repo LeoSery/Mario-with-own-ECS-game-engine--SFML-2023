@@ -5,7 +5,7 @@
 #include <array>
 #include <map>
 #include "GameObject.hpp"
-#include "Textures.hpp"
+#include "TexturesManager.hpp"
 #include "Enemy.hpp"
 
 #include "TexturesManager.hpp"
