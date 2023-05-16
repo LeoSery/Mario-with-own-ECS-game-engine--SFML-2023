@@ -16,17 +16,17 @@ public:
 		window.setView(view);
 	}
 	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window) {
-		if (playerpos.x + (view.getSize().x / 2) >= mapDimensions.x) {
+		if (playerpos.x + (view.getSize().x) >= mapDimensions.x) {
 			direction.x = 0.0f;
 		}
-		if (playerpos.y - (view.getSize().y / 2) >= mapDimensions.y) {
+		if (playerpos.y - (view.getSize().y) >= mapDimensions.y) {
 			direction.y = 0.0f;
 		}
-		if (view.getCenter().x + playerpos.x - (view.getSize().x / 2) <= 0) {
+		if (view.getCenter().x + playerpos.x - (view.getSize().x) <= 0) {
 			direction.x = 0.0f;
 		}
 
-		if (view.getCenter().y - playerpos.y - (view.getSize().y / 2) <= 0) {
+		if (view.getCenter().y - playerpos.y - (view.getSize().y) <= 0) {
 			direction.y = 0.0f;
 		}
 		
