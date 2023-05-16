@@ -9,7 +9,7 @@ public:
 	GravityComponent()
 	{
 		gravityStrength = 9.81f;
-		mass = 1.0f;
+		mass = 1.7f;
 	}
 
 	Vector2<float> ApplyGravity(Vector2<float> entityDirection, float deltaTime)
