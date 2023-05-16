@@ -21,13 +21,14 @@ public:
 		playerDirection.x = (moveDirection.x * deltatime);
 		
 		if (moveDirection.y < 0.0f && !jumping) {
-			jump = moveDirection.y *deltatime;
+			jump = moveDirection.y;
 			jumping = true;
 
 		}
 		if (jump < 0.0f && jumping) {
+			jump += (speed * 1 / 100)*deltatime;
 			playerDirection.y = (jump);
-			jump += (speed * 1 / 100);
+			
 		}
 		else
 		{
