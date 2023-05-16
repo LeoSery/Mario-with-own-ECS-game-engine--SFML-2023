@@ -43,7 +43,6 @@ public:
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
 		sf::Time timer = sf::Time(sf::microseconds(0));
-		sf::Time framerate = sf::Time(sf::microseconds(1000));
 
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
@@ -71,8 +70,6 @@ public:
 
 				std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
 
-				if (timer.asMicroseconds() <= timeSinceStart.asMicroseconds())
-				{
 
 
 					
@@ -126,9 +123,8 @@ public:
 							}
 						}
 					}
-					player->Move(inputManager.GetDirection(), deltaTime, window);
-					timer += framerate;
-				}
+				player->Move(inputManager.GetDirection(), deltaTime, window);
+				
 				window.display();
 				deltaTime = clock.getElapsedTime();
 				timeSinceStart += deltaTime;
