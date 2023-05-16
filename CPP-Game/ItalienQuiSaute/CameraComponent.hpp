@@ -16,21 +16,22 @@ public:
 		window.setView(view);
 	}
 	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window) {
-		if (( mapDimensions.x - playerpos.x)+view.getSize().x/3 <= 0) {
+		std::cout << playerpos.x << "\n";
+		if (playerpos.x + (view.getSize().x / 2) >= mapDimensions.x) {
 			direction.x = 0.0f;
 		}
-		if ((mapDimensions.y - playerpos.y) + view.getSize().y/3 <= 0) {
+		if (playerpos.y - (view.getSize().y / 2) >= mapDimensions.y) {
 			direction.y = 0.0f;
 		}
-		if (view.getCenter().x + playerpos.x - (view.getSize().x / 3) <= 0) {
+		if (view.getCenter().x + playerpos.x - (view.getSize().x / 2) <= 0) {
 			direction.x = 0.0f;
 		}
 
-		if (view.getCenter().y - playerpos.y - (view.getSize().y / 3) <= 0) {
+		if (view.getCenter().y - playerpos.y - (view.getSize().y / 2) <= 0) {
 			direction.y = 0.0f;
 		}
 
-
+		
 		view.move(sf::Vector2f(direction.x, direction.y));
 		window.setView(view);
 	}

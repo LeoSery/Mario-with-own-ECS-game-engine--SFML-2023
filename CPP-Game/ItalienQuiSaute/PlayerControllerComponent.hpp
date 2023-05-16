@@ -10,7 +10,8 @@ public:
 	
 	PlayerControllerComponent()
 	{
-		speed = 1.0f;
+		speed = 0.8f;
+		jumpspeed = 1.0f;
 		jump = 0.0f;
 		playerDirection = { 0.0f, 0.0f };
 	}
@@ -18,7 +19,7 @@ public:
 	void Move(Vector2<float> moveDirection, float deltatime)
 	{
 
-		playerDirection.x = (moveDirection.x * deltatime);
+		playerDirection.x = (moveDirection.x *speed * deltatime);
 		
 		if (moveDirection.y < 0.0f && !jumping) {
 			jump = moveDirection.y;
@@ -26,7 +27,7 @@ public:
 
 		}
 		if (jump < 0.0f && jumping) { 
-			jump += (speed * 1 / 100)*deltatime;
+			jump += (jumpspeed * 1 / 100)*deltatime;
 			playerDirection.y = (jump);
 			
 		}
@@ -58,6 +59,7 @@ public:
 private:
 	bool jumping = false;
 	float speed;
+	float jumpspeed;
 	float jump;
 	Vector2<float> playerDirection;
 };
