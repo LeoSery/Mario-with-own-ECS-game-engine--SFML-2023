@@ -24,11 +24,11 @@ public:
 	HealthComponent* healthComponent = new HealthComponent();
 	CameraComponent* cameraComponent;
 
-	PlayerEntity(EntityManager* EM, sf::RenderWindow& window) {
+	PlayerEntity(EntityManager* EM, sf::RenderWindow& window, Vector2<int> mapDimensions) {
 		EM->CreateEntity("Player", this);
 
 
-		cameraComponent = new CameraComponent(window, transformComponent->position);
+		cameraComponent = new CameraComponent(window, transformComponent->position, mapDimensions);
 
 		RegisterComponents(EM);
 

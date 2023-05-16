@@ -21,7 +21,7 @@ public:
 		playerDirection.x = (moveDirection.x * deltatime);
 		
 		if (moveDirection.y < 0.0f && !jumping) {
-			jump += moveDirection.y *deltatime;
+			jump = moveDirection.y *deltatime;
 			jumping = true;
 
 		}
