@@ -4,14 +4,14 @@
 #include "TransformComponent.hpp"
 #include "ColliderComponent.hpp"
 #include "GravityComponent.hpp"
+#include "TexturesManager.hpp"
 #include "Maths/Vector2.h"
-#include "Textures.hpp"
 #include "Entity.hpp"
 
 class Enemy : public Entity
 {
 public:
-	sf::Texture playerTexture = Textures::getTexture(1);
+	sf::Texture playerTexture = TexturesManager::getTexture(1);
 	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(playerTexture);

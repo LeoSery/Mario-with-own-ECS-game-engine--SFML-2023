@@ -7,20 +7,20 @@
 #include "SpriteRendererComponent.hpp"
 #include "ColliderComponent.hpp"
 #include "HealthComponent.hpp"
+#include "TexturesManager.hpp"
 #include "EntityManager.hpp"
 #include "InputManager.hpp"
 #include "PlayerEntity.hpp"
 #include "Maths/Vector2.h"
 #include "FileReader.hpp"
-#include "Textures.hpp"
 #include "Enemy.hpp"
 
 class GameManager
 {
 public:
 	EntityManager* EM = new EntityManager();
-	sf::Texture tex = Textures::getTexture(0);
-	sf::Texture tex2 = Textures::getTexture(1);
+	sf::Texture tex = TexturesManager::getTexture(0);
+	sf::Texture tex2 = TexturesManager::getTexture(1);
 	bool gameOver = false;
 
 	GameManager()
@@ -49,9 +49,9 @@ public:
 
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.x << " " << mapDimensions.y;
-	
-		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, {1000,500});
-		
+
+		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
+
 		EM->Purge();
 		while (window.isOpen())
 		{

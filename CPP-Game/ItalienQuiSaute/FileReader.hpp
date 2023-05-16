@@ -8,6 +8,8 @@
 #include "Textures.hpp"
 #include "Enemy.hpp"
 
+#include "TexturesManager.hpp"
+#include "GameObject.hpp"
 
 class ReadMap
 {
@@ -43,7 +45,7 @@ public:
 				}
 				case '1':
 				{
-					GameObject* gobj = new GameObject(EM, Textures::getTexture(0), { x,y });
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(0), { x,y });
 					break;
 				}
 				case '*':

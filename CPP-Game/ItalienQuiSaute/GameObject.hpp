@@ -3,8 +3,8 @@
 #include "SpriteRendererComponent.hpp"
 #include "TransformComponent.hpp"
 #include "ColliderComponent.hpp"
+#include "TexturesManager.hpp"
 #include "EntityManager.hpp"
-#include "Textures.hpp"
 #include "Entity.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -24,7 +24,7 @@ public:
 		EM->CreateEntity("GameObject", this);
 		RegisterComponents(EM);
 
-		
+
 
 		Tag = "GAMEOBJECT";
 	};

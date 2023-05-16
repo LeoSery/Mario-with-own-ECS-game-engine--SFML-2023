@@ -5,7 +5,7 @@
 #include "TransformComponent.hpp";
 #include "SpriteRendererComponent.hpp";
 #include "ColliderComponent.hpp";
-#include "Textures.hpp";
+#include "TexturesManager.hpp";
 #include "EntityManager.hpp";
 #include "GravityComponent.hpp";
 #include "CameraComponent.hpp";
@@ -15,7 +15,7 @@ class PlayerEntity : public Entity
 {
 public:
 
-	sf::Texture tex = Textures::getTexture(1);
+	sf::Texture tex = TexturesManager::getTexture(1);
 	PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
 	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
@@ -58,7 +58,7 @@ public:
 	{
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
 			playerControllerComponent->setJumping(false);
-			
+
 		}
 		else
 		{
