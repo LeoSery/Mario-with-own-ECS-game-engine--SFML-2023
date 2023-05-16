@@ -101,8 +101,16 @@ public:
 										enemyEntity->colliderComponent->Collision(sprite->getSprite());
 										if (ent->Tag == "PLAYER")
 										{
-											if (enemyEntity->colliderComponent->collided)
-												player->healthComponent->TakeDamage(100);
+											if (enemyEntity->colliderComponent->collided) {
+												if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
+													enemyEntity->healthComponent->TakeDamage(100);
+												}
+												else {
+													player->healthComponent->TakeDamage(100);
+												}
+											}
+											
+												
 										}
 									}
 								}
