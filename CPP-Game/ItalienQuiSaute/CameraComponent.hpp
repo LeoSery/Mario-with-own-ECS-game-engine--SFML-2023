@@ -16,7 +16,6 @@ public:
 		window.setView(view);
 	}
 	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window) {
-		std::cout << playerpos.x << "\n";
 		if (playerpos.x + (view.getSize().x / 2) >= mapDimensions.x) {
 			direction.x = 0.0f;
 		}
@@ -30,7 +29,6 @@ public:
 		if (view.getCenter().y - playerpos.y - (view.getSize().y / 2) <= 0) {
 			direction.y = 0.0f;
 		}
-
 		
 		view.move(sf::Vector2f(direction.x, direction.y));
 		window.setView(view);
