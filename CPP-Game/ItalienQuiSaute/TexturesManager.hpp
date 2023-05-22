@@ -11,10 +11,10 @@ public:
 		switch (texEnum)
 		{
 		case 0:
-			return loadTexture("Assets/Sprites/brick.png");
+			return loadTexture("Assets/Sprites/ground.png");
 			break;
 		case 1:
-			return loadTexture("Assets/Sprites/rat.png");
+			return loadTexture("Assets/Sprites/brick.png");
 			break;
 		case 2:
 			return loadTexture("Assets/Sprites/brick.png");
