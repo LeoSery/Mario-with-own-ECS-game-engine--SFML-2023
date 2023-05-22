@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationsManager.hpp" />
+    <ClInclude Include="AudioComponent.hpp" />
     <ClInclude Include="CameraComponent.hpp" />
     <ClInclude Include="ColliderComponent.hpp" />
     <ClInclude Include="Component.hpp" />
