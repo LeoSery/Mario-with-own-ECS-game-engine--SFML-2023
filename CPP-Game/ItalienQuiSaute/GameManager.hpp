@@ -20,7 +20,7 @@ class GameManager
 public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = TexturesManager::getTexture(0);
-	bool gameOver = false;
+	bool ingame = false;
 	bool menuIsOpen = false;
 
 	GameManager()
@@ -43,6 +43,9 @@ public:
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
 
+		sf::RectangleShape playButton(sf::Vector2f(200, 60));
+		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
+
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
@@ -64,7 +67,7 @@ public:
 						window.close();
 				}
 
-				if (!gameOver) {
+				if (ingame) {
 					sf::Clock clock;
 
 					inputManager.UpdateEvent(event);
@@ -129,7 +132,7 @@ public:
 									EM->destroyQueue.push_back(ent);
 								}
 								else {
-									gameOver = true;
+									ingame = false;
 									std::cout << "GameOver" << std::endl;
 								}
 
@@ -146,11 +149,9 @@ public:
 				}
 			else
 			{
-				sf::RectangleShape playButton(sf::Vector2f(200, 60));
-				sf::RectangleShape quitButton(sf::Vector2f(200, 60));
+				
 				if (!menuIsOpen)
 				{
-					EM->PurgeAll();
 					ShowMainMenu(window, playButton, quitButton);
 				}
 
@@ -167,7 +168,7 @@ public:
 					else if (quitButton.getGlobalBounds().contains(mousePositionVector))
 					{
 						std::cout << "MOUSE IN QUIT BUTTON" << std::endl;
-						QuitGame();
+						window.close();
 					}
 				}
 			}
@@ -223,12 +224,8 @@ public:
 	void StartGame()
 	{
 		menuIsOpen = false;
+		ingame = true;
 		std::cout << "Starting Game !!!!" << std::endl;
 	}
 
-	void QuitGame()
-	{
-		menuIsOpen = false;
-		std::cout << "Quitting Game !!!!" << std::endl;
-	}
 };
