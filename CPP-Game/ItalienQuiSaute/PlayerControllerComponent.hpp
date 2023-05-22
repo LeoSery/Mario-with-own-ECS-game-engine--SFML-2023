@@ -37,6 +37,7 @@ public:
 			jump = 0.0f;
 		}
 
+		std::cout << playerDirection.y << "\n";
 		
 
 		
@@ -53,8 +54,14 @@ public:
 		}
 		else {
 			jumping = false;
+			playerDirection.y = 0.0f;
 			jump = 0.0f;
 		}
+	}
+
+	void setFalling() {
+		playerDirection.y = 0.0f;
+		jump = 0.0f;
 	}
 
 private:

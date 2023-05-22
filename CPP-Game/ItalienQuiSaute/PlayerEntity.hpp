@@ -60,6 +60,10 @@ public:
 			playerControllerComponent->setJumping(false);
 
 		}
+		else if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "TOP") != colliderComponent->activeDirections.end()) {
+			playerControllerComponent->setFalling();
+
+		}
 		else
 		{
 			playerControllerComponent->setJumping(true);
