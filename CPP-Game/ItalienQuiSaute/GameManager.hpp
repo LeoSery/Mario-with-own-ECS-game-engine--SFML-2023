@@ -46,7 +46,7 @@ public:
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
-		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,0 });
+		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8});
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
