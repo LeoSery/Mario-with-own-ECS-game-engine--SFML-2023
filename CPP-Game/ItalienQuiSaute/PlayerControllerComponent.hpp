@@ -19,6 +19,7 @@ public:
 	void Move(Vector2<float> moveDirection, float deltatime)
 	{
 
+
 		playerDirection.x = (moveDirection.x *speed * deltatime);
 		
 		if (moveDirection.y < 0.0f && !jumping) {

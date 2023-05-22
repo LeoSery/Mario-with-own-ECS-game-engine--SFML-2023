@@ -68,62 +68,68 @@ public:
 			std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
 
 
-				for (Entity* entity : allEnemies)
+			for (Entity* entity : allEnemies)
 				{
 					Enemy* enemy = static_cast<Enemy*>(entity);
 					enemy->Move(sf::Time(sf::microseconds(2000)));
 				}
 
-				for (Entity* ent : EM->livingEntityList)
-				{
-					for (Component* currentComponent : EM->componentMapping[ent])
-					{
-						if (currentComponent->Tag == "SPRITE_RENDERER")
-						{
-							SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-							window.draw(sprite->loadSprite());
+				
 
-							if (ent->Tag != "PLAYER")
+
+			for (Entity* ent : EM->livingEntityList)
+			{
+				Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
+				if (currentComponent != NULL) {
+					SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
+					window.draw(sprite->loadSprite());
+
+					Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
+					if (currentComponent != NULL && ent->Tag != "PLAYER") {
+						player->colliderComponent->Collision(sprite->getSprite());
+					}
+
+					if (currentComponent != NULL && ent->Tag != "ENEMY") {
+						for (Entity* enemy : allEnemies) {
+							Enemy* enemyEntity = static_cast<Enemy*>(enemy);
+							enemyEntity->colliderComponent->Collision(sprite->getSprite());
+							if (ent->Tag == "PLAYER")
 							{
-								player->colliderComponent->Collision(sprite->getSprite());
-							}
-
-							if (ent->Tag != "ENEMY") {
-								for (Entity* enemy : allEnemies) {
-									Enemy* enemyEntity = static_cast<Enemy*>(enemy);
-									enemyEntity->colliderComponent->Collision(sprite->getSprite());
-									if (ent->Tag == "PLAYER")
-									{
-										if (enemyEntity->colliderComponent->collided) {
-											if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
-												enemyEntity->healthComponent->TakeDamage(100);
-											}
-											else {
-												player->healthComponent->TakeDamage(100);
-											}
-										}
-											
-												
+								if (enemyEntity->colliderComponent->collided) {
+									if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
+										enemyEntity->healthComponent->TakeDamage(100);
+									}
+									else {
+										player->healthComponent->TakeDamage(100);
 									}
 								}
-							}
-						}
-						else if (currentComponent->Tag == "HEALTH") {
-							HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
-							if (entityHealth->GetisDead() == true)
-							{
-								if (ent->Tag != "PLAYER") {
-									EM->destroyQueue.push_back(ent);
-								}
-								else {
-									gameOver = true;
-									std::cout << "GameOver" << std::endl;
-								}
+
 
 							}
 						}
 					}
+
+
 				}
+
+
+				currentComponent = EM->GetComponentByTag(ent, "HEALTH");
+				if (currentComponent != NULL) {
+					HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
+					if (entityHealth->GetisDead() == true)
+					{
+						if (ent->Tag != "PLAYER") {
+							EM->destroyQueue.push_back(ent);
+						}
+						else {
+							gameOver = true;
+							std::cout << "GameOver" << std::endl;
+						}
+
+					}
+				}
+			}
+
 			player->Move(inputManager.GetDirection(), deltaTime, window);
 				
 			window.display();
@@ -131,7 +137,7 @@ public:
 			timeSinceStart += deltaTime;
 		}
 		else {
-				
+			EM->PurgeAll();
 
 		}
 	}
