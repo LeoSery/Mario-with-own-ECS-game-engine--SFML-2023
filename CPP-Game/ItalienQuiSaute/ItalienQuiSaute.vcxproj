@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationsManager.hpp" />
     <ClInclude Include="AudioComponent.hpp" />
+    <ClInclude Include="Background.hpp" />
     <ClInclude Include="CameraComponent.hpp" />
     <ClInclude Include="ColliderComponent.hpp" />
     <ClInclude Include="Component.hpp" />
@@ -157,6 +158,23 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Map.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Sprites\background.png" />
+    <Image Include="Assets\Sprites\BlueContainer.png" />
+    <Image Include="Assets\Sprites\brick.png" />
+    <Image Include="Assets\Sprites\flag_1.png" />
+    <Image Include="Assets\Sprites\flag_2.png" />
+    <Image Include="Assets\Sprites\goomba.png" />
+    <Image Include="Assets\Sprites\ground.png" />
+    <Image Include="Assets\Sprites\mario_idle.png" />
+    <Image Include="Assets\Sprites\mario_jump.png" />
+    <Image Include="Assets\Sprites\mario_walk_1.png" />
+    <Image Include="Assets\Sprites\mario_walk_2.png" />
+    <Image Include="Assets\Sprites\mario_walk_3.png" />
+    <Image Include="Assets\Sprites\mario_win.png" />
+    <Image Include="Assets\Sprites\rat.png" />
+    <Image Include="Assets\Sprites\super_block.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

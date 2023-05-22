@@ -11,7 +11,7 @@
 class Enemy : public Entity
 {
 public:
-	sf::Texture playerTexture = TexturesManager::getTexture(1);
+	sf::Texture playerTexture = TexturesManager::getTexture(6);
 	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(playerTexture);

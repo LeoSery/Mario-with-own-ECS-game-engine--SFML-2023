@@ -46,7 +46,7 @@ public:
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
-		Background* bg = new Background(EM, TexturesManager::getTexture(7), { 0,0 });
+		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,0 });
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
@@ -54,96 +54,96 @@ public:
 		EM->Purge();
 		while (window.isOpen())
 		{
+			sf::Clock clock;
+
+			EM->Purge();
+
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+			}
+
+			if (!gameOver) {
 				sf::Clock clock;
 
+				inputManager.UpdateEvent(event);
+				window.clear();
 				EM->Purge();
 
-				while (window.pollEvent(event))
+				std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
+
+
+				for (Entity* entity : allEnemies)
 				{
-					if (event.type == sf::Event::Closed)
-						window.close();
+					Enemy* enemy = static_cast<Enemy*>(entity);
+					enemy->Move(sf::Time(sf::microseconds(2000)));
 				}
 
-				if (!gameOver) {
-					sf::Clock clock;
-
-					inputManager.UpdateEvent(event);
-					window.clear();
-					EM->Purge();
-
-					std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
 
 
-					for (Entity* entity : allEnemies)
-					{
-						Enemy* enemy = static_cast<Enemy*>(entity);
-						enemy->Move(sf::Time(sf::microseconds(2000)));
+				for (Entity* ent : EM->livingEntityList)
+				{
+					if (ent->Tag == "BACKGROUND") {
+						bg = static_cast<Background*>(ent);
 					}
+					Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
+					if (currentComponent != NULL) {
+						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
+						window.draw(sprite->loadSprite());
 
-
-
-					for (Entity* ent : EM->livingEntityList)
-					{
-						if (ent->Tag == "BACKGROUND") {
-							bg = static_cast<Background*>(ent);
+						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
+						if (collidercomp != NULL && ent->Tag != "PLAYER") {
+							player->colliderComponent->Collision(sprite->getSprite());
 						}
-						Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
-						if (currentComponent != NULL) {
-							SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-							window.draw(sprite->loadSprite());
 
-							Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
-							if (collidercomp != NULL && ent->Tag != "PLAYER") {
-								player->colliderComponent->Collision(sprite->getSprite());
-							}
-
-							if (currentComponent != NULL && ent->Tag != "ENEMY") {
-								for (Entity* enemy : allEnemies) {
-									Enemy* enemyEntity = static_cast<Enemy*>(enemy);
-									enemyEntity->colliderComponent->Collision(sprite->getSprite());
-									if (ent->Tag == "PLAYER")
-									{
-										if (enemyEntity->colliderComponent->collided) {
-											if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
-												enemyEntity->healthComponent->TakeDamage(100);
-											}
-											else {
-												player->healthComponent->TakeDamage(100);
-											}
+						if (currentComponent != NULL && ent->Tag != "ENEMY") {
+							for (Entity* enemy : allEnemies) {
+								Enemy* enemyEntity = static_cast<Enemy*>(enemy);
+								enemyEntity->colliderComponent->Collision(sprite->getSprite());
+								if (ent->Tag == "PLAYER")
+								{
+									if (enemyEntity->colliderComponent->collided) {
+										if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
+											enemyEntity->healthComponent->TakeDamage(100);
 										}
-
-
+										else {
+											player->healthComponent->TakeDamage(100);
+										}
 									}
+
+
 								}
 							}
-
-
 						}
 
-						currentComponent = EM->GetComponentByTag(ent, "HEALTH");
-						if (currentComponent != NULL) {
-							HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
-							if (entityHealth->GetisDead() == true)
-							{
-								if (ent->Tag != "PLAYER") {
-									EM->destroyQueue.push_back(ent);
-								}
-								else {
-									gameOver = true;
-									std::cout << "GameOver" << std::endl;
-								}
-
-							}
-						}
 
 					}
 
-					player->Move(inputManager.GetDirection(), deltaTime, window, bg);
+					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
+					if (currentComponent != NULL) {
+						HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
+						if (entityHealth->GetisDead() == true)
+						{
+							if (ent->Tag != "PLAYER") {
+								EM->destroyQueue.push_back(ent);
+							}
+							else {
+								gameOver = true;
+								std::cout << "GameOver" << std::endl;
+							}
 
-					window.display();
-					deltaTime = clock.getElapsedTime();
-					timeSinceStart += deltaTime;
+						}
+					}
+
 				}
+
+				player->Move(inputManager.GetDirection(), deltaTime, window, bg);
+
+				window.display();
+				deltaTime = clock.getElapsedTime();
+				timeSinceStart += deltaTime;
+			}
 			else
 			{
 				sf::RectangleShape playButton(sf::Vector2f(200, 60));
@@ -172,7 +172,7 @@ public:
 				}
 			}
 
-			
+
 		}
 		EM->PurgeAll();
 		delete EM;

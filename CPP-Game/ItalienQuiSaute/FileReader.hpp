@@ -26,7 +26,7 @@ public:
 		char byte = 0;
 		int blockSize = 64;
 
-		
+
 
 		if (!inputFile.is_open())
 		{
@@ -49,27 +49,46 @@ public:
 				}
 				case '1':
 				{
-					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(0), { x,y });
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(1), { x,y });
 					break;
 				}
-				case '*':
+				case '2':
+				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(2), { x,y });
+					break;
+				}
+				case '4':
+				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(4), { x,y });
+					break;
+				}
+				case '5':
+				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(5), { x,y });
+					break;
+				}
+				case '6':
 				{
 					Enemy* enemy = new Enemy(EM, { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) });
 					break;
 				}
-				case '2':
-					GameObject * gobj = new GameObject(EM, TexturesManager::getTexture(1), { x,y });
+				case '7':
+				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(7), { x,y });
 					break;
+				}
+
 				}
 				x++;
 				dimensions.x = x * blockSize;
-			}
 
+
+			}
 			y++;
+
 		}
 		dimensions.y = y * blockSize;
 		inputFile.close();
-
 		return dimensions;
 	}
 };

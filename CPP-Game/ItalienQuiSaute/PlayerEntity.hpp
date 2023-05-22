@@ -15,7 +15,7 @@ class PlayerEntity : public Entity
 {
 public:
 
-	sf::Texture tex = TexturesManager::getTexture(2);
+	sf::Texture tex = TexturesManager::getTexture(101);
 	PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
 	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
