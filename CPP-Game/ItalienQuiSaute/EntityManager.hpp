@@ -51,6 +51,7 @@ public:
 	}
 
 
+
 	std::vector<Entity*> GetAllEntityByTag(std::string Tag)
 	{
 		std::vector<Entity*> allEntities;
@@ -121,6 +122,14 @@ public:
 			}
 		}
 		
+	}
+
+	void PurgeAll() {
+		for (Entity* ent : livingEntityList)
+		{
+			destroyQueue.push_back(ent);
+		}
+		Purge();
 	}
 #pragma endregion
 

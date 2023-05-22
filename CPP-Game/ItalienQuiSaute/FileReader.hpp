@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
@@ -5,8 +7,11 @@
 #include <array>
 #include <map>
 #include "GameObject.hpp"
-#include "Textures.hpp"
+#include "TexturesManager.hpp"
+#include "Enemy.hpp"
 
+#include "TexturesManager.hpp"
+#include "GameObject.hpp"
 
 class ReadMap
 {
@@ -19,6 +24,9 @@ public:
 		std::vector<char> bytes;
 		std::string line;
 		char byte = 0;
+		int blockSize = 64;
+
+
 
 		if (!inputFile.is_open())
 		{
@@ -30,7 +38,7 @@ public:
 		while (std::getline(inputFile, line))
 		{
 			int x = 1;
-			
+
 			for (auto lineChar : line)
 			{
 				switch (lineChar)
@@ -41,26 +49,46 @@ public:
 				}
 				case '1':
 				{
-					GameObject* gobj = new GameObject(EM, Textures::getTexture(0), { x,y });
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(1), { x,y });
 					break;
 				}
 				case '2':
-					break;
-				default:
 				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(2), { x,y });
 					break;
 				}
+				case '4':
+				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(4), { x,y });
+					break;
+				}
+				case '5':
+				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(5), { x,y });
+					break;
+				}
+				case '6':
+				{
+					Enemy* enemy = new Enemy(EM, { static_cast<float>(x * blockSize), static_cast<float>(y * blockSize) });
+					break;
+				}
+				case '7':
+				{
+					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(7), { x,y });
+					break;
+				}
+
 				}
 				x++;
-				dimensions.x = x * 64;
-			}
-			
-			y++;
-		}
-		dimensions.y = y * 64;
-		inputFile.close();
+				dimensions.x = x * blockSize;
 
+
+			}
+			y++;
+
+		}
+		dimensions.y = y * blockSize;
+		inputFile.close();
 		return dimensions;
 	}
-
 };

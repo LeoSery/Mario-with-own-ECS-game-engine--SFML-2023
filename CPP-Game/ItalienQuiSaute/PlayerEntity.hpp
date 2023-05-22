@@ -5,7 +5,7 @@
 #include "TransformComponent.hpp";
 #include "SpriteRendererComponent.hpp";
 #include "ColliderComponent.hpp";
-#include "Textures.hpp";
+#include "TexturesManager.hpp";
 #include "EntityManager.hpp";
 #include "GravityComponent.hpp";
 #include "CameraComponent.hpp";
@@ -15,7 +15,7 @@ class PlayerEntity : public Entity
 {
 public:
 
-	sf::Texture tex = Textures::getTexture(1);
+	sf::Texture tex = TexturesManager::getTexture(101);
 	PlayerControllerComponent* playerControllerComponent = new PlayerControllerComponent();
 	GravityComponent* gravityComponent = new GravityComponent();
 	TransformComponent* transformComponent = new TransformComponent();
@@ -24,11 +24,13 @@ public:
 	HealthComponent* healthComponent = new HealthComponent();
 	CameraComponent* cameraComponent;
 
-	PlayerEntity(EntityManager* EM, sf::RenderWindow& window) {
+	PlayerEntity(EntityManager* EM, sf::RenderWindow& window, Vector2<int> mapDimensions, Vector2<float> startpos) {
 		EM->CreateEntity("Player", this);
 
 
-		cameraComponent = new CameraComponent(window, transformComponent->position);
+		transformComponent->position = startpos;
+		transformComponent->nextpos = startpos;
+		cameraComponent = new CameraComponent(window, transformComponent->position, mapDimensions);
 
 		RegisterComponents(EM);
 
@@ -52,11 +54,11 @@ public:
 		EM->AddComponent(this, healthComponent);
 	};
 
-	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window)
+	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window, Background* bg)
 	{
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
 			playerControllerComponent->setJumping(false);
-			
+
 		}
 		else
 		{
@@ -73,7 +75,7 @@ public:
 
 		newpos = transformComponent->addPos(newpos, colliderComponent->activeDirections);
 
-		cameraComponent->Move(newpos, window);
+		cameraComponent->Move(spriteRendererComponent->getSprite()->getPosition(), newpos, window, bg);
 
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);

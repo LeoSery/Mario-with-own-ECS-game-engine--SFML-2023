@@ -9,32 +9,38 @@
 
 #include <SFML/Graphics.hpp>
 
-class GameObject : public Entity
+class Background : public Entity
 {
 public:
-	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent;
-	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
 
-	GameObject(EntityManager* EM, sf::Texture objTexture, Vector2<int> worldpos) {
+	Background(EntityManager* EM, sf::Texture objTexture, Vector2<int> worldpos, float Z = 2.0f) {
+
+		depth = Z;
 
 		spriteRendererComponent = new SpriteRendererComponent(objTexture);
 		spriteRendererComponent->setBlockPosition(worldpos);
 
-		EM->CreateEntity("GameObject", this);
+
+		EM->CreateEntity("Background", this);
 		RegisterComponents(EM);
 
 
 
-		Tag = "GAMEOBJECT";
+		Tag = "BACKGROUND";
 	};
 
 	void RegisterComponents(EntityManager* EM) {
-		EM->CreateComponent("Transform", transformComponent);
-		EM->AddComponent(this, transformComponent);
 		EM->CreateComponent("SpriteRenderer", spriteRendererComponent);
 		EM->AddComponent(this, spriteRendererComponent);
-		EM->CreateComponent("Collider", colliderComponent);
-		EM->AddComponent(this, colliderComponent);
 	};
+
+
+	void Move(Vector2<float> move) {
+		Vector2<float> pos = (move/depth) + spriteRendererComponent->getPosition();
+		spriteRendererComponent->setPosition(pos);
+	}
+
+private:
+	float depth;
 };
