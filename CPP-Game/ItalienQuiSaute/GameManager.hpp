@@ -20,7 +20,7 @@ class GameManager
 public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = TexturesManager::getTexture(0);
-	bool gameOver = false;
+	bool ingame = false;
 	bool menuIsOpen = false;
 
 	GameManager()
@@ -46,6 +46,9 @@ public:
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
+		sf::RectangleShape playButton(sf::Vector2f(200, 60));
+		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
+
 		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8});
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
@@ -64,7 +67,7 @@ public:
 					window.close();
 			}
 
-			if (!gameOver) {
+			if (ingame) {
 				sf::Clock clock;
 
 				inputManager.UpdateEvent(event);
@@ -90,12 +93,14 @@ public:
 					Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
 					if (currentComponent != NULL) {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-						window.draw(sprite->loadSprite());
+						
 
 						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
 						if (collidercomp != NULL && ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
 						}
+
+						
 
 						if (currentComponent != NULL && ent->Tag != "ENEMY") {
 							for (Entity* enemy : allEnemies) {
@@ -117,7 +122,7 @@ public:
 							}
 						}
 
-
+						window.draw(sprite->loadSprite());
 					}
 
 					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
@@ -129,7 +134,7 @@ public:
 								EM->destroyQueue.push_back(ent);
 							}
 							else {
-								gameOver = true;
+								ingame = false;
 								std::cout << "GameOver" << std::endl;
 							}
 
@@ -146,11 +151,9 @@ public:
 			}
 			else
 			{
-				sf::RectangleShape playButton(sf::Vector2f(200, 60));
-				sf::RectangleShape quitButton(sf::Vector2f(200, 60));
+				
 				if (!menuIsOpen)
 				{
-					EM->PurgeAll();
 					ShowMainMenu(window, playButton, quitButton);
 				}
 
@@ -167,7 +170,7 @@ public:
 					else if (quitButton.getGlobalBounds().contains(mousePositionVector))
 					{
 						std::cout << "MOUSE IN QUIT BUTTON" << std::endl;
-						QuitGame();
+						window.close();
 					}
 				}
 			}
@@ -223,12 +226,7 @@ public:
 	void StartGame()
 	{
 		menuIsOpen = false;
+		ingame = true;
 		std::cout << "Starting Game !!!!" << std::endl;
-	}
-
-	void QuitGame()
-	{
-		menuIsOpen = false;
-		std::cout << "Quitting Game !!!!" << std::endl;
 	}
 };
