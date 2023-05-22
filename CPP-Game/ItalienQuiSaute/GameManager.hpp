@@ -19,7 +19,6 @@ class GameManager
 {
 public:
 	EntityManager* EM = new EntityManager();
-	sf::Texture tex = TexturesManager::getTexture(0);
 	bool gameOver = false;
 
 	GameManager()
@@ -45,9 +44,9 @@ public:
 	std::map<char, sf::Texture> gameMap;
 	ReadMap mapReader;
 
-	Background* bg = new Background(EM, TexturesManager::getTexture(0), { 5,5 });
+	Background* bg = new Background(EM, TexturesManager::getTexture(7), { 20,13 });
 	Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
-	
+	std::cout << mapDimensions.y;
 	PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, {1000,500});
 	
 	EM->Purge();
@@ -88,7 +87,7 @@ public:
 					window.draw(sprite->loadSprite());
 
 					Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
-					if (currentComponent != NULL && ent->Tag != "PLAYER") {
+					if (collidercomp != NULL && ent->Tag != "PLAYER") {
 						player->colliderComponent->Collision(sprite->getSprite());
 					}
 

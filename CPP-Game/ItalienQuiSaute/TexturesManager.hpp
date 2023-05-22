@@ -17,10 +17,10 @@ public:
 			return loadTexture("Assets/Sprites/brick.png");
 			break;
 		case 2:
-			return loadTexture("Assets/Sprites/brick.png");
+			return loadTexture("Assets/Sprites/mario_idle.png");
 			break;
 		case 3:
-			return loadTexture("Assets/Sprites/brick.png");
+			return loadTexture("Assets/Sprites/goomba.png");
 			break;
 		case 5:
 			return loadTexture("Assets/Sprites/brick.png");
@@ -29,7 +29,7 @@ public:
 			return loadTexture("Assets/Sprites/brick.png");
 			break;
 		case 7:
-			return loadTexture("Assets/Sprites/brick.png");
+			return loadTexture("Assets/Sprites/background.png");
 			break;
 		case 8:
 			return loadTexture("Assets/Sprites/brick.png");
