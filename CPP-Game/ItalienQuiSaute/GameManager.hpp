@@ -125,7 +125,7 @@ public:
 
 					}
 
-					ccurrentComponent = EM->GetComponentByTag(ent, "HEALTH");
+					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
 						if (currentComponent != NULL) {
 							HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
 							if (entityHealth->GetisDead() == true)
