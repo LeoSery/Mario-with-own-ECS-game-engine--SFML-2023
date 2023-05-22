@@ -2,18 +2,22 @@
 
 #include "Component.hpp";
 #include "Maths/Vector2.h";
+#include "AudioManager.hpp";
 
 class AudioComponent : public Component
 {
 public:
-	AudioComponent()
+	AudioComponent(int index)
 	{
-
+		buffer = AudioManager::getBuffer(index);
 
 	}
 
 
-private:
 
+
+private:
+	sf::SoundBuffer buffer;
+	sf::Sound sound;
 
 };
