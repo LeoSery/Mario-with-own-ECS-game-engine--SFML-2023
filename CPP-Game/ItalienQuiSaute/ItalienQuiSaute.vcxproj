@@ -152,6 +152,7 @@
     <ClInclude Include="Maths\Vector2.h" />
     <ClInclude Include="PlayerControllerComponent.hpp" />
     <ClInclude Include="PlayerEntity.hpp" />
+    <ClInclude Include="PlayerStateComponent.hpp" />
     <ClInclude Include="SpriteRendererComponent.hpp" />
     <ClInclude Include="TexturesManager.hpp" />
     <ClInclude Include="TransformComponent.hpp" />
