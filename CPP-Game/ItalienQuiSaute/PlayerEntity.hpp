@@ -54,7 +54,7 @@ public:
 		EM->AddComponent(this, healthComponent);
 	};
 
-	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window)
+	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window, Background* bg)
 	{
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
 			playerControllerComponent->setJumping(false);
@@ -75,7 +75,7 @@ public:
 
 		newpos = transformComponent->addPos(newpos, colliderComponent->activeDirections);
 
-		cameraComponent->Move(spriteRendererComponent->getSprite()->getPosition(), newpos, window);
+		cameraComponent->Move(spriteRendererComponent->getSprite()->getPosition(), newpos, window, bg);
 
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);

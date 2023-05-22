@@ -21,6 +21,10 @@ public:
 		return sprite;
 	}
 
+	Vector2<float> getPosition() {
+		return { sprite.getPosition().x, sprite.getPosition().y };
+	}
+
 	sf::Sprite* getSprite() {
 		return &sprite;
 	}
@@ -28,6 +32,8 @@ public:
 	void setPosition(Vector2<float> worldpos) {
 		pos = sf::Vector2f(worldpos.x, worldpos.y);
 	}
+
+	
 
 	void setBlockPosition(Vector2<int> worldpos) {
 		pos = sf::Vector2f(worldpos.x * width, worldpos.y * width);

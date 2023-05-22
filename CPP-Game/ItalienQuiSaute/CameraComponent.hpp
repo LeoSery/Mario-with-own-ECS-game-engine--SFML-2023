@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.hpp";
+#include "Background.hpp";
 #include "Maths/Vector2.h";
 #include <SFML/Graphics.hpp>;
 
@@ -15,7 +16,7 @@ public:
 		view.zoom(5.0f);
 		window.setView(view);
 	}
-	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window) {
+	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window, Background* bg) {
 		if (playerpos.x + (view.getSize().x) >= mapDimensions.x) {
 			direction.x = 0.0f;
 		}
@@ -31,6 +32,7 @@ public:
 		}
 		
 		view.move(sf::Vector2f(direction.x, direction.y));
+		bg->Move({ direction.x, direction.y });
 		window.setView(view);
 	}
 

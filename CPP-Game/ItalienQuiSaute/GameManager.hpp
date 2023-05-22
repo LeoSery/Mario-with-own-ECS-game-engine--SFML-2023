@@ -45,10 +45,11 @@ public:
 	std::map<char, sf::Texture> gameMap;
 	ReadMap mapReader;
 
+	Background* bg = new Background(EM, TexturesManager::getTexture(0), { 5,5 });
 	Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 	
 	PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, {1000,500});
-		
+	
 	EM->Purge();
 	while (window.isOpen())
 	{
@@ -76,9 +77,11 @@ public:
 
 				
 
-
 			for (Entity* ent : EM->livingEntityList)
 			{
+				if (ent->Tag == "BACKGROUND") {
+					bg = static_cast<Background*>(ent);
+				}
 				Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
 				if (currentComponent != NULL) {
 					SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
@@ -112,7 +115,6 @@ public:
 
 				}
 
-
 				currentComponent = EM->GetComponentByTag(ent, "HEALTH");
 				if (currentComponent != NULL) {
 					HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
@@ -128,9 +130,10 @@ public:
 
 					}
 				}
+
 			}
 
-			player->Move(inputManager.GetDirection(), deltaTime, window);
+			player->Move(inputManager.GetDirection(), deltaTime, window, bg);
 				
 			window.display();
 			deltaTime = clock.getElapsedTime();
