@@ -20,7 +20,7 @@ class GameManager
 public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = TexturesManager::getTexture(0);
-	bool gameOver = true;
+	bool gameOver = false;
 	bool menuIsOpen = false;
 
 	GameManager()
@@ -172,9 +172,10 @@ public:
 				}
 			}
 
-			EM->PurgeAll();
-			delete EM;
+			
 		}
+		EM->PurgeAll();
+		delete EM;
 	}
 
 	void ShowMainMenu(sf::RenderWindow& window, sf::RectangleShape& playButton, sf::RectangleShape& quitButton)
