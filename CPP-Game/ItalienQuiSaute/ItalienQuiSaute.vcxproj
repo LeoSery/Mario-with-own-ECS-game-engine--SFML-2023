@@ -134,6 +134,7 @@
     <ClCompile Include="ItalienQuiSaute.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraComponent.hpp" />
     <ClInclude Include="ColliderComponent.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Enemy.hpp" />

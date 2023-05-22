@@ -36,6 +36,7 @@ public:
 				{
 				case ' ':
 				{
+					GameObject* gobj = new GameObject(EM, Textures::getTexture(2), { x,y });
 					break;
 				}
 				case '1':
@@ -44,11 +45,8 @@ public:
 					break;
 				}
 				case '2':
+					GameObject * gobj = new GameObject(EM, Textures::getTexture(1), { x,y });
 					break;
-				default:
-				{
-					break;
-				}
 				}
 				x++;
 			}
