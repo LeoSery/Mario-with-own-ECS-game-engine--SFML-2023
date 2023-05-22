@@ -9,6 +9,7 @@
 #include "EntityManager.hpp";
 #include "GravityComponent.hpp";
 #include "CameraComponent.hpp";
+#include "PlayerStateComponent.hpp";
 
 
 class PlayerEntity : public Entity
@@ -21,6 +22,7 @@ public:
 	TransformComponent* transformComponent = new TransformComponent();
 	SpriteRendererComponent* spriteRendererComponent = new SpriteRendererComponent(tex);
 	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
+	PlayerStateComponent* playerStateComponent = new PlayerStateComponent();
 	HealthComponent* healthComponent = new HealthComponent();
 	CameraComponent* cameraComponent;
 
@@ -52,6 +54,8 @@ public:
 		EM->AddComponent(this, cameraComponent);
 		EM->CreateComponent("Health", healthComponent);
 		EM->AddComponent(this, healthComponent);
+		EM->CreateComponent("PlayerState", playerStateComponent);
+		EM->AddComponent(this, playerControllerComponent);
 	};
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window, Background* bg)
