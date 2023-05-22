@@ -94,6 +94,7 @@ public:
 					if (currentComponent != NULL) {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 						
+						window.draw(sprite->loadSprite());
 
 						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
 						if (collidercomp != NULL && ent->Tag != "PLAYER") {
@@ -124,7 +125,7 @@ public:
 							}
 						}
 
-						window.draw(sprite->loadSprite());
+						
 					}
 
 					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
