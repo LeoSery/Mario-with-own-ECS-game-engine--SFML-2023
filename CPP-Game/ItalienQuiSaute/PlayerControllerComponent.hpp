@@ -64,6 +64,10 @@ public:
 		jump = 0.0f;
 	}
 
+	void addJump(float height) {
+		jumping = true;
+		jump -= height;
+	}
 private:
 	bool jumping = false;
 	float speed;

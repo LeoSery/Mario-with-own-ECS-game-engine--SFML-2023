@@ -111,6 +111,8 @@ public:
 									if (enemyEntity->colliderComponent->collided) {
 										if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
 											enemyEntity->healthComponent->TakeDamage(100);
+											player->playerControllerComponent->addJump(3.0f);
+											player->colliderComponent->activeDirections.erase( std::find(player->colliderComponent->activeDirections.begin(), player->colliderComponent->activeDirections.end(), "FLOOR"));
 										}
 										else {
 											player->healthComponent->TakeDamage(100);
