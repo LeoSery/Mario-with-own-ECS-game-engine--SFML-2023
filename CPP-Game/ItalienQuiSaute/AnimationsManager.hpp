@@ -12,13 +12,16 @@ public:
 	{
 		if (runSprites.empty())
 		{
-			runSprites.push_back(TexturesManager::getTexture(4));
-			runSprites.push_back(TexturesManager::getTexture(5));
-			runSprites.push_back(TexturesManager::getTexture(6));
+			runSprites.push_back(TexturesManager::getTexture(101));
+			runSprites.push_back(TexturesManager::getTexture(102));
+			runSprites.push_back(TexturesManager::getTexture(103));
 		}
-		else if (jumpSprites.empty())
+
+		if (actionSprites.empty())
 		{
-			jumpSprites.push_back(TexturesManager::getTexture(7));
+			actionSprites.push_back(TexturesManager::getTexture(104));
+			actionSprites.push_back(TexturesManager::getTexture(105));
+			actionSprites.push_back(TexturesManager::getTexture(106));
 		}
 
 		switch (index)
@@ -27,12 +30,12 @@ public:
 			return runSprites;
 			break;
 		case 1:
-			return jumpSprites;
+			return actionSprites;
 			break;
 		}
 	}
 
 private:
 	std::vector<sf::Texture> runSprites;
-	std::vector<sf::Texture> jumpSprites;
+	std::vector<sf::Texture> actionSprites;
 };
