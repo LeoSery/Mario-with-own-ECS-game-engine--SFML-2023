@@ -20,7 +20,8 @@ class GameManager
 public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = TexturesManager::getTexture(0);
-	bool gameOver = false;
+	bool gameOver = true;
+	bool menuIsOpen = false;
 
 	GameManager()
 	{
@@ -42,6 +43,9 @@ public:
 		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
 		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
 
+		sf::RectangleShape playButton(sf::Vector2f(200, 60));
+		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
+
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
@@ -52,14 +56,14 @@ public:
 		EM->Purge();
 		while (window.isOpen())
 		{
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+			}
+
 			if (!gameOver) {
 				sf::Clock clock;
-
-				while (window.pollEvent(event))
-				{
-					if (event.type == sf::Event::Closed)
-						window.close();
-				}
 
 				inputManager.UpdateEvent(event);
 				window.clear();
@@ -132,22 +136,41 @@ public:
 			}
 			else
 			{
-				EM->PurgeAll();
-				ShowMainMenu(window);
+				if (!menuIsOpen)
+				{
+					EM->PurgeAll();
+					ShowMainMenu(window, playButton, quitButton);
+				}
+
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+					sf::Vector2f mousePositionVector = { static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y) };
+
+					if (playButton.getGlobalBounds().contains(mousePositionVector))
+					{
+						std::cout << "MOUSE IN PLAY BUTTON" << std::endl;
+						StartGame();
+					}
+					else if (quitButton.getGlobalBounds().contains(mousePositionVector))
+					{
+						std::cout << "MOUSE IN QUIT BUTTON" << std::endl;
+						QuitGame();
+					}
+				}
 			}
 		}
-
 		EM->PurgeAll();
 		delete EM;
 	}
 
 
-	void ShowMainMenu(sf::RenderWindow& window)
+	void ShowMainMenu(sf::RenderWindow& window, sf::RectangleShape& playButton, sf::RectangleShape& quitButton)
 	{
+		std::cout << "IN DISPLAY MAIN MENU" << std::endl;
+		menuIsOpen = true;
+
 		sf::View mainMenuView;
-		mainMenuView.setCenter(sf::Vector2f(0, 0));
-		mainMenuView.setSize(sf::Vector2f(400.f, 400.f));
-		mainMenuView.zoom(5.0f);
 		window.clear();
 		window.setView(mainMenuView);
 
@@ -155,32 +178,44 @@ public:
 		if (!TextFont.loadFromFile("Assets/Fonts/FORCED_SQUARE.ttf"))
 			std::cout << "error";
 
-		sf::RectangleShape playButton(sf::Vector2f(500, 150));
+
 		playButton.setFillColor(sf::Color::White);
-		playButton.setPosition(sf::Vector2f(-playButton.getSize().x / 2, -200));
-		sf::Vector2f playButtonPosition = { playButton.getPosition().x + playButton.getSize().x / 2 , playButton.getPosition().y + playButton.getSize().y / 2 };
+		playButton.setPosition(sf::Vector2f((window.getSize().x / 2) - (playButton.getSize().x / 2), (window.getSize().y / 2) - (playButton.getSize().y / 2) - 100));
+		sf::Vector2f playTextPosition = { playButton.getPosition().x + playButton.getSize().x / 3, playButton.getPosition().y + playButton.getSize().y / 5 };
 		window.draw(playButton);
 		sf::Text playText;
-		playText.setPosition(playButtonPosition);
-		playText.setCharacterSize(75);
+		playText.setPosition(playTextPosition);
+		playText.setCharacterSize(30);
 		playText.setFillColor(sf::Color::Black);
 		playText.setString("PLAY");
 		playText.setFont(TextFont);
 		window.draw(playText);
 
-		sf::RectangleShape quitButton(sf::Vector2f(500, 150));
+
 		quitButton.setFillColor(sf::Color::White);
-		quitButton.setPosition(sf::Vector2f(-quitButton.getSize().x / 2, 200));
-		sf::Vector2f quitButtonPosition = { quitButton.getPosition().x + quitButton.getSize().x / 2 , quitButton.getPosition().y + quitButton.getSize().y / 2 };
+		quitButton.setPosition(sf::Vector2f((window.getSize().x / 2) - (playButton.getSize().x / 2), (window.getSize().y / 2) - (playButton.getSize().y / 2) + 100));
+		sf::Vector2f quitButtonPosition = { quitButton.getPosition().x + quitButton.getSize().x / 3 , quitButton.getPosition().y + quitButton.getSize().y / 5 };
 		window.draw(quitButton);
 		sf::Text quitText;
 		quitText.setPosition(quitButtonPosition);
-		quitText.setCharacterSize(75);
+		quitText.setCharacterSize(30);
 		quitText.setFillColor(sf::Color::Black);
 		quitText.setString("QUIT");
 		quitText.setFont(TextFont);
 		window.draw(quitText);
 
 		window.display();
+	}
+
+	void StartGame()
+	{
+		menuIsOpen = false;
+		std::cout << "Starting Game !!!!" << std::endl;
+	}
+
+	void QuitGame()
+	{
+		menuIsOpen = false;
+		std::cout << "Quitting Game !!!!" << std::endl;
 	}
 };
