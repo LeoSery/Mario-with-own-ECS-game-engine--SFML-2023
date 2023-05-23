@@ -20,7 +20,7 @@ class GameManager
 public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = TexturesManager::getTexture(0);
-	bool gameOver = false;
+	bool ingame = false;
 	bool menuIsOpen = false;
 
 	GameManager()
@@ -46,7 +46,10 @@ public:
 		std::map<char, sf::Texture> gameMap;
 		ReadMap mapReader;
 
-		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,0 });
+		sf::RectangleShape playButton(sf::Vector2f(200, 60));
+		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
+
+		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8});
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
@@ -64,7 +67,7 @@ public:
 					window.close();
 			}
 
-			if (!gameOver) {
+			if (ingame) {
 				sf::Clock clock;
 
 				inputManager.UpdateEvent(event);
@@ -91,11 +94,13 @@ public:
 					if (currentComponent != NULL) {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 						window.draw(sprite->loadSprite());
-
+						
 						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
 						if (collidercomp != NULL && ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
 						}
+
+						
 
 						if (currentComponent != NULL && ent->Tag != "ENEMY") {
 							for (Entity* enemy : allEnemies) {
@@ -106,6 +111,9 @@ public:
 									if (enemyEntity->colliderComponent->collided) {
 										if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
 											enemyEntity->healthComponent->TakeDamage(100);
+											player->playerControllerComponent->addJump(3.0f);
+											auto itr = std::find(player->colliderComponent->activeDirections.begin(), player->colliderComponent->activeDirections.end(), "FLOOR");
+											if (itr != player->colliderComponent->activeDirections.end()) player->colliderComponent->activeDirections.erase(itr);
 										}
 										else {
 											player->healthComponent->TakeDamage(100);
@@ -116,8 +124,8 @@ public:
 								}
 							}
 						}
-
-
+						
+						
 					}
 
 					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
@@ -129,7 +137,7 @@ public:
 								EM->destroyQueue.push_back(ent);
 							}
 							else {
-								gameOver = true;
+								ingame = false;
 								std::cout << "GameOver" << std::endl;
 							}
 
@@ -146,11 +154,9 @@ public:
 			}
 			else
 			{
-				sf::RectangleShape playButton(sf::Vector2f(200, 60));
-				sf::RectangleShape quitButton(sf::Vector2f(200, 60));
+				
 				if (!menuIsOpen)
 				{
-					EM->PurgeAll();
 					ShowMainMenu(window, playButton, quitButton);
 				}
 
@@ -167,7 +173,7 @@ public:
 					else if (quitButton.getGlobalBounds().contains(mousePositionVector))
 					{
 						std::cout << "MOUSE IN QUIT BUTTON" << std::endl;
-						QuitGame();
+						window.close();
 					}
 				}
 			}
@@ -223,12 +229,7 @@ public:
 	void StartGame()
 	{
 		menuIsOpen = false;
+		ingame = true;
 		std::cout << "Starting Game !!!!" << std::endl;
-	}
-
-	void QuitGame()
-	{
-		menuIsOpen = false;
-		std::cout << "Quitting Game !!!!" << std::endl;
 	}
 };
