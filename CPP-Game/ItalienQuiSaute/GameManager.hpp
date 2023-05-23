@@ -189,6 +189,10 @@ public:
 				}
 
 				player->Move(inputManager.GetDirection(), deltaTime, window, bg);
+				if (player->spriteRendererComponent->getPosition().y > mapDimensions.y) {
+					gameOver = true;
+					ingame = false;
+				}
 
 				window.display();
 				deltaTime = clock.getElapsedTime();
