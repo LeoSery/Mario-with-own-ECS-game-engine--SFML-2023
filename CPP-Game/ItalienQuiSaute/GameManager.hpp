@@ -14,6 +14,7 @@
 #include "Maths/Vector2.h"
 #include "FileReader.hpp"
 #include "Enemy.hpp"
+#include "API/RequestManager.hpp"
 
 class GameManager
 {
@@ -21,6 +22,8 @@ public:
 	EntityManager* EM = new EntityManager();
 	sf::Texture tex = TexturesManager::getTexture(0);
 	bool ingame = false;
+	bool gameOver = false;
+	bool scoreSubmitted = false;
 	bool menuIsOpen = false;
 
 	GameManager()
@@ -53,6 +56,35 @@ public:
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
+
+
+		//Creation du texte pour l'input des scores
+		sf::String playerInput;
+		sf::Text playerText;
+		sf::Font TextFont;
+		if (!TextFont.loadFromFile("Assets/Fonts/FORCED_SQUARE.ttf"))
+		{
+			std::cout << "error";
+		}
+		playerText.setPosition(6, 9);
+		playerText.setCharacterSize(24);
+		playerText.setFillColor(sf::Color::White);
+		playerText.setString("Email: ");
+		int baseTextSize = playerText.getString().getSize();
+		playerText.setFont(TextFont);
+
+
+		RequestManager* requestManager = new RequestManager();
+
+
+		sf::Clock clock2;
+		int count = 0;
+
+		std::string email;
+		std::string pseudo;
+		std::string password;
+		std::string token;
+
 
 		EM->Purge();
 		while (window.isOpen())
@@ -138,6 +170,7 @@ public:
 							}
 							else {
 								ingame = false;
+								gameOver = true;
 								std::cout << "GameOver" << std::endl;
 							}
 
@@ -152,6 +185,112 @@ public:
 				deltaTime = clock.getElapsedTime();
 				timeSinceStart += deltaTime;
 			}
+			else if (gameOver) {
+				
+				bool cd = false;
+				sf::Time cooldown = sf::Time(sf::seconds(0.1f));
+				sf::View mainMenuView;
+				window.clear();
+				window.setView(mainMenuView);
+				
+				
+				if (event.type == sf::Event::TextEntered)
+				{
+					
+					
+					if (scoreSubmitted)
+					{
+						break;
+					}
+
+					
+					
+					if (clock2.getElapsedTime() < cooldown) {
+						cd = true;
+					}
+					else {
+						cd = false;
+					}
+
+					if (event.text.unicode == 8)
+					{
+						if (!cd) {
+							playerInput = playerText.getString();
+							if (playerInput.getSize() <= baseTextSize) { break; }
+							playerInput.erase(playerInput.getSize() - 1, 1);
+							playerText.setString(playerInput);
+							clock2.restart();
+						}
+						
+					}
+
+					if (event.text.unicode == 13)
+					{
+						
+						if (!cd) {
+							
+							switch (count)
+							{
+							case 0:
+								email = (std::string)playerText.getString().toAnsiString();
+								email.erase(0, baseTextSize);
+								
+								count++;
+								break;
+							case 1:
+								playerText.setString("Name: ");
+								baseTextSize = playerText.getString().getSize() - 1;
+								pseudo = (std::string)playerText.getString().toAnsiString();
+								pseudo.erase(0, baseTextSize);
+								
+								count++;
+								break;
+							case 2:
+								playerText.setString("Password: ");
+								baseTextSize = playerText.getString().getSize() - 1;
+								password = (std::string)playerText.getString().toAnsiString();
+								password.erase(0, baseTextSize);
+								
+								
+								std::cout << pseudo << email << password << "\n";
+								requestManager->signIn(pseudo, email, password);
+								token = requestManager->login(pseudo, email, password);
+								requestManager->newscore(1, "MARIO", token);
+
+								playerText.setString(requestManager->Scorelist());
+								std::cout << token << "\n";
+								count++;
+								break;
+
+							default:
+								break;
+							}
+						
+							clock2.restart();
+						}
+						
+					
+					}
+
+					if (event.text.unicode < 128)
+					{
+						if (!cd) {
+							playerInput = playerText.getString();
+							playerInput += event.text.unicode;
+							playerText.setString(playerInput);
+							clock2.restart();
+						}
+						
+					}
+
+					
+				}
+				window.draw(playerText);
+				window.display();
+			}
+
+
+
 			else
 			{
 				

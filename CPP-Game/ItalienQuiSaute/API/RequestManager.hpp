@@ -35,7 +35,7 @@ public:
         // Set the request options and perform the request
         CURL* curl = curl_easy_init();
         if (curl) {
-            curl_easy_setopt(curl, CURLOPT_URL, "http://192.168.0.23:7865/login");
+            curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8080/login");
             curl_easy_setopt(curl, CURLOPT_POST, 1L);
             curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonBody.c_str());
             curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, jsonBody.size());
@@ -66,11 +66,52 @@ public:
     }
 
 
+
+    std::string signIn(const std::string& username, const std::string& email, const std::string& password) {
+
+        //Request body
+        std::string jsonBody = "{\"username\": \"" + username + "\", \"email\": \"" + email + "\", \"password\": \"" + password + "\"}";
+        std::string response;
+
+        //Headers
+        struct curl_slist* headers = nullptr;
+        headers = curl_slist_append(headers, "Content-Type: application/json");
+
+        // Set the request options and perform the request
+        CURL* curl = curl_easy_init();
+        if (curl) {
+            curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8080/signin");
+            curl_easy_setopt(curl, CURLOPT_POST, 1L);
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonBody.c_str());
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, jsonBody.size());
+            curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+            //Write callback
+            curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
+            curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+            //Send Request
+            CURLcode res = curl_easy_perform(curl);
+            if (res != CURLE_OK) {
+                std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+            }
+
+            std::cout << response;
+
+            //Clean up
+            curl_easy_cleanup(curl);
+            curl_slist_free_all(headers);
+        }
+
+        return response;
+    }
+
+
     void newscore(int score, const std::string& game, const std::string& authToken) {
         CURL* curl = curl_easy_init();
         if (curl) {
 
-            std::string newscoreUrl = "http://192.168.0.23:7865/newscore";
+            std::string newscoreUrl = "http://localhost:8080/newscore";
 
             //Request body
             std::string requestBody = "{\"score\":" + std::to_string(score) + ",\"game\":\"" + game + "\"}";
@@ -115,7 +156,7 @@ public:
 
         if (curl) {
             // Fetch the player score list
-            std::string score_list_url = "http://192.168.0.23:7865/scoreboard/MARIO";
+            std::string score_list_url = "http://localhost:8080/scoreboard/MARIO";
             std::string score_list_response;
             curl_easy_setopt(curl, CURLOPT_URL, score_list_url.c_str());
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
