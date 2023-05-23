@@ -31,7 +31,7 @@ public:
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 		{
-			direction.y = -10.0f;
+			direction.y = -11.0f;
 		}
 
 		return direction;

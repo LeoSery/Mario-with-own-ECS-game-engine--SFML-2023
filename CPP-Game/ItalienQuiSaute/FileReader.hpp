@@ -12,6 +12,7 @@
 
 #include "TexturesManager.hpp"
 #include "GameObject.hpp"
+#include "Flag.hpp"
 
 class ReadMap
 {
@@ -59,12 +60,12 @@ public:
 				}
 				case '4':
 				{
-					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(4), { x,y });
+					Flag* gobj = new Flag(EM, { x,y },4);
 					break;
 				}
 				case '5':
 				{
-					GameObject* gobj = new GameObject(EM, TexturesManager::getTexture(5), { x,y });
+					Flag* gobj = new Flag(EM, { x,y }, 5);
 					break;
 				}
 				case '6':

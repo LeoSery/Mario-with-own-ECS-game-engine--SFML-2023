@@ -17,7 +17,7 @@ public:
 		window.setView(view);
 	}
 	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window, Background* bg) {
-		if (playerpos.x + (view.getSize().x) >= mapDimensions.x) {
+		if (playerpos.x + (view.getSize().x - view.getSize().x/2) >= mapDimensions.x) {
 			direction.x = 0.0f;
 		}
 		if (playerpos.y - (view.getSize().y) >= mapDimensions.y) {

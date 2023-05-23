@@ -23,6 +23,7 @@ public:
 	sf::Texture tex = TexturesManager::getTexture(0);
 	bool ingame = false;
 	bool gameOver = false;
+	bool gameWin = false;
 	bool scoreSubmitted = false;
 	bool menuIsOpen = false;
 
@@ -79,11 +80,13 @@ public:
 
 		sf::Clock clock2;
 		int count = 0;
+		int score = 0;
 
 		std::string email;
 		std::string pseudo;
 		std::string password;
 		std::string token;
+		
 
 
 		EM->Purge();
@@ -130,8 +133,13 @@ public:
 						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
 						if (collidercomp != NULL && ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
-						}
+							if (ent->Tag == "FLAG" && player->colliderComponent->collided) {
+								gameWin = true;	
+								ingame = false;
+								std::cout << "win";
+							}
 
+						}
 						
 
 						if (currentComponent != NULL && ent->Tag != "ENEMY") {
@@ -146,6 +154,7 @@ public:
 											player->playerControllerComponent->addJump(3.0f);
 											auto itr = std::find(player->colliderComponent->activeDirections.begin(), player->colliderComponent->activeDirections.end(), "FLOOR");
 											if (itr != player->colliderComponent->activeDirections.end()) player->colliderComponent->activeDirections.erase(itr);
+											score++;
 										}
 										else {
 											player->healthComponent->TakeDamage(100);
@@ -185,7 +194,7 @@ public:
 				deltaTime = clock.getElapsedTime();
 				timeSinceStart += deltaTime;
 			}
-			else if (gameOver) {
+			else if (gameWin) {
 				
 				bool cd = false;
 				sf::Time cooldown = sf::Time(sf::seconds(0.1f));
@@ -217,6 +226,7 @@ public:
 						if (!cd) {
 							playerInput = playerText.getString();
 							if (playerInput.getSize() <= baseTextSize) { break; }
+							std::cout << playerInput.getSize();
 							playerInput.erase(playerInput.getSize() - 1, 1);
 							playerText.setString(playerInput);
 							clock2.restart();
@@ -227,47 +237,57 @@ public:
 					if (event.text.unicode == 13)
 					{
 						
-						if (!cd) {
-							
+						
 							switch (count)
 							{
-							case 0:
-								email = (std::string)playerText.getString().toAnsiString();
-								email.erase(0, baseTextSize);
-								
-								count++;
+							case 2:
+								if (!cd) {
+									
+									password = (std::string)playerText.getString().toAnsiString();
+									password.erase(0, baseTextSize);
+
+									pseudo.erase(std::remove(pseudo.begin(), pseudo.end(), '\r'), pseudo.end());
+									password.erase(std::remove(password.begin(), password.end(), '\r'), password.end());
+
+									requestManager->signIn(pseudo, email, password);
+									token = requestManager->login(pseudo, email, password);
+									requestManager->newscore(score, "MARIO", token);
+
+									playerText.setString(requestManager->Scorelist());
+									std::cout << token << "\n";
+									count++;
+								}
 								break;
 							case 1:
-								playerText.setString("Name: ");
-								baseTextSize = playerText.getString().getSize() - 1;
-								pseudo = (std::string)playerText.getString().toAnsiString();
-								pseudo.erase(0, baseTextSize);
-								
-								count++;
-								break;
-							case 2:
-								playerText.setString("Password: ");
-								baseTextSize = playerText.getString().getSize() - 1;
-								password = (std::string)playerText.getString().toAnsiString();
-								password.erase(0, baseTextSize);
-								
-								
-								std::cout << pseudo << email << password << "\n";
-								requestManager->signIn(pseudo, email, password);
-								token = requestManager->login(pseudo, email, password);
-								requestManager->newscore(1, "MARIO", token);
+								if (!cd) {
+									
+									pseudo = (std::string)playerText.getString().toAnsiString();
+									
+									pseudo.erase(0, baseTextSize);
+									playerText.setString("Password: ");
+									baseTextSize = playerText.getString().getSize();
+									count++;
 
-								playerText.setString(requestManager->Scorelist());
-								std::cout << token << "\n";
-								count++;
+								}
 								break;
+							case 0:
+								if (!cd) {
+									email = (std::string)playerText.getString().toAnsiString();
+									email.erase(0, baseTextSize);
+									playerText.setString("Name: ");
+									baseTextSize = playerText.getString().getSize();
+									count++;
+								}
+								break;
+							
+							
 
 							default:
 								break;
 							}
-						
+							
 							clock2.restart();
-						}
+						
 						
 					
 					}
