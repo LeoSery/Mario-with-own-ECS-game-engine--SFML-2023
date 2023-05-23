@@ -93,9 +93,8 @@ public:
 					Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
 					if (currentComponent != NULL) {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-						
 						window.draw(sprite->loadSprite());
-
+						
 						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
 						if (collidercomp != NULL && ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
@@ -113,7 +112,8 @@ public:
 										if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
 											enemyEntity->healthComponent->TakeDamage(100);
 											player->playerControllerComponent->addJump(3.0f);
-											player->colliderComponent->activeDirections.erase( std::find(player->colliderComponent->activeDirections.begin(), player->colliderComponent->activeDirections.end(), "FLOOR"));
+											auto itr = std::find(player->colliderComponent->activeDirections.begin(), player->colliderComponent->activeDirections.end(), "FLOOR");
+											if (itr != player->colliderComponent->activeDirections.end()) player->colliderComponent->activeDirections.erase(itr);
 										}
 										else {
 											player->healthComponent->TakeDamage(100);
@@ -124,7 +124,7 @@ public:
 								}
 							}
 						}
-
+						
 						
 					}
 

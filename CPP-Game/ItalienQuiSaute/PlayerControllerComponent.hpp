@@ -36,8 +36,6 @@ public:
 		{
 			jump = 0.0f;
 		}
-
-		std::cout << playerDirection.y << "\n";
 		
 
 		
