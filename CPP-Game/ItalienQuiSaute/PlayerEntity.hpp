@@ -10,6 +10,7 @@
 #include "GravityComponent.hpp";
 #include "CameraComponent.hpp";
 #include "PlayerStateComponent.hpp";
+#include "AnimatorComponent.hpp";
 
 
 class PlayerEntity : public Entity
@@ -25,6 +26,7 @@ public:
 	PlayerStateComponent* playerStateComponent = new PlayerStateComponent();
 	HealthComponent* healthComponent = new HealthComponent();
 	CameraComponent* cameraComponent;
+	AnimatorComponent* animatorComponent = new AnimatorComponent();
 
 	PlayerEntity(EntityManager* EM, sf::RenderWindow& window, Vector2<int> mapDimensions, Vector2<float> startpos) {
 		EM->CreateEntity("Player", this);
@@ -55,14 +57,19 @@ public:
 		EM->CreateComponent("Health", healthComponent);
 		EM->AddComponent(this, healthComponent);
 		EM->CreateComponent("PlayerState", playerStateComponent);
-		EM->AddComponent(this, playerControllerComponent);
+		EM->AddComponent(this, playerStateComponent);
+		EM->CreateComponent("Animator", animatorComponent);
+		EM->AddComponent(this, animatorComponent);
 	};
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window, Background* bg)
 	{
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
 			playerControllerComponent->setJumping(false);
-
+			if (moveDirection.x != 0)
+				playerStateComponent->SetState(movementState::IDLE);
+			else
+				playerStateComponent->SetState(movementState::WALK);
 		}
 		else if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "TOP") != colliderComponent->activeDirections.end()) {
 			playerControllerComponent->setFalling();
@@ -71,6 +78,7 @@ public:
 		else
 		{
 			playerControllerComponent->setJumping(true);
+			playerStateComponent->SetState(movementState::JUMP);
 		}
 
 

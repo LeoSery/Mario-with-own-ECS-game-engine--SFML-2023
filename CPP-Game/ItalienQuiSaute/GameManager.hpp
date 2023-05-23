@@ -49,7 +49,7 @@ public:
 		sf::RectangleShape playButton(sf::Vector2f(200, 60));
 		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
 
-		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8});
+		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8 });
 		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
@@ -94,13 +94,13 @@ public:
 					if (currentComponent != NULL) {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 						window.draw(sprite->loadSprite());
-						
+
 						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
 						if (collidercomp != NULL && ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
 						}
 
-						
+
 
 						if (currentComponent != NULL && ent->Tag != "ENEMY") {
 							for (Entity* enemy : allEnemies) {
@@ -124,8 +124,8 @@ public:
 								}
 							}
 						}
-						
-						
+
+
 					}
 
 					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
@@ -144,6 +144,18 @@ public:
 						}
 					}
 
+					currentComponent = EM->GetComponentByTag(ent, "ANIMATOR");
+					if (currentComponent != NULL) {
+						AnimatorComponent* animator = static_cast<AnimatorComponent*>(currentComponent);
+						Component* stateComponent = EM->GetComponentByTag(ent, "STATE");
+						Component* spriteRendererComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
+						PlayerStateComponent* playerState = static_cast<PlayerStateComponent*>(stateComponent);
+						SpriteRendererComponent* spriteRenderer = static_cast<SpriteRendererComponent*>(spriteRendererComponent);
+
+						sf::Texture nextAnimationTexture = animator->PlayAnimation(playerState->GetState(), deltaTime);
+						spriteRenderer->SetTexture(nextAnimationTexture);
+					}
+
 				}
 
 				player->Move(inputManager.GetDirection(), deltaTime, window, bg);
@@ -154,7 +166,7 @@ public:
 			}
 			else
 			{
-				
+
 				if (!menuIsOpen)
 				{
 					ShowMainMenu(window, playButton, quitButton);

@@ -134,7 +134,7 @@
     <ClCompile Include="ItalienQuiSaute.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationsManager.hpp" />
+    <ClInclude Include="AnimatorComponent.hpp" />
     <ClInclude Include="AudioComponent.hpp" />
     <ClInclude Include="Background.hpp" />
     <ClInclude Include="CameraComponent.hpp" />
