@@ -1,7 +1,8 @@
 #pragma once
 
+#include ".../../../../System/Libraries/Maths/Vector2.h"
+
 #include <SFML/Graphics.hpp>
-#include "Maths/Vector2.h"
 
 class InputManager
 {

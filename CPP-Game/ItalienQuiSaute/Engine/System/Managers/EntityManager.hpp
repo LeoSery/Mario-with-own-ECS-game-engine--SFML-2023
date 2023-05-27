@@ -1,10 +1,11 @@
 #pragma once
-#include <iostream>
 
+#include "../../Components/Component.hpp"
+#include "../../Entities/Entity.hpp"
+
+#include <iostream>
 #include <vector>
 #include <map>
-#include "Entity.hpp"
-#include "Component.hpp"
 
 class EntityManager
 {
@@ -64,7 +65,7 @@ public:
 		}
 		return allEntities;
 	}
-	
+
 
 	void DestroyEntity(std::uint32_t UUID)
 	{
@@ -85,15 +86,15 @@ public:
 	void Purge()
 	{
 
-		int queue_size = destroyQueue.size()-1;
+		int queue_size = destroyQueue.size() - 1;
 		if (queue_size >= 0) {
 			for (int x = (queue_size); x >= 0; x--) {
-				std::cout << x ;
+				std::cout << x;
 				Entity* entity = destroyQueue.at(x);
 
 				for (int i = componentMapping[entity].size() - 1; i >= 0; i--)
 				{
-					
+
 					Component* component = componentMapping[entity].at(i);
 					std::cout << "deleting Component: " << component->Name << "\n";
 					auto iterator = componentMapping[entity].begin() + i;
@@ -116,12 +117,12 @@ public:
 
 				iterator = destroyQueue.begin() + x;
 				destroyQueue.erase(iterator);
-				
+
 				delete entity;
 				std::cout << "deleted entity" << "\n";
 			}
 		}
-		
+
 	}
 
 	void PurgeAll() {

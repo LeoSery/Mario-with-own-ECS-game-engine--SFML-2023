@@ -1,14 +1,15 @@
 #pragma once
 
+#include "../../Engine/System/Libraries/Maths/Vector2.h";
 #include "Component.hpp";
-#include "Maths/Vector2.h";
+
 #include <SFML/Graphics.hpp>
 
 
 class ColliderComponent : public Component
 {
 public:
-	
+
 	bool collided;
 	std::vector<std::string> activeDirections;
 
@@ -17,7 +18,7 @@ public:
 		this->entitySprite = entitySprite;
 		Tag = "COLLIDER";
 		collided = false;
-		
+
 	}
 
 	bool Collision(sf::Sprite* otherSprite)
@@ -40,20 +41,20 @@ public:
 			}
 
 			//Left Limit Diff
-			
+
 			else if (((entityHitbox.left + entityHitbox.width) - otherHitbox.left) <= 30) { //if diff is between 3 pixel
 				direction = "LEFT";
 			}
 
 			//Right Limit Diff
 
-			else if ((entityHitbox.left - (otherHitbox.left+otherHitbox.width)) >= -30) { //if diff is between 3 pixel
+			else if ((entityHitbox.left - (otherHitbox.left + otherHitbox.width)) >= -30) { //if diff is between 3 pixel
 				direction = "RIGHT";
 			}
 
 			activeDirections.push_back(direction);
 
-			
+
 			collided = true;
 			return true;
 		}

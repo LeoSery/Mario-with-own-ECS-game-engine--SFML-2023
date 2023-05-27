@@ -1,9 +1,9 @@
 #pragma once
 
+#include "TexturesManager.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
-#include "TexturesManager.hpp"
 
 class AnimationManager
 {

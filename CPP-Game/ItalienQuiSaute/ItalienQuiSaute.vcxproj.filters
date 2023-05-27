@@ -15,83 +15,81 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ItalienQuiSaute.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Component.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Maths\Vector2.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerControllerComponent.hpp">
+    <ClInclude Include="Engine\API\RequestManager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.hpp">
+    <ClInclude Include="Engine\Components\AudioComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRendererComponent.hpp">
+    <ClInclude Include="Engine\Components\CameraComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="TexturesManager.hpp">
+    <ClInclude Include="Engine\Components\ColliderComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.hpp">
+    <ClInclude Include="Engine\Components\Component.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.hpp">
+    <ClInclude Include="Engine\Components\GravityComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="FileReader.hpp">
+    <ClInclude Include="Engine\Components\HealthComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderComponent.hpp">
+    <ClInclude Include="Engine\Components\PlayerControllerComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.hpp">
+    <ClInclude Include="Engine\Components\PlayerStateComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="GravityComponent.hpp">
+    <ClInclude Include="Engine\Components\SpriteRendererComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="HealthComponent.hpp">
+    <ClInclude Include="Engine\Components\TransformComponent.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerEntity.hpp">
+    <ClInclude Include="Engine\Entities\Enemy.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="CameraComponent.hpp">
+    <ClInclude Include="Engine\Entities\Entity.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationsManager.hpp">
+    <ClInclude Include="Engine\Entities\Flag.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="AudioComponent.hpp">
+    <ClInclude Include="Engine\Entities\GameObject.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Background.hpp">
+    <ClInclude Include="Engine\Entities\PlayerEntity.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStateComponent.hpp">
+    <ClInclude Include="Engine\System\Libraries\Maths\Vector2.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Flag.hpp">
+    <ClInclude Include="Engine\System\Managers\AnimationsManager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Map.txt" />
+    <ClInclude Include="Engine\System\Managers\EntityManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\System\Managers\InputManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\System\Managers\TexturesManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Entities\Background.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Source\FileReader.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Source\GameManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Sprites\background.png">
@@ -139,5 +137,55 @@
     <Image Include="Assets\Sprites\super_block.png">
       <Filter>Fichiers de ressources</Filter>
     </Image>
+    <Image Include="Game\Assets\Sprites\Character\mario_idle.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Character\mario_jump.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Character\mario_walk_1.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Character\mario_walk_2.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Character\mario_walk_3.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Character\mario_win.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Enemies\goomba.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Map\background.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Map\brick.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Map\flag_1.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Map\flag_2.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Map\ground.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Game\Assets\Sprites\Map\super_block.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\Source\ItalienQuiSaute.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Game\Assets\Resources\MapPatern.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Game\Assets\Fonts\FORCED_SQUARE.ttf" />
   </ItemGroup>
 </Project>

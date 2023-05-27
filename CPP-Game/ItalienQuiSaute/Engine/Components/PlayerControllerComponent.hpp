@@ -1,13 +1,14 @@
 #pragma once
 
-#include "Inputmanager.hpp";
+#include "../../Engine/System/Managers/InputManager.hpp";
 #include "Component.hpp";
+
 #include <string>
 
 class PlayerControllerComponent : public Component
 {
 public:
-	
+
 	PlayerControllerComponent()
 	{
 		speed = 0.8f;
@@ -20,25 +21,25 @@ public:
 	{
 
 
-		playerDirection.x = (moveDirection.x *speed * deltatime);
-		
+		playerDirection.x = (moveDirection.x * speed * deltatime);
+
 		if (moveDirection.y < 0.0f && !jumping) {
 			jump = moveDirection.y;
 			jumping = true;
 
 		}
-		if (jump < 0.0f && jumping) { 
-			jump += (jumpspeed * 1 / 100)*deltatime;
+		if (jump < 0.0f && jumping) {
+			jump += (jumpspeed * 1 / 100) * deltatime;
 			playerDirection.y = (jump);
-			
+
 		}
 		else
 		{
 			jump = 0.0f;
 		}
-		
 
-		
+
+
 	}
 
 

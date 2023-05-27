@@ -1,10 +1,10 @@
 #pragma once
 
-#include "SpriteRendererComponent.hpp"
-#include "TransformComponent.hpp"
-#include "ColliderComponent.hpp"
-#include "TexturesManager.hpp"
-#include "EntityManager.hpp"
+#include "../../Engine/System/Managers/TexturesManager.hpp"
+#include "../../Engine/System/Managers/EntityManager.hpp"
+#include "../Components/SpriteRendererComponent.hpp"
+#include "../Components/TransformComponent.hpp"
+#include "../Components/ColliderComponent.hpp"
 #include "Entity.hpp"
 
 #include <SFML/Graphics.hpp>

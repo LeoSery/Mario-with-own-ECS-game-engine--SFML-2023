@@ -1,20 +1,24 @@
 #pragma once
 
+#include "../../Engine/Components/PlayerControllerComponent.hpp"
+#include "../../Engine/Components/SpriteRendererComponent.hpp"
+#include "../../Engine/Components/ColliderComponent.hpp"
+#include "../../Engine/Components/HealthComponent.hpp"
+
+#include "../../Engine/System/Managers/TexturesManager.hpp"
+#include "../../Engine/System/Managers/EntityManager.hpp"
+#include "../../Engine/System/Managers/InputManager.hpp"
+
+#include "../../Engine/Entities/PlayerEntity.hpp"
+#include "../../Engine/Entities/Enemy.hpp"
+
+#include "../../Engine/System/Libraries/Maths/Vector2.h"
+#include "../../Engine/API/RequestManager.hpp"
+
+#include "FileReader.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
-#include "PlayerControllerComponent.hpp"
-#include "SpriteRendererComponent.hpp"
-#include "ColliderComponent.hpp"
-#include "HealthComponent.hpp"
-#include "TexturesManager.hpp"
-#include "EntityManager.hpp"
-#include "InputManager.hpp"
-#include "PlayerEntity.hpp"
-#include "Maths/Vector2.h"
-#include "FileReader.hpp"
-#include "Enemy.hpp"
-#include "API/RequestManager.hpp"
 
 class GameManager
 {
@@ -53,8 +57,8 @@ public:
 		sf::RectangleShape playButton(sf::Vector2f(200, 60));
 		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
 
-		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8});
-		Vector2<int> mapDimensions = mapReader.ReadFile("Map.txt", gameMap, EM);
+		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8 });
+		Vector2<int> mapDimensions = mapReader.ReadFile("Assets/Resources/MapPatern.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
 
@@ -63,7 +67,7 @@ public:
 		sf::String playerInput;
 		sf::Text playerText;
 		sf::Font TextFont;
-		if (!TextFont.loadFromFile("Assets/Fonts/FORCED_SQUARE.ttf"))
+		if (!TextFont.loadFromFile("../Assets/Fonts/FORCED_SQUARE.ttf"))
 		{
 			std::cout << "error";
 		}
@@ -86,7 +90,7 @@ public:
 		std::string pseudo;
 		std::string password;
 		std::string token;
-		
+
 
 
 		EM->Purge();
@@ -129,18 +133,18 @@ public:
 					if (currentComponent != NULL) {
 						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
 						window.draw(sprite->loadSprite());
-						
+
 						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
 						if (collidercomp != NULL && ent->Tag != "PLAYER") {
 							player->colliderComponent->Collision(sprite->getSprite());
 							if (ent->Tag == "FLAG" && player->colliderComponent->collided) {
-								gameWin = true;	
+								gameWin = true;
 								ingame = false;
 								std::cout << "win";
 							}
 
 						}
-						
+
 
 						if (currentComponent != NULL && ent->Tag != "ENEMY") {
 							for (Entity* enemy : allEnemies) {
@@ -165,8 +169,8 @@ public:
 								}
 							}
 						}
-						
-						
+
+
 					}
 
 					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
@@ -199,25 +203,25 @@ public:
 				timeSinceStart += deltaTime;
 			}
 			else if (gameWin) {
-				
+
 				bool cd = false;
 				sf::Time cooldown = sf::Time(sf::seconds(0.1f));
 				sf::View mainMenuView;
 				window.clear();
 				window.setView(mainMenuView);
-				
-				
+
+
 				if (event.type == sf::Event::TextEntered)
 				{
-					
-					
+
+
 					if (scoreSubmitted)
 					{
 						break;
 					}
 
-					
-					
+
+
 					if (clock2.getElapsedTime() < cooldown) {
 						cd = true;
 					}
@@ -235,65 +239,65 @@ public:
 							playerText.setString(playerInput);
 							clock2.restart();
 						}
-						
+
 					}
 
 					if (event.text.unicode == 13)
 					{
-						
-						
-							switch (count)
-							{
-							case 2:
-								if (!cd) {
-									
-									password = (std::string)playerText.getString().toAnsiString();
-									password.erase(0, baseTextSize);
 
-									pseudo.erase(std::remove(pseudo.begin(), pseudo.end(), '\r'), pseudo.end());
-									password.erase(std::remove(password.begin(), password.end(), '\r'), password.end());
 
-									requestManager->signIn(pseudo, email, password);
-									token = requestManager->login(pseudo, email, password);
-									requestManager->newscore(score, "MARIO", token);
+						switch (count)
+						{
+						case 2:
+							if (!cd) {
 
-									playerText.setString(requestManager->Scorelist());
-									std::cout << token << "\n";
-									count++;
-								}
-								break;
-							case 1:
-								if (!cd) {
-									
-									pseudo = (std::string)playerText.getString().toAnsiString();
-									
-									pseudo.erase(0, baseTextSize);
-									playerText.setString("Password: ");
-									baseTextSize = playerText.getString().getSize();
-									count++;
+								password = (std::string)playerText.getString().toAnsiString();
+								password.erase(0, baseTextSize);
 
-								}
-								break;
-							case 0:
-								if (!cd) {
-									email = (std::string)playerText.getString().toAnsiString();
-									email.erase(0, baseTextSize);
-									playerText.setString("Name: ");
-									baseTextSize = playerText.getString().getSize();
-									count++;
-								}
-								break;
-							
-							
+								pseudo.erase(std::remove(pseudo.begin(), pseudo.end(), '\r'), pseudo.end());
+								password.erase(std::remove(password.begin(), password.end(), '\r'), password.end());
 
-							default:
-								break;
+								requestManager->signIn(pseudo, email, password);
+								token = requestManager->login(pseudo, email, password);
+								requestManager->newscore(score, "MARIO", token);
+
+								playerText.setString(requestManager->Scorelist());
+								std::cout << token << "\n";
+								count++;
 							}
-							
-							clock2.restart();
-						
-						
-					
+							break;
+						case 1:
+							if (!cd) {
+
+								pseudo = (std::string)playerText.getString().toAnsiString();
+
+								pseudo.erase(0, baseTextSize);
+								playerText.setString("Password: ");
+								baseTextSize = playerText.getString().getSize();
+								count++;
+
+							}
+							break;
+						case 0:
+							if (!cd) {
+								email = (std::string)playerText.getString().toAnsiString();
+								email.erase(0, baseTextSize);
+								playerText.setString("Name: ");
+								baseTextSize = playerText.getString().getSize();
+								count++;
+							}
+							break;
+
+
+
+						default:
+							break;
+						}
+
+						clock2.restart();
+
+
+
 					}
 
 					if (event.text.unicode < 128)
@@ -304,10 +308,10 @@ public:
 							playerText.setString(playerInput);
 							clock2.restart();
 						}
-						
+
 					}
 
-					
+
 				}
 				window.draw(playerText);
 				window.display();
@@ -317,7 +321,7 @@ public:
 
 			else
 			{
-				
+
 				if (!menuIsOpen)
 				{
 					ShowMainMenu(window, playButton, quitButton);
@@ -357,7 +361,7 @@ public:
 		window.setView(mainMenuView);
 
 		sf::Font TextFont;
-		if (!TextFont.loadFromFile("Assets/Fonts/FORCED_SQUARE.ttf"))
+		if (!TextFont.loadFromFile("../Assets/Fonts/FORCED_SQUARE.ttf"))
 			std::cout << "error";
 
 

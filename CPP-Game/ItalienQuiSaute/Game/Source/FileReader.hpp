@@ -1,18 +1,16 @@
 #pragma once
 
+#include "../../Engine/System/Managers/TexturesManager.hpp"
+#include "../../Engine/Entities/GameObject.hpp"
+#include "../../Engine/Entities/Entity.hpp"
+#include "../../Engine/Entities/Flag.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <array>
 #include <map>
-#include "GameObject.hpp"
-#include "TexturesManager.hpp"
-#include "Enemy.hpp"
-
-#include "TexturesManager.hpp"
-#include "GameObject.hpp"
-#include "Flag.hpp"
 
 class ReadMap
 {
@@ -32,7 +30,7 @@ public:
 		if (!inputFile.is_open())
 		{
 			std::cerr << "Could not open the file - '" << filename << "'" << std::endl;
-			throw std::runtime_error("ckc");
+			throw std::runtime_error("Error occurred while trying to open file.");
 		}
 
 		int y = 1;
@@ -60,7 +58,7 @@ public:
 				}
 				case '4':
 				{
-					Flag* gobj = new Flag(EM, { x,y },4);
+					Flag* gobj = new Flag(EM, { x,y }, 4);
 					break;
 				}
 				case '5':
@@ -82,11 +80,8 @@ public:
 				}
 				x++;
 				dimensions.x = x * blockSize;
-
-
 			}
 			y++;
-
 		}
 		dimensions.y = y * blockSize;
 		inputFile.close();

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "SpriteRendererComponent.hpp"
-#include "TransformComponent.hpp"
-#include "ColliderComponent.hpp"
-#include "GravityComponent.hpp"
-#include "TexturesManager.hpp"
-#include "Maths/Vector2.h"
+#include "../../Engine/System/Managers/TexturesManager.hpp"
+#include "../../Engine/System/Libraries/Maths/Vector2.h"
+#include "../Components/SpriteRendererComponent.hpp"
+#include "../Components/TransformComponent.hpp"
+#include "../Components/ColliderComponent.hpp"
+#include "../Components/GravityComponent.hpp"
 #include "Entity.hpp"
 
 class Enemy : public Entity

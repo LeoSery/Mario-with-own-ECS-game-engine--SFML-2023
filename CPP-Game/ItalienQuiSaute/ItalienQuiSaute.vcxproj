@@ -131,35 +131,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ItalienQuiSaute.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AnimationsManager.hpp" />
-    <ClInclude Include="AudioComponent.hpp" />
-    <ClInclude Include="Background.hpp" />
-    <ClInclude Include="CameraComponent.hpp" />
-    <ClInclude Include="ColliderComponent.hpp" />
-    <ClInclude Include="Component.hpp" />
-    <ClInclude Include="Enemy.hpp" />
-    <ClInclude Include="Entity.hpp" />
-    <ClInclude Include="EntityManager.hpp" />
-    <ClInclude Include="FileReader.hpp" />
-    <ClInclude Include="Flag.hpp" />
-    <ClInclude Include="GameManager.hpp" />
-    <ClInclude Include="GameObject.hpp" />
-    <ClInclude Include="GravityComponent.hpp" />
-    <ClInclude Include="HealthComponent.hpp" />
-    <ClInclude Include="InputManager.hpp" />
+    <ClInclude Include="Engine\API\RequestManager.hpp" />
+    <ClInclude Include="Engine\Components\AudioComponent.hpp" />
+    <ClInclude Include="Engine\Components\CameraComponent.hpp" />
+    <ClInclude Include="Engine\Components\ColliderComponent.hpp" />
+    <ClInclude Include="Engine\Components\Component.hpp" />
+    <ClInclude Include="Engine\Components\GravityComponent.hpp" />
+    <ClInclude Include="Engine\Components\HealthComponent.hpp" />
+    <ClInclude Include="Engine\Components\PlayerControllerComponent.hpp" />
+    <ClInclude Include="Engine\Components\PlayerStateComponent.hpp" />
+    <ClInclude Include="Engine\Components\SpriteRendererComponent.hpp" />
+    <ClInclude Include="Engine\Components\TransformComponent.hpp" />
+    <ClInclude Include="Engine\Entities\Enemy.hpp" />
+    <ClInclude Include="Engine\Entities\Entity.hpp" />
+    <ClInclude Include="Engine\Entities\Flag.hpp" />
+    <ClInclude Include="Engine\Entities\GameObject.hpp" />
+    <ClInclude Include="Engine\Entities\PlayerEntity.hpp" />
+    <ClInclude Include="Engine\System\Libraries\Maths\Vector2.h" />
+    <ClInclude Include="Engine\System\Managers\AnimationsManager.hpp" />
+    <ClInclude Include="Engine\System\Managers\EntityManager.hpp" />
+    <ClInclude Include="Engine\System\Managers\InputManager.hpp" />
+    <ClInclude Include="Engine\System\Managers\TexturesManager.hpp" />
+    <ClInclude Include="Engine\Entities\Background.hpp" />
+    <ClInclude Include="Game\Source\FileReader.hpp" />
+    <ClInclude Include="Game\Source\GameManager.hpp" />
     <ClInclude Include="Maths\Vector2.h" />
-    <ClInclude Include="PlayerControllerComponent.hpp" />
-    <ClInclude Include="PlayerEntity.hpp" />
-    <ClInclude Include="PlayerStateComponent.hpp" />
-    <ClInclude Include="SpriteRendererComponent.hpp" />
-    <ClInclude Include="TexturesManager.hpp" />
-    <ClInclude Include="TransformComponent.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Map.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Sprites\background.png" />
@@ -177,6 +173,28 @@
     <Image Include="Assets\Sprites\mario_win.png" />
     <Image Include="Assets\Sprites\rat.png" />
     <Image Include="Assets\Sprites\super_block.png" />
+    <Image Include="Game\Assets\Sprites\Character\mario_idle.png" />
+    <Image Include="Game\Assets\Sprites\Character\mario_jump.png" />
+    <Image Include="Game\Assets\Sprites\Character\mario_walk_1.png" />
+    <Image Include="Game\Assets\Sprites\Character\mario_walk_2.png" />
+    <Image Include="Game\Assets\Sprites\Character\mario_walk_3.png" />
+    <Image Include="Game\Assets\Sprites\Character\mario_win.png" />
+    <Image Include="Game\Assets\Sprites\Enemies\goomba.png" />
+    <Image Include="Game\Assets\Sprites\Map\background.png" />
+    <Image Include="Game\Assets\Sprites\Map\brick.png" />
+    <Image Include="Game\Assets\Sprites\Map\flag_1.png" />
+    <Image Include="Game\Assets\Sprites\Map\flag_2.png" />
+    <Image Include="Game\Assets\Sprites\Map\ground.png" />
+    <Image Include="Game\Assets\Sprites\Map\super_block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\Source\ItalienQuiSaute.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Game\Assets\Resources\MapPatern.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Game\Assets\Fonts\FORCED_SQUARE.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

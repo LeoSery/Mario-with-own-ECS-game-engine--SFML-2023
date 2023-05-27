@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../../Engine/System/Libraries/Maths/Vector2.h";
 #include "Component.hpp";
-#include "Maths/Vector2.h";
 
 class AudioComponent : public Component
 {

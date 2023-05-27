@@ -1,7 +1,8 @@
 #pragma once
 
+#include "../../Engine/System/Libraries/Maths/Vector2.h"
 #include "Component.hpp"
-#include "Maths/Vector2.h"
+
 #include <SFML/Graphics.hpp>
 
 class SpriteRendererComponent : public Component
@@ -33,7 +34,7 @@ public:
 		pos = sf::Vector2f(worldpos.x, worldpos.y);
 	}
 
-	
+
 
 	void setBlockPosition(Vector2<int> worldpos) {
 		pos = sf::Vector2f(worldpos.x * width, worldpos.y * width);

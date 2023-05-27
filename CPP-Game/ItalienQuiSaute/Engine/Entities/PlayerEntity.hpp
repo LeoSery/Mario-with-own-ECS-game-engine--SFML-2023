@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Maths/Vector2.h";
-#include "PlayerControllerComponent.hpp";
-#include "TransformComponent.hpp";
-#include "SpriteRendererComponent.hpp";
-#include "ColliderComponent.hpp";
-#include "TexturesManager.hpp";
-#include "EntityManager.hpp";
-#include "GravityComponent.hpp";
-#include "CameraComponent.hpp";
+#include "../../Engine/System/Managers/TexturesManager.hpp";
+#include "../../Engine/System/Managers/EntityManager.hpp";
+#include "../../Engine/System/Libraries/Maths/Vector2.h";
+#include "../Components/PlayerControllerComponent.hpp";
+#include "../Components/SpriteRendererComponent.hpp";
+#include "../Components/TransformComponent.hpp";
+#include "../Components/ColliderComponent.hpp";
+#include "../Components/GravityComponent.hpp";
+#include "../Components/CameraComponent.hpp";
 
 
 class PlayerEntity : public Entity

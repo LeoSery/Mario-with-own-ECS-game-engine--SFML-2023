@@ -1,8 +1,9 @@
 #pragma once
 
+#include "../../Engine/System/Libraries/Maths/Vector2.h";
+#include "../../Engine/Entities/Background.hpp";
 #include "Component.hpp";
-#include "Background.hpp";
-#include "Maths/Vector2.h";
+
 #include <SFML/Graphics.hpp>;
 
 class CameraComponent : public Component
@@ -17,7 +18,7 @@ public:
 		window.setView(view);
 	}
 	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window, Background* bg) {
-		if (playerpos.x + (view.getSize().x - view.getSize().x/2) >= mapDimensions.x) {
+		if (playerpos.x + (view.getSize().x - view.getSize().x / 2) >= mapDimensions.x) {
 			direction.x = 0.0f;
 		}
 		if (playerpos.y - (view.getSize().y) >= mapDimensions.y) {
@@ -30,7 +31,7 @@ public:
 		if (view.getCenter().y - playerpos.y - (view.getSize().y) <= 0) {
 			direction.y = 0.0f;
 		}
-		
+
 		view.move(sf::Vector2f(direction.x, direction.y));
 		bg->Move({ direction.x, direction.y });
 		window.setView(view);

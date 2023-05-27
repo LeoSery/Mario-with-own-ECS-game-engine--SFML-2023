@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Maths/Vector2.h";
+#include "../../Engine/System/Libraries/Maths/Vector2.h";
 #include "Component.hpp";
 
 class GravityComponent : public Component
