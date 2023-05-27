@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../Engine/System/Managers/TexturesManager.hpp"
-#include "../../Engine/Entities/GameObject.hpp"
-#include "../../Engine/Entities/Entity.hpp"
-#include "../../Engine/Entities/Flag.hpp"
+#include "../Engine/System/Managers/TexturesManager.hpp"
+#include "../Engine/Entities/GameObject.hpp"
+#include "../Engine/Entities/Entity.hpp"
+#include "../Engine/Entities/Flag.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>

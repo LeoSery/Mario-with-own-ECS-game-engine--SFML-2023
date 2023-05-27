@@ -1,19 +1,19 @@
 #pragma once
 
-#include "../../Engine/Components/PlayerControllerComponent.hpp"
-#include "../../Engine/Components/SpriteRendererComponent.hpp"
-#include "../../Engine/Components/ColliderComponent.hpp"
-#include "../../Engine/Components/HealthComponent.hpp"
+#include "../Engine/Components/PlayerControllerComponent.hpp"
+#include "../Engine/Components/SpriteRendererComponent.hpp"
+#include "../Engine/Components/ColliderComponent.hpp"
+#include "../Engine/Components/HealthComponent.hpp"
 
-#include "../../Engine/System/Managers/TexturesManager.hpp"
-#include "../../Engine/System/Managers/EntityManager.hpp"
-#include "../../Engine/System/Managers/InputManager.hpp"
+#include "../Engine/System/Managers/TexturesManager.hpp"
+#include "../Engine/System/Managers/EntityManager.hpp"
+#include "../Engine/System/Managers/InputManager.hpp"
 
-#include "../../Engine/Entities/PlayerEntity.hpp"
-#include "../../Engine/Entities/Enemy.hpp"
+#include "../Engine/Entities/PlayerEntity.hpp"
+#include "../Engine/Entities/Enemy.hpp"
 
-#include "../../Engine/System/Libraries/Maths/Vector2.h"
-#include "../../Engine/API/RequestManager.hpp"
+#include "../Engine/System/Libraries/Maths/Vector2.h"
+#include "../Engine/API/RequestManager.hpp"
 
 #include "FileReader.hpp"
 
@@ -58,7 +58,7 @@ public:
 		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
 
 		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8 });
-		Vector2<int> mapDimensions = mapReader.ReadFile("Assets/Resources/MapPatern.txt", gameMap, EM);
+		Vector2<int> mapDimensions = mapReader.ReadFile("Game/Assets/Resources/MapPatern.txt", gameMap, EM);
 		std::cout << mapDimensions.y;
 		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
 
@@ -67,7 +67,7 @@ public:
 		sf::String playerInput;
 		sf::Text playerText;
 		sf::Font TextFont;
-		if (!TextFont.loadFromFile("../Assets/Fonts/FORCED_SQUARE.ttf"))
+		if (!TextFont.loadFromFile("Game/Assets/Fonts/FORCED_SQUARE.ttf"))
 		{
 			std::cout << "error";
 		}
@@ -361,7 +361,7 @@ public:
 		window.setView(mainMenuView);
 
 		sf::Font TextFont;
-		if (!TextFont.loadFromFile("../Assets/Fonts/FORCED_SQUARE.ttf"))
+		if (!TextFont.loadFromFile("Game/Assets/Fonts/FORCED_SQUARE.ttf"))
 			std::cout << "error";
 
 

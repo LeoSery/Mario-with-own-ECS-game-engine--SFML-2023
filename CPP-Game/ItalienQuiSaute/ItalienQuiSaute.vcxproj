@@ -153,8 +153,8 @@
     <ClInclude Include="Engine\System\Managers\InputManager.hpp" />
     <ClInclude Include="Engine\System\Managers\TexturesManager.hpp" />
     <ClInclude Include="Engine\Entities\Background.hpp" />
-    <ClInclude Include="Game\Source\FileReader.hpp" />
-    <ClInclude Include="Game\Source\GameManager.hpp" />
+    <ClInclude Include="Game\FileReader.hpp" />
+    <ClInclude Include="Game\GameManager.hpp" />
     <ClInclude Include="Maths\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +188,7 @@
     <Image Include="Game\Assets\Sprites\Map\super_block.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game\Source\ItalienQuiSaute.cpp" />
+    <ClCompile Include="Game\ItalienQuiSaute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Game\Assets\Resources\MapPatern.txt" />
