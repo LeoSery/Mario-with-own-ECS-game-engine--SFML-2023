@@ -72,7 +72,7 @@ public:
 
 
 		//Add to pos direction vector
-		playerControllerComponent->Move(moveDirection, deltaTime.asMilliseconds());
+		playerControllerComponent->Move(moveDirection, deltaTime.asSeconds());
 		Vector2<float> newpos = playerControllerComponent->getDirectionVector();
 		newpos = gravityComponent->ApplyGravity(newpos, deltaTime.asMicroseconds());
 		newpos = transformComponent->addPos(newpos, colliderComponent->activeDirections);

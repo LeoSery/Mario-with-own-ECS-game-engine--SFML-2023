@@ -4,6 +4,7 @@
 #include "Component.hpp";
 
 #include <string>
+#include <iostream>
 
 class PlayerControllerComponent : public Component
 {
@@ -11,10 +12,11 @@ public:
 
 	PlayerControllerComponent()
 	{
-		speed = 0.8f;
-		jumpspeed = 1.0f;
-		jump = 0.0f;
+		speed = 700.0f;
+		jumptime = 0.0f;
+		jumpforce = -5.0f;
 		playerDirection = { 0.0f, 0.0f };
+		
 	}
 
 
@@ -26,22 +28,21 @@ public:
 
 		//if there's y axis input and entity is not jumping
 		if (moveDirection.y < 0.0f && !jumping) { 
-
-			jump = moveDirection.y * deltatime /5;
+			jumpforce = moveDirection.y;
+			jumptime = 1.3f;
 			jumping = true;
 
 		}
-		//During a jump make the jump vector closer to 0
-		if (jump < 0.0f && jumping) { 
-			jump += (jumpspeed * 1 / 100) * deltatime;
-			playerDirection.y = (jump);
+		//During a jump make the jump air time closer to 0
+		if (jumptime > 0.0f && jumping) { 
+			jumptime -= deltatime;
+			
+			playerDirection.y = jumptime*jumpforce;
 
 		}
-		else
-		{
-			jump = 0.0f;
-		}
+		std::cout << jumptime << "\n";
 
+		
 
 
 	}
@@ -59,24 +60,26 @@ public:
 		else {
 			jumping = false;
 			playerDirection.y = 0.0f;
-			jump = 0.0f;
+			jumptime = 0.0f;
 		}
 	}
 
 	void setFalling() {
 		playerDirection.y = 0.0f;
-		jump = 0.0f;
+		jumptime = 0.0f;
 	}
 
 	//Used to bounce on ennemies when killed (double jump)
-	void addJump(float height) {
+	void addJump(float timejumping) {
 		jumping = true;
-		jump -= height;
+		jumptime = timejumping;
+		
+		
 	}
 private:
 	bool jumping = false;
 	float speed;
-	float jumpspeed;
-	float jump;
+	float jumptime;
+	float jumpforce;
 	Vector2<float> playerDirection;
 };

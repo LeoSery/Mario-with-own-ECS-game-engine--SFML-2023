@@ -25,10 +25,8 @@
 class GameManager
 {
 public:
-	EntityManager* EM = new EntityManager();
-	
+	EntityManager* EM;
 	bool menuIsOpen = false;
-
 	Level* level;
 
 	GameManager()
@@ -40,10 +38,13 @@ public:
 	void Init()
 	{
 		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+		EM = new EntityManager();
 		level = new Level(window, EM);
 		Update(window);
 	}
 
+
+	//Main loop
 	void Update(sf::RenderWindow& window)
 	{
 
@@ -52,13 +53,10 @@ public:
 
 		Menu menu;
 
-
-		EM->Purge();
 		while (window.isOpen())
 		{
-			sf::Clock clock;
-
-			EM->Purge();
+			//Remove entities in destroy queue just in case
+			EM->Purge(); 
 
 			while (window.pollEvent(event))
 			{
@@ -66,14 +64,18 @@ public:
 					window.close();
 			}
 
+			//Game loop
 			if (level->ingame) {
 				level->UpdateLevel(window, event, inputManager);
 			}
+
+			//Score Menu loop
 			else if (level->gameWin) {
 				menu.scoreMenu(window, event, level->score);
 				
 			}
 
+			//Main menu / Game Over loop
 			else
 			{
 
@@ -103,10 +105,13 @@ public:
 		delete level;
 	}
 
+
+	//Make a new level
 	void StartGame(sf::RenderWindow& window)
 	{
+		
 		menuIsOpen = false;
-		level->InitLevel(window);
+		level->InitLevel(window); 
 		level->ingame = true;
 		std::cout << "Starting Game !!!!" << std::endl;
 	}
