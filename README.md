@@ -54,3 +54,26 @@ https://github.com/LeoSery/Mario-with-own-ECS-game-engine--SFML-2023.git
 
 ## How to build the project : 
 
+- 1 - Install Vcpkg, Cmake latest stable release, Powershell latest stable release
+- 2 - Add Vcpkg to PATH environment variable for example : C:\vcpkg
+- 3 - Install Sfml 64 bit : vcpkg install sfml:x64-windows 
+- 4 - Install libcurl 64 bit : vcpkg install libcurl-simple-https:x64-windows 
+
+- 5 - Add to PATH environment variable the path to your sfml debug installation : C:\vcpkg\installed\x64-windows\debug\bin
+
+- 6 - Reboot Windows
+
+- 7 - Check if the paths in CMakeLists are the same with your installation
+
+- 8 - In the solution directory where the CMakeLists file is open a terminal and input: 
+```
+cmake .
+```
+Then
+```
+cmake build .
+```
+- 9 - You can now run the project in visual studio, or use the .exe **(if you do, be sure to copy the assets in the same folder as the .exe)**
+
+
+
