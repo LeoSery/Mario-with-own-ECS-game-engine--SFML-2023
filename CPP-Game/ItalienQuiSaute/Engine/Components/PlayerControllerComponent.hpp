@@ -29,7 +29,7 @@ public:
 		//if there's y axis input and entity is not jumping
 		if (moveDirection.y < 0.0f && !jumping) { 
 			jumpforce = moveDirection.y;
-			jumptime = 1.3f;
+			jumptime = 1.0f;
 			jumping = true;
 
 		}
@@ -37,8 +37,12 @@ public:
 		if (jumptime > 0.0f && jumping) { 
 			jumptime -= deltatime;
 			
-			playerDirection.y = jumptime*jumpforce;
+			playerDirection.y = jumpforce*deltatime*jumptime;
 
+		}
+		else {
+			jumping = false;
+			playerDirection.y = 0.0f;
 		}
 		std::cout << jumptime << "\n";
 
