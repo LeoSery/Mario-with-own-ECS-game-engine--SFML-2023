@@ -77,9 +77,6 @@ public:
 
 		for (Entity* ent : EM->livingEntityList)
 		{
-			if (ent->Tag == "BACKGROUND") {
-				bg = static_cast<Background*>(ent);
-			}
 			Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
 			if (currentComponent != NULL) {
 				SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
@@ -92,6 +89,8 @@ public:
 						gameWin = true;
 						ingame = false;
 						std::cout << "win";
+						EM->PurgeAll();
+						return;
 					}
 
 				}
@@ -133,9 +132,8 @@ public:
 						EM->destroyQueue.push_back(ent);
 					}
 					else {
-						ingame = false;
-						gameOver = true;
-						std::cout << "GameOver" << std::endl;
+						GameOver();
+						return;
 					}
 
 				}
@@ -145,13 +143,21 @@ public:
 
 		player->Move(inputManager.GetDirection(), deltaTime, window, bg);
 		if (player->spriteRendererComponent->getPosition().y > mapDimensions.y) {
-			gameOver = true;
-			ingame = false;
+			GameOver();
+			return;
 		}
 
 		window.display();
 		deltaTime = clock.getElapsedTime();
 		timeSinceStart += deltaTime;
+	}
+
+
+	void GameOver() {
+		ingame = false;
+		gameOver = true;
+		std::cout << "GameOver" << std::endl;
+		EM->PurgeAll();
 	}
 	
 };
