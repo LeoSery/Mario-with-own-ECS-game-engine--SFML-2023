@@ -155,6 +155,7 @@
     <ClInclude Include="Engine\Entities\Background.hpp" />
     <ClInclude Include="Game\FileReader.hpp" />
     <ClInclude Include="Game\GameManager.hpp" />
+    <ClInclude Include="Game\Level.hpp" />
     <ClInclude Include="Maths\Vector2.h" />
   </ItemGroup>
   <ItemGroup>

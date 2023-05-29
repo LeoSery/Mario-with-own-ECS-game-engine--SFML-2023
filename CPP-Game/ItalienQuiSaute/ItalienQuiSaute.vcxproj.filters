@@ -84,10 +84,13 @@
     <ClInclude Include="Engine\Entities\Background.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Source\FileReader.hpp">
+    <ClInclude Include="Game\FileReader.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Source\GameManager.hpp">
+    <ClInclude Include="Game\GameManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Level.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -178,7 +181,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game\Source\ItalienQuiSaute.cpp">
+    <ClCompile Include="Game\ItalienQuiSaute.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

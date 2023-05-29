@@ -16,6 +16,7 @@
 #include "../Engine/API/RequestManager.hpp"
 
 #include "FileReader.hpp"
+#include "Level.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -24,43 +25,33 @@ class GameManager
 {
 public:
 	EntityManager* EM = new EntityManager();
-	sf::Texture tex = TexturesManager::getTexture(0);
-	bool ingame = false;
-	bool gameOver = false;
-	bool gameWin = false;
+	
 	bool scoreSubmitted = false;
 	bool menuIsOpen = false;
 
+	Level* level;
+
 	GameManager()
 	{
+		
 		Init();
 	}
 
 	void Init()
 	{
-		Update();
+		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+		level = new Level(window, EM);
+		Update(window);
 	}
 
-	void Update()
+	void Update(sf::RenderWindow& window)
 	{
-		sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
 
 		sf::Event event{};
 		InputManager inputManager(event);
 
-		sf::Time deltaTime = sf::Time(sf::microseconds(1.1f));
-		sf::Time timeSinceStart = sf::Time(sf::microseconds(0));
-
-		std::map<char, sf::Texture> gameMap;
-		ReadMap mapReader;
-
 		sf::RectangleShape playButton(sf::Vector2f(200, 60));
 		sf::RectangleShape quitButton(sf::Vector2f(200, 60));
-
-		Background* bg = new Background(EM, TexturesManager::getTexture(8), { 0,-8 });
-		Vector2<int> mapDimensions = mapReader.ReadFile("Game/Assets/Resources/MapPatern.txt", gameMap, EM);
-		std::cout << mapDimensions.y;
-		PlayerEntity* player = new PlayerEntity(EM, window, mapDimensions, { 1000,500 });
 
 
 		//Creation du texte pour l'input des scores
@@ -84,7 +75,7 @@ public:
 
 		sf::Clock clock2;
 		int count = 0;
-		int score = 0;
+		
 
 		std::string email;
 		std::string pseudo;
@@ -106,103 +97,10 @@ public:
 					window.close();
 			}
 
-			if (ingame) {
-				sf::Clock clock;
-
-				inputManager.UpdateEvent(event);
-				window.clear();
-				EM->Purge();
-
-				std::vector<Entity*> allEnemies = EM->GetAllEntityByTag("ENEMY");
-
-
-				for (Entity* entity : allEnemies)
-				{
-					Enemy* enemy = static_cast<Enemy*>(entity);
-					enemy->Move(sf::Time(sf::microseconds(2000)));
-				}
-
-
-
-				for (Entity* ent : EM->livingEntityList)
-				{
-					if (ent->Tag == "BACKGROUND") {
-						bg = static_cast<Background*>(ent);
-					}
-					Component* currentComponent = EM->GetComponentByTag(ent, "SPRITE_RENDERER");
-					if (currentComponent != NULL) {
-						SpriteRendererComponent* sprite = static_cast<SpriteRendererComponent*>(currentComponent);
-						window.draw(sprite->loadSprite());
-
-						Component* collidercomp = EM->GetComponentByTag(ent, "COLLIDER");
-						if (collidercomp != NULL && ent->Tag != "PLAYER") {
-							player->colliderComponent->Collision(sprite->getSprite());
-							if (ent->Tag == "FLAG" && player->colliderComponent->collided) {
-								gameWin = true;
-								ingame = false;
-								std::cout << "win";
-							}
-
-						}
-
-
-						if (currentComponent != NULL && ent->Tag != "ENEMY") {
-							for (Entity* enemy : allEnemies) {
-								Enemy* enemyEntity = static_cast<Enemy*>(enemy);
-								enemyEntity->colliderComponent->Collision(sprite->getSprite());
-								if (ent->Tag == "PLAYER")
-								{
-									if (enemyEntity->colliderComponent->collided) {
-										if (std::find(enemyEntity->colliderComponent->activeDirections.begin(), enemyEntity->colliderComponent->activeDirections.end(), "TOP") != enemyEntity->colliderComponent->activeDirections.end()) {
-											enemyEntity->healthComponent->TakeDamage(100);
-											player->playerControllerComponent->addJump(3.0f);
-											auto itr = std::find(player->colliderComponent->activeDirections.begin(), player->colliderComponent->activeDirections.end(), "FLOOR");
-											if (itr != player->colliderComponent->activeDirections.end()) player->colliderComponent->activeDirections.erase(itr);
-											score++;
-										}
-										else {
-											player->healthComponent->TakeDamage(100);
-										}
-									}
-
-
-								}
-							}
-						}
-
-
-					}
-
-					currentComponent = EM->GetComponentByTag(ent, "HEALTH");
-					if (currentComponent != NULL) {
-						HealthComponent* entityHealth = static_cast<HealthComponent*>(currentComponent);
-						if (entityHealth->GetisDead() == true)
-						{
-							if (ent->Tag != "PLAYER") {
-								EM->destroyQueue.push_back(ent);
-							}
-							else {
-								ingame = false;
-								gameOver = true;
-								std::cout << "GameOver" << std::endl;
-							}
-
-						}
-					}
-
-				}
-
-				player->Move(inputManager.GetDirection(), deltaTime, window, bg);
-				if (player->spriteRendererComponent->getPosition().y > mapDimensions.y) {
-					gameOver = true;
-					ingame = false;
-				}
-
-				window.display();
-				deltaTime = clock.getElapsedTime();
-				timeSinceStart += deltaTime;
+			if (level->ingame) {
+				level->UpdateLevel(window, event, inputManager);
 			}
-			else if (gameWin) {
+			else if (level->gameWin) {
 
 				bool cd = false;
 				sf::Time cooldown = sf::Time(sf::seconds(0.1f));
@@ -259,7 +157,7 @@ public:
 
 								requestManager->signIn(pseudo, email, password);
 								token = requestManager->login(pseudo, email, password);
-								requestManager->newscore(score, "MARIO", token);
+								requestManager->newscore(level->score, "MARIO", token);
 
 								playerText.setString(requestManager->Scorelist());
 								std::cout << token << "\n";
@@ -335,11 +233,12 @@ public:
 					if (playButton.getGlobalBounds().contains(mousePositionVector))
 					{
 						std::cout << "MOUSE IN PLAY BUTTON" << std::endl;
-						StartGame();
+						StartGame(window);
 					}
 					else if (quitButton.getGlobalBounds().contains(mousePositionVector))
 					{
 						std::cout << "MOUSE IN QUIT BUTTON" << std::endl;
+						delete level;
 						window.close();
 					}
 				}
@@ -393,10 +292,11 @@ public:
 		window.display();
 	}
 
-	void StartGame()
+	void StartGame(sf::RenderWindow& window)
 	{
 		menuIsOpen = false;
-		ingame = true;
+		level->InitLevel(window);
+		level->ingame = true;
 		std::cout << "Starting Game !!!!" << std::endl;
 	}
 };
