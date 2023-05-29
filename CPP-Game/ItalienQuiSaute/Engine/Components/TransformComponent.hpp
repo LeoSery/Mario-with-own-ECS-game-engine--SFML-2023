@@ -6,6 +6,12 @@
 class TransformComponent : public Component
 {
 public:
+
+	Vector2<float> rotation;
+	Vector2<float> position;
+	Vector2<float> nextpos;
+	Vector2<float> scale;
+
 	TransformComponent()
 	{
 		position = { 0, 0 };
@@ -22,53 +28,38 @@ public:
 		scale = _scale;
 	}
 
-	Vector2<float> addPos(Vector2<float> _position, std::vector<std::string> directions) {
-
-
+	Vector2<float> addPos(Vector2<float> _position, std::vector<std::string> directions)
+	{
 		position = nextpos;
 
 		//Check collisions
 		for (std::string direction : directions)
-
 		{
-			if (direction == "LEFT") {
-				if (_position.x > 0.0f) {
+			if (direction == "LEFT")
+			{
+				if (_position.x > 0.0f)
 					_position.x = 0.0f;
-				}
-
 			}
 
-			else if (direction == "RIGHT") {
-				if (_position.x < 0.0f) {
+			else if (direction == "RIGHT")
+			{
+				if (_position.x < 0.0f)
 					_position.x = 0.0f;
-				}
-
-
 			}
 
-			else if (direction == "FLOOR") {
-				if (_position.y > 0.0f) {
+			else if (direction == "FLOOR")
+			{
+				if (_position.y > 0.0f)
 					_position.y = 0.0f;
-				}
 			}
+
 			else if (direction == "TOP")
 			{
-				if (_position.y < 0.0f) {
+				if (_position.y < 0.0f)
 					_position.y = 0.0f;
-				}
-
 			}
 		}
-
 		nextpos += _position;
-
 		return _position;
-
-
-
 	}
-	Vector2<float> nextpos;
-	Vector2<float> position;
-	Vector2<float> rotation;
-	Vector2<float> scale;
 };

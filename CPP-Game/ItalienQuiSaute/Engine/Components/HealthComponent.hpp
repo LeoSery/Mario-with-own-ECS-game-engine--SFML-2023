@@ -24,7 +24,7 @@ public:
 	void TakeDamage(int amount)
 	{
 		Health -= amount;
-		
+
 	}
 
 	void TakeHeal(int amount)

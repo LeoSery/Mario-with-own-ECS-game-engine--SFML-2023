@@ -7,8 +7,10 @@ class Component
 public:
 	std::uint32_t UUID; //Is unique
 	std::string Name;
-	std::string Tag;  //TODO: use RTTI and remove tags to avoid casting
+	std::string Tag;
+
 	Component() = default;
+
 	Component(std::uint32_t UUID, std::string Name)
 	{
 		this->UUID = UUID;

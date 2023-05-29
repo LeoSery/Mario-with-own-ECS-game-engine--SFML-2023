@@ -36,6 +36,6 @@ public:
 	}
 
 private:
-	std::vector<sf::Texture> runSprites;
 	std::vector<sf::Texture> actionSprites;
+	std::vector<sf::Texture> runSprites;
 };

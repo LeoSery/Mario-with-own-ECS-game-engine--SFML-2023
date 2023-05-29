@@ -5,11 +5,9 @@
 
 #include <SFML/Graphics.hpp>
 
-
 class ColliderComponent : public Component
 {
 public:
-
 	bool collided;
 	std::vector<std::string> activeDirections;
 
@@ -28,43 +26,32 @@ public:
 		sf::FloatRect entityHitbox = entitySprite->getGlobalBounds();
 		sf::FloatRect otherHitbox = otherSprite->getGlobalBounds();
 
-		if (entityHitbox.intersects(otherHitbox)) {
-
-
+		if (entityHitbox.intersects(otherHitbox))
+		{
 			//Top Limit Diff
-			if (((entityHitbox.top + entityHitbox.height) - otherHitbox.top) <= 30) { //if diff is between 30 pixel
-				direction = "FLOOR";
-			}
+			if (((entityHitbox.top + entityHitbox.height) - otherHitbox.top) <= 30)
+				direction = "FLOOR"; //if diff is between 30 pixel
 
 			//Bot Limit Diff
-			else if ((entityHitbox.top - (otherHitbox.top + otherHitbox.height)) >= -30) { //if diff is between 30 pixel
-				direction = "TOP";
-			}
+			else if ((entityHitbox.top - (otherHitbox.top + otherHitbox.height)) >= -30)
+				direction = "TOP"; //if diff is between 30 pixel
 
 			//Left Limit Diff
-
-			else if (((entityHitbox.left + entityHitbox.width) - otherHitbox.left) <= 30) { //if diff is between 30 pixel
-				direction = "LEFT";
-			}
+			else if (((entityHitbox.left + entityHitbox.width) - otherHitbox.left) <= 30)
+				direction = "LEFT"; //if diff is between 30 pixel
 
 			//Right Limit Diff
-
-			else if ((entityHitbox.left - (otherHitbox.left + otherHitbox.width)) >= -30) { //if diff is between 30 pixel
-				direction = "RIGHT";
-			}
+			else if ((entityHitbox.left - (otherHitbox.left + otherHitbox.width)) >= -30)
+				direction = "RIGHT"; //if diff is between 30 pixel
 
 			activeDirections.push_back(direction);
-
-
 			collided = true;
 			return true;
 		}
-
 		direction = "ALL";
 		collided = false;
 		return false;
 	}
 private:
-
 	sf::Sprite* entitySprite;
 };

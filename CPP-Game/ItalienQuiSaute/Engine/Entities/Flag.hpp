@@ -19,7 +19,6 @@ public:
 	//GameObject with only Sprite and Collider
 	Flag(EntityManager* EM, Vector2<int> startPos, int texture)
 	{
-
 		flagTexture = TexturesManager::getTexture(texture);
 		spriteRendererComponent = new SpriteRendererComponent(flagTexture);
 		EM->CreateEntity("Flag", this);
@@ -38,6 +37,4 @@ public:
 		EM->AddComponent(this, colliderComponent);
 
 	}
-
-
 };

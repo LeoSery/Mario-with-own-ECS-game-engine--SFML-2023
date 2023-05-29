@@ -49,24 +49,20 @@ public:
 	{
 		//If collision on sides invert direction
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "LEFT") != colliderComponent->activeDirections.end())
-		{
 			direction = -direction;
-		}
+
 		else if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "RIGHT") != colliderComponent->activeDirections.end())
-		{
 			direction = -direction;
-		}
 
 		//Add to pos direction vector
 		Vector2<float> newpos = direction;
 		newpos = gravityComponent->ApplyGravity(newpos, deltaTime.asMicroseconds());
 		transformComponent->addPos(newpos, colliderComponent->activeDirections);
-
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);
 	}
 
 private:
-	float speed;
 	Vector2<float> direction;
+	float speed;
 };

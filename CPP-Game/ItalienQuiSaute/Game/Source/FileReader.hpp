@@ -25,8 +25,6 @@ public:
 		char byte = 0;
 		int blockSize = 64;
 
-
-
 		if (!inputFile.is_open())
 		{
 			std::cerr << "Could not open the file - '" << filename << "'" << std::endl;

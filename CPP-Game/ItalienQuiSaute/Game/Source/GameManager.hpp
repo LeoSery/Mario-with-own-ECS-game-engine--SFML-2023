@@ -31,7 +31,6 @@ public:
 
 	GameManager()
 	{
-		
 		Init();
 	}
 
@@ -43,11 +42,9 @@ public:
 		Update(window);
 	}
 
-
 	//Main loop
 	void Update(sf::RenderWindow& window)
 	{
-
 		sf::Event event{};
 		InputManager inputManager(event);
 
@@ -56,7 +53,7 @@ public:
 		while (window.isOpen())
 		{
 			//Remove entities in destroy queue just in case
-			EM->Purge(); 
+			EM->Purge();
 
 			while (window.pollEvent(event))
 			{
@@ -65,53 +62,40 @@ public:
 			}
 
 			//Game loop
-			if (level->ingame) {
+			if (level->ingame)
 				level->UpdateLevel(window, event, inputManager);
-			}
 
 			//Score Menu loop
-			else if (level->gameWin) {
+			else if (level->gameWin)
 				menu.scoreMenu(window, event, level->score);
-				
-			}
 
 			//Main menu / Game Over loop
 			else
 			{
-
 				if (!menuIsOpen)
 				{
 					menu.mainMenu(window);
 					menuIsOpen = true;
 				}
 
-
-				
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					if (menu.onClick(window)) {
+					if (menu.onClick(window))
 						StartGame(window);
-					}
 				}
 			}
-
-
 		}
-
 		//clean all when window is closed
-
 		EM->PurgeAll();
 		delete EM;
 		delete level;
 	}
 
-
 	//Make a new level
 	void StartGame(sf::RenderWindow& window)
 	{
-		
 		menuIsOpen = false;
-		level->InitLevel(window); 
+		level->InitLevel(window);
 		level->ingame = true;
 		std::cout << "Starting Game !!!!" << std::endl;
 	}

@@ -11,11 +11,10 @@ class EntityManager
 {
 public:
 
+	std::map<Entity*, std::vector<Component*>> componentMapping;
+	std::vector<Component*> livingComponentList;
 	std::vector<Entity*> livingEntityList;
 	std::vector<Entity*> destroyQueue;
-
-	std::vector<Component*> livingComponentList;
-	std::map<Entity*, std::vector<Component*>> componentMapping;
 
 #pragma region Entity
 
@@ -32,9 +31,7 @@ public:
 		for (Entity* currentEntity : livingEntityList)
 		{
 			if (currentEntity->UUID == UUID)
-			{
 				return currentEntity;
-			}
 		}
 	}
 
@@ -45,30 +42,26 @@ public:
 		for (Entity* currentEntity : livingEntityList)
 		{
 			if (currentEntity->Tag == Tag)
-			{
 				allEntities.push_back(currentEntity);
-			}
 		}
 		return allEntities;
 	}
 
-
 	//Destroy any entities in the destroy queue
 	void Purge()
 	{
-
 		int queue_size = destroyQueue.size() - 1;
-		if (queue_size >= 0) {
-
+		if (queue_size >= 0)
+		{
 			//reverse loop entities
-			for (int x = (queue_size); x >= 0; x--) {
+			for (int x = (queue_size); x >= 0; x--)
+			{
 				std::cout << x;
 				Entity* entity = destroyQueue.at(x);
 
 				//reverse loop components
 				for (int i = componentMapping[entity].size() - 1; i >= 0; i--)
 				{
-					
 					Component* component = componentMapping[entity].at(i);
 					std::cout << "deleting Component: " << component->Name << "\n";
 					auto iterator = componentMapping[entity].begin() + i;
@@ -77,12 +70,9 @@ public:
 					iterator = livingComponentList.begin() + GetLivingComponentIndex(component);
 					livingComponentList.erase(iterator);
 
-
 					delete component;
 					std::cout << "deleted component" << "\n";
 				}
-
-
 
 				std::cout << "deleting entity: " << entity->Name << "\n";
 				auto iterator = livingEntityList.begin() + GetLivingEntityIndex(entity);
@@ -96,11 +86,11 @@ public:
 				std::cout << "deleted entity" << "\n";
 			}
 		}
-
 	}
 
 	//Destroy all entities and components
-	void PurgeAll() {
+	void PurgeAll()
+	{
 		for (Entity* ent : livingEntityList)
 		{
 			destroyQueue.push_back(ent);
@@ -110,8 +100,6 @@ public:
 #pragma endregion
 
 #pragma region Component
-
-
 
 	void CreateComponent(std::string Name, Component* currentComponent)
 	{
@@ -134,9 +122,7 @@ public:
 		for (Component* currentComponent : components)
 		{
 			if (currentComponent->UUID == componentUUID)
-			{
 				return currentComponent;
-			}
 		}
 		return NULL;
 	}
@@ -148,9 +134,7 @@ public:
 		for (Component* currentComponent : components)
 		{
 			if (currentComponent->Tag == Tag)
-			{
 				return currentComponent;
-			}
 		}
 		return NULL;
 	}
@@ -158,21 +142,21 @@ public:
 #pragma endregion
 
 private:
-	int GetLivingEntityIndex(Entity* entity) {
+	int GetLivingEntityIndex(Entity* entity)
+	{
 		for (size_t i = 0; i < livingEntityList.size(); i++)
 		{
-			if (livingEntityList.at(i) == entity) {
+			if (livingEntityList.at(i) == entity)
 				return i;
-			}
 		}
 	}
 
-	int GetLivingComponentIndex(Component* component) {
+	int GetLivingComponentIndex(Component* component)
+	{
 		for (size_t i = 0; i < livingComponentList.size(); i++)
 		{
-			if (livingComponentList.at(i) == component) {
+			if (livingComponentList.at(i) == component)
 				return i;
-			}
 		}
 	}
 };

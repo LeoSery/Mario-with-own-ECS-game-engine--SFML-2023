@@ -8,7 +8,8 @@
 class SpriteRendererComponent : public Component
 {
 public:
-	SpriteRendererComponent(sf::Texture& tex) : Component(0, "default") {
+	SpriteRendererComponent(sf::Texture& tex) : Component(0, "default")
+	{
 		Tag = "SPRITE_RENDERER";
 		this->tex = tex;
 		this->sprite = loadSprite();
@@ -16,33 +17,36 @@ public:
 		width = 64;
 	};
 
-	sf::Sprite loadSprite() {
+	sf::Sprite loadSprite()
+	{
 		sprite.setTexture(tex);
 		sprite.setPosition(pos);
 		return sprite;
 	}
 
-	Vector2<float> getPosition() {
+	Vector2<float> getPosition()
+	{
 		return { sprite.getPosition().x, sprite.getPosition().y };
 	}
 
-	sf::Sprite* getSprite() {
+	sf::Sprite* getSprite()
+	{
 		return &sprite;
 	}
 
-	void setPosition(Vector2<float> worldpos) {
+	void setPosition(Vector2<float> worldpos)
+	{
 		pos = sf::Vector2f(worldpos.x, worldpos.y);
 	}
 
-
-
-	void setBlockPosition(Vector2<int> worldpos) {
+	void setBlockPosition(Vector2<int> worldpos)
+	{
 		pos = sf::Vector2f(worldpos.x * width, worldpos.y * width);
 	}
 
 private:
-	int width;
+	sf::Sprite sprite;
 	sf::Vector2f pos;
 	sf::Texture tex;
-	sf::Sprite sprite;
+	int width;
 };

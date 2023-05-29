@@ -13,13 +13,10 @@ public:
 	sf::Font TextFont;
 	int baseTextSize;
 
-
-
 	RequestManager requestManager;
 
 	sf::Clock clock2;
 
-	
 	int count = 0;
 
 	//Values needed for the API request
@@ -28,109 +25,90 @@ public:
 	std::string password;
 	std::string token;
 
-
 	//Main menu buttons
 	sf::RectangleShape playButton;
 	sf::RectangleShape quitButton;
 
-
-	
-
-	Menu() {
-
+	Menu()
+	{
 		//Setting base values
 		if (!TextFont.loadFromFile("Game/Assets/Fonts/FORCED_SQUARE.ttf"))
-		{
 			std::cout << "error";
-		}
+
 		playerText.setPosition(6, 9);
 		playerText.setCharacterSize(24);
 		playerText.setFillColor(sf::Color::White);
 		playerText.setString("Email: ");
 		playerText.setFont(TextFont);
-
 		baseTextSize = playerText.getString().getSize();
-
-
 		playButton.setSize(sf::Vector2f(200, 60));
 		quitButton.setSize(sf::Vector2f(200, 60));
 	}
 
-
-
-	void scoreMenu(sf::RenderWindow& window, sf::Event& event, int score) {
+	void scoreMenu(sf::RenderWindow& window, sf::Event& event, int score)
+	{
 		//cooldown for key input to avoid many duplicates input
-
 		bool cd = false;
 		sf::Time cooldown = sf::Time(sf::seconds(0.1f));
 		sf::View mainMenuView;
 		window.clear();
 		window.setView(mainMenuView);
 
-
 		if (event.type == sf::Event::TextEntered)
 		{
-
-			if (clock2.getElapsedTime() < cooldown) {
+			if (clock2.getElapsedTime() < cooldown)
 				cd = true;
-			}
-			else {
+			else
 				cd = false;
-			}
 
 			//Delete Key
 			if (event.text.unicode == 8)
 			{
-				if (!cd) {
+				if (!cd)
+				{
 					playerInput = playerText.getString();
 					if (playerInput.getSize() <= baseTextSize) { return; }
-					
+
 					playerInput.erase(playerInput.getSize() - 1, 1);
 					playerText.setString(playerInput);
 					clock2.restart();
 				}
-
 			}
 
 			//Enter key (submit)
 			else if (event.text.unicode == 13)
 			{
-
 				//switch on all steps of login
 				switch (count)
 				{
 				case 2:
-					if (!cd) {
-
+					if (!cd)
+					{
 						password = (std::string)playerText.getString().toAnsiString();
 						password.erase(0, baseTextSize);
-
 						pseudo.erase(std::remove(pseudo.begin(), pseudo.end(), '\r'), pseudo.end());
 						password.erase(std::remove(password.begin(), password.end(), '\r'), password.end());
-
 						requestManager.signIn(pseudo, email, password);
 						token = requestManager.login(pseudo, email, password);
 						requestManager.newscore(score, "MARIO", token);
-
 						playerText.setString(requestManager.Scorelist());
 						std::cout << token << "\n";
 						count++;
 					}
 					break;
 				case 1:
-					if (!cd) {
-
+					if (!cd)
+					{
 						pseudo = (std::string)playerText.getString().toAnsiString();
-
 						pseudo.erase(0, baseTextSize);
 						playerText.setString("Password: ");
 						baseTextSize = playerText.getString().getSize();
 						count++;
-
 					}
 					break;
 				case 0:
-					if (!cd) {
+					if (!cd)
+					{
 						email = (std::string)playerText.getString().toAnsiString();
 						email.erase(0, baseTextSize);
 						playerText.setString("Name: ");
@@ -138,41 +116,30 @@ public:
 						count++;
 					}
 					break;
-
-
-
 				default:
 					break;
 				}
-
 				clock2.restart();
-
-
-
 			}
 			//Any other keys 
 			else if (event.text.unicode < 128)
 			{
-				if (!cd) {
+				if (!cd)
+				{
 					playerInput = playerText.getString();
 					playerInput += event.text.unicode;
 					playerText.setString(playerInput);
 					clock2.restart();
 				}
-
 			}
-
-
 		}
 		window.draw(playerText);
 		window.display();
 	}
 
-
-
-	void mainMenu(sf::RenderWindow& window) {
+	void mainMenu(sf::RenderWindow& window)
+	{
 		std::cout << "IN DISPLAY MAIN MENU" << std::endl;
-
 		sf::View mainMenuView;
 		window.clear();
 		window.setView(mainMenuView);
@@ -180,7 +147,6 @@ public:
 		sf::Font TextFont;
 		if (!TextFont.loadFromFile("Game/Assets/Fonts/FORCED_SQUARE.ttf"))
 			std::cout << "error";
-
 
 		playButton.setFillColor(sf::Color::White);
 		playButton.setPosition(sf::Vector2f((window.getSize().x / 2) - (playButton.getSize().x / 2), (window.getSize().y / 2) - (playButton.getSize().y / 2) - 100));
@@ -193,7 +159,6 @@ public:
 		playText.setString("PLAY");
 		playText.setFont(TextFont);
 		window.draw(playText);
-
 
 		quitButton.setFillColor(sf::Color::White);
 		quitButton.setPosition(sf::Vector2f((window.getSize().x / 2) - (playButton.getSize().x / 2), (window.getSize().y / 2) - (playButton.getSize().y / 2) + 100));
@@ -210,8 +175,8 @@ public:
 		window.display();
 	}
 
-
-	bool onClick(sf::RenderWindow& window) {
+	bool onClick(sf::RenderWindow& window)
+	{
 		sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 		sf::Vector2f mousePositionVector = { static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y) };
 
@@ -220,22 +185,12 @@ public:
 			std::cout << "MOUSE IN PLAY BUTTON" << std::endl;
 			return true;
 		}
+
 		else if (quitButton.getGlobalBounds().contains(mousePositionVector))
 		{
 			std::cout << "MOUSE IN QUIT BUTTON" << std::endl;
 			window.close();
 		}
-
 		return false;
 	}
-
-
-
-
-
-
-
-
-
-
 };

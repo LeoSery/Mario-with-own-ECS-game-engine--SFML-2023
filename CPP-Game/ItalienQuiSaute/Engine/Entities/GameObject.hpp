@@ -16,20 +16,18 @@ public:
 	SpriteRendererComponent* spriteRendererComponent;
 	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
 
-	GameObject(EntityManager* EM, sf::Texture objTexture, Vector2<int> worldpos) {
-
+	GameObject(EntityManager* EM, sf::Texture objTexture, Vector2<int> worldpos)
+	{
 		spriteRendererComponent = new SpriteRendererComponent(objTexture);
 		spriteRendererComponent->setBlockPosition(worldpos);
 
 		EM->CreateEntity("GameObject", this);
 		RegisterComponents(EM);
-
-
-
 		Tag = "GAMEOBJECT";
 	};
 
-	void RegisterComponents(EntityManager* EM) {
+	void RegisterComponents(EntityManager* EM)
+	{
 		EM->CreateComponent("Transform", transformComponent);
 		EM->AddComponent(this, transformComponent);
 		EM->CreateComponent("SpriteRenderer", spriteRendererComponent);

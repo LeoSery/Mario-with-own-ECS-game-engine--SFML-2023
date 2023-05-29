@@ -19,7 +19,8 @@ public:
 		Vector2<float> velocity = entityDirection + gravityDirection * (deltaTime / 20000) * mass;
 		return velocity;
 	}
+
 private:
-	float mass;
 	float gravityStrength;
+	float mass;
 };

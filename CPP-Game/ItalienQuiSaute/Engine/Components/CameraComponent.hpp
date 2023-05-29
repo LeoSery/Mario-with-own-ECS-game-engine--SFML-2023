@@ -21,22 +21,20 @@ public:
 	}
 
 	//Moving the camera and the background
-	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window, Background* bg) {
-
+	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window, Background* bg)
+	{
 		//Check corners and stop the camera if out of bounds
-		if (playerpos.x + (view.getSize().x - view.getSize().x / 2) >= mapDimensions.x) {
+		if (playerpos.x + (view.getSize().x - view.getSize().x / 2) >= mapDimensions.x)
 			direction.x = 0.0f;
-		}
-		if (playerpos.y - (view.getSize().y) >= mapDimensions.y) {
-			direction.y = 0.0f;
-		}
-		if (view.getCenter().x + playerpos.x - (view.getSize().x) <= 0) {
-			direction.x = 0.0f;
-		}
 
-		if (view.getCenter().y - playerpos.y - (view.getSize().y) <= 0) {
+		if (playerpos.y - (view.getSize().y) >= mapDimensions.y)
 			direction.y = 0.0f;
-		}
+
+		if (view.getCenter().x + playerpos.x - (view.getSize().x) <= 0)
+			direction.x = 0.0f;
+
+		if (view.getCenter().y - playerpos.y - (view.getSize().y) <= 0)
+			direction.y = 0.0f;
 
 		view.move(sf::Vector2f(direction.x, direction.y));
 		bg->Move({ direction.x, direction.y });
@@ -44,6 +42,6 @@ public:
 	}
 
 private:
-	sf::View view;
 	Vector2<int> mapDimensions;
+	sf::View view;
 };

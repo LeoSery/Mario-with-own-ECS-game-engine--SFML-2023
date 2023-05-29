@@ -1,27 +1,28 @@
 #ifndef REQUESTMANAGER_H
 #define REQUESTMANAGER_H
 
-#include <curl/curl.h>
+#include "nlohmann/json.hpp"
 
+#include <curl/curl.h>
 #include <iostream>
 #include <string>
 #include <vector>
-#include "nlohmann/json.hpp"
 
-class RequestManager {
+class RequestManager
+{
 public:
-	RequestManager() {
+	RequestManager()
+	{
 		curl_global_init(CURL_GLOBAL_DEFAULT);
 	}
 
-	~RequestManager() {
+	~RequestManager()
+	{
 		curl_global_cleanup();
 	}
 
-
-
-	std::string login(const std::string& username, const std::string& email, const std::string& password) {
-
+	std::string login(const std::string& username, const std::string& email, const std::string& password)
+	{
 		//Request body
 		std::string jsonBody = "{\"username\": \"" + username + "\", \"email\": \"" + email + "\", \"password\": \"" + password + "\"}";
 		std::string authToken;
@@ -33,7 +34,8 @@ public:
 
 		// Set the request options and perform the request
 		CURL* curl = curl_easy_init();
-		if (curl) {
+		if (curl)
+		{
 			curl_easy_setopt(curl, CURLOPT_URL, "http://mathistitouan.com:45635/login");
 			curl_easy_setopt(curl, CURLOPT_POST, 1L);
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonBody.c_str());
@@ -50,7 +52,8 @@ public:
 
 			//Send Request
 			CURLcode res = curl_easy_perform(curl);
-			if (res != CURLE_OK) {
+			if (res != CURLE_OK)
+			{
 				std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
 			}
 
@@ -60,14 +63,11 @@ public:
 			curl_easy_cleanup(curl);
 			curl_slist_free_all(headers);
 		}
-
 		return authToken;
 	}
 
-
-
-	std::string signIn(const std::string& username, const std::string& email, const std::string& password) {
-
+	std::string signIn(const std::string& username, const std::string& email, const std::string& password)
+	{
 		//Request body
 		std::string jsonBody = "{\"username\": \"" + username + "\", \"email\": \"" + email + "\", \"password\": \"" + password + "\"}";
 		std::string response;
@@ -78,7 +78,8 @@ public:
 
 		// Set the request options and perform the request
 		CURL* curl = curl_easy_init();
-		if (curl) {
+		if (curl)
+		{
 			curl_easy_setopt(curl, CURLOPT_URL, "http://mathistitouan.com:45635/signin");
 			curl_easy_setopt(curl, CURLOPT_POST, 1L);
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonBody.c_str());
@@ -91,7 +92,8 @@ public:
 
 			//Send Request
 			CURLcode res = curl_easy_perform(curl);
-			if (res != CURLE_OK) {
+			if (res != CURLE_OK)
+			{
 				std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
 			}
 
@@ -101,15 +103,14 @@ public:
 			curl_easy_cleanup(curl);
 			curl_slist_free_all(headers);
 		}
-
 		return response;
 	}
 
-
-	void newscore(int score, const std::string& game, const std::string& authToken) {
+	void newscore(int score, const std::string& game, const std::string& authToken)
+	{
 		CURL* curl = curl_easy_init();
-		if (curl) {
-
+		if (curl)
+		{
 			std::string newscoreUrl = "http://mathistitouan.com:45635/newscore";
 
 			//Request body
@@ -131,10 +132,10 @@ public:
 
 			//Send request
 			CURLcode res = curl_easy_perform(curl);
-			if (res != CURLE_OK) {
+			if (res != CURLE_OK)
+			{
 				std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
 			}
-
 			//Clean up
 			curl_easy_cleanup(curl);
 			curl_slist_free_all(headers);
@@ -143,17 +144,21 @@ public:
 
 	using json = nlohmann::json;
 
-	std::string Scorelist() {
-		struct PseudoScore {
+	std::string Scorelist()
+	{
+		struct PseudoScore
+		{
 			std::string pseudo;
 			int score;
 		};
+
 		std::vector<PseudoScore> arr;
 
 		// Initialize libcurl
 		CURL* curl = curl_easy_init();
 
-		if (curl) {
+		if (curl)
+		{
 			// Fetch the player score list
 			std::string score_list_url = "http://mathistitouan.com:45635/scoreboard/MARIO";
 			std::string score_list_response;
@@ -162,10 +167,12 @@ public:
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &score_list_response);
 			CURLcode res = curl_easy_perform(curl);
 
-			if (res == CURLE_OK) {
+			if (res == CURLE_OK)
+			{
 				std::cout << "Player score list response: " << score_list_response << std::endl;
 			}
-			else {
+			else
+			{
 				std::cerr << "Failed to fetch player score list: " << curl_easy_strerror(res) << std::endl;
 			}
 
@@ -173,46 +180,51 @@ public:
 			curl_easy_cleanup(curl);
 
 			// Parse Results
-			if (!score_list_response.empty()) {
-				try {
+			if (!score_list_response.empty())
+			{
+				try
+				{
 					json root = json::parse(score_list_response);
-					for (const auto& item : root) {
+					for (const auto& item : root)
+					{
 						std::string pseudo = item["user"].get<std::string>();
 						int score = item["score"].get<int>();
 						PseudoScore ps = { pseudo, score };
 						arr.push_back(ps);
 					}
 				}
-				catch (const json::parse_error& e) {
+				catch (const json::parse_error& e)
+				{
 					std::cerr << "Failed to parse JSON string: " << e.what() << std::endl;
 				}
 			}
 
 			std::string result = "";
-			for (const auto& ps : arr) {
+			for (const auto& ps : arr)
+			{
 				result += "Pseudo: " + ps.pseudo + ", Score: " + std::to_string(ps.score) + "\n";
 			}
 
-			if (arr.empty()) {
+			if (arr.empty())
+			{
 				result = "Error parsing JSON, raw data response:\n" + score_list_response;
 			}
-
 			std::cout << result;
-
 			return result;
 		}
-
 		return "no curl";
 	}
 
-
 private:
+
 	// Callback function to write token to a string
-	static size_t headerCallback(char* buffer, size_t size, size_t nitems, void* userData) {
+	static size_t headerCallback(char* buffer, size_t size, size_t nitems, void* userData)
+	{
 		std::string headerLine(buffer, size * nitems);
 		std::string authTokenHeader = "Authorization: ";
 		size_t pos = headerLine.find(authTokenHeader);
-		if (pos != std::string::npos) {
+		if (pos != std::string::npos)
+		{
 			std::string authToken = headerLine.substr(pos + authTokenHeader.size());
 			authToken.erase(std::remove(authToken.begin(), authToken.end(), '\r'), authToken.end());
 			authToken.erase(std::remove(authToken.begin(), authToken.end(), '\n'), authToken.end());
@@ -222,10 +234,10 @@ private:
 		return size * nitems;
 	}
 	// Callback function to write response data to a string
-	static size_t writeCallback(void* contents, size_t size, size_t nmemb, void* userp) {
+	static size_t writeCallback(void* contents, size_t size, size_t nmemb, void* userp)
+	{
 		((std::string*)userp)->append((char*)contents, size * nmemb);
 		return size * nmemb;
 	}
 };
-
 #endif
