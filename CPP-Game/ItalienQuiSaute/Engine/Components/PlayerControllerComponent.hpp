@@ -17,18 +17,22 @@ public:
 		playerDirection = { 0.0f, 0.0f };
 	}
 
+
 	void Move(Vector2<float> moveDirection, float deltatime)
 	{
 
-
+		//Move on X axis
 		playerDirection.x = (moveDirection.x * speed * deltatime);
 
-		if (moveDirection.y < 0.0f && !jumping) {
+		//if there's y axis input and entity is not jumping
+		if (moveDirection.y < 0.0f && !jumping) { 
+
 			jump = moveDirection.y * deltatime /5;
 			jumping = true;
 
 		}
-		if (jump < 0.0f && jumping) {
+		//During a jump make the jump vector closer to 0
+		if (jump < 0.0f && jumping) { 
 			jump += (jumpspeed * 1 / 100) * deltatime;
 			playerDirection.y = (jump);
 
@@ -47,6 +51,7 @@ public:
 		return playerDirection;
 	}
 
+	//Used with collisions (TODO: with states)
 	void setJumping(bool cond) {
 		if (cond) {
 			jumping = true;
@@ -63,6 +68,7 @@ public:
 		jump = 0.0f;
 	}
 
+	//Used to bounce on ennemies when killed (double jump)
 	void addJump(float height) {
 		jumping = true;
 		jump -= height;

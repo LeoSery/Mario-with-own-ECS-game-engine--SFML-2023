@@ -35,7 +35,7 @@ public:
 		EM->AddComponent(this, spriteRendererComponent);
 	};
 
-
+	//Move with the camera divided by the Z axis (depth)
 	void Move(Vector2<float> move) {
 		Vector2<float> pos = (move / depth) + spriteRendererComponent->getPosition();
 		spriteRendererComponent->setPosition(pos);

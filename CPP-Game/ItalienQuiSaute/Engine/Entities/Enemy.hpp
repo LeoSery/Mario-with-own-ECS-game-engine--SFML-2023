@@ -47,6 +47,7 @@ public:
 
 	void Move(sf::Time deltaTime)
 	{
+		//If collision on sides invert direction
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "LEFT") != colliderComponent->activeDirections.end())
 		{
 			direction = -direction;
@@ -56,34 +57,15 @@ public:
 			direction = -direction;
 		}
 
+		//Add to pos direction vector
 		Vector2<float> newpos = direction;
-
 		newpos = gravityComponent->ApplyGravity(newpos, deltaTime.asMicroseconds());
-
 		transformComponent->addPos(newpos, colliderComponent->activeDirections);
+
 		colliderComponent->activeDirections.clear();
 		spriteRendererComponent->setPosition(transformComponent->nextpos);
 	}
 
-	float GetSpeed()
-	{
-		return speed;
-	}
-
-	Vector2<float> GetDirection()
-	{
-		return direction;
-	}
-
-	void SetSpeed(float newSpeed)
-	{
-		speed = newSpeed;
-	}
-
-	void SetDirection(Vector2<float> newDirection)
-	{
-		direction = newDirection;
-	}
 private:
 	float speed;
 	Vector2<float> direction;

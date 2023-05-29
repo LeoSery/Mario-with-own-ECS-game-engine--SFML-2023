@@ -9,15 +9,21 @@
 class CameraComponent : public Component
 {
 public:
+	//Camera for an entity
 	CameraComponent(sf::RenderWindow& window, Vector2<float> center, Vector2<int> mapDimensions)
 	{
+		//Init base View
 		this->mapDimensions = mapDimensions;
 		view.setCenter(sf::Vector2f(center.x, center.y));
 		view.setSize(sf::Vector2f(400.f, 400.f));
 		view.zoom(5.0f);
 		window.setView(view);
 	}
+
+	//Moving the camera and the background
 	void Move(sf::Vector2f playerpos, Vector2<float> direction, sf::RenderWindow& window, Background* bg) {
+
+		//Check corners and stop the camera if out of bounds
 		if (playerpos.x + (view.getSize().x - view.getSize().x / 2) >= mapDimensions.x) {
 			direction.x = 0.0f;
 		}

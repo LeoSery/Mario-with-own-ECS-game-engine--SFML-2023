@@ -26,6 +26,8 @@ public:
 
 
 		position = nextpos;
+
+		//Check collisions
 		for (std::string direction : directions)
 
 		{

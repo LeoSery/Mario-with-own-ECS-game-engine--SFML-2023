@@ -21,6 +21,7 @@ public:
 
 	}
 
+	//Check collisions using sprites hitboxes
 	bool Collision(sf::Sprite* otherSprite)
 	{
 		std::string direction;
@@ -31,24 +32,24 @@ public:
 
 
 			//Top Limit Diff
-			if (((entityHitbox.top + entityHitbox.height) - otherHitbox.top) <= 30) { //if diff is between 3 pixel
+			if (((entityHitbox.top + entityHitbox.height) - otherHitbox.top) <= 30) { //if diff is between 30 pixel
 				direction = "FLOOR";
 			}
 
 			//Bot Limit Diff
-			else if ((entityHitbox.top - (otherHitbox.top + otherHitbox.height)) >= -30) { //if diff is between 3 pixel
+			else if ((entityHitbox.top - (otherHitbox.top + otherHitbox.height)) >= -30) { //if diff is between 30 pixel
 				direction = "TOP";
 			}
 
 			//Left Limit Diff
 
-			else if (((entityHitbox.left + entityHitbox.width) - otherHitbox.left) <= 30) { //if diff is between 3 pixel
+			else if (((entityHitbox.left + entityHitbox.width) - otherHitbox.left) <= 30) { //if diff is between 30 pixel
 				direction = "LEFT";
 			}
 
 			//Right Limit Diff
 
-			else if ((entityHitbox.left - (otherHitbox.left + otherHitbox.width)) >= -30) { //if diff is between 3 pixel
+			else if ((entityHitbox.left - (otherHitbox.left + otherHitbox.width)) >= -30) { //if diff is between 30 pixel
 				direction = "RIGHT";
 			}
 

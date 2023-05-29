@@ -40,23 +40,8 @@ public:
 		pos = sf::Vector2f(worldpos.x * width, worldpos.y * width);
 	}
 
-	void UpdateAnimation(std::vector<sf::Texture> animationsTextures, sf::Time deltaTime)
-	{
-		time += deltaTime;
-		if (time.asMilliseconds() > 200)
-		{
-			tick = 0;
-			sprite.setTexture(animationsTextures[currentAnimationIndex + 1]);
-			currentAnimationIndex++;
-		}
-		tick++;
-	}
-
 private:
-	int tick;
 	int width;
-	int currentAnimationIndex;
-	sf::Time time;
 	sf::Vector2f pos;
 	sf::Texture tex;
 	sf::Sprite sprite;

@@ -12,6 +12,7 @@ public:
 		mass = 1.7f;
 	}
 
+	//Apply Gravity to a direction vector
 	Vector2<float> ApplyGravity(Vector2<float> entityDirection, float deltaTime)
 	{
 		Vector2<float> gravityDirection(0.0f, gravityStrength);

@@ -56,6 +56,7 @@ public:
 
 	void Move(Vector2<float> moveDirection, sf::Time deltaTime, sf::RenderWindow& window, Background* bg)
 	{
+		//check collisions
 		if (std::find(colliderComponent->activeDirections.begin(), colliderComponent->activeDirections.end(), "FLOOR") != colliderComponent->activeDirections.end()) {
 			playerControllerComponent->setJumping(false);
 
@@ -70,13 +71,10 @@ public:
 		}
 
 
-
+		//Add to pos direction vector
 		playerControllerComponent->Move(moveDirection, deltaTime.asMilliseconds());
 		Vector2<float> newpos = playerControllerComponent->getDirectionVector();
-
-
 		newpos = gravityComponent->ApplyGravity(newpos, deltaTime.asMicroseconds());
-
 		newpos = transformComponent->addPos(newpos, colliderComponent->activeDirections);
 
 		cameraComponent->Move(spriteRendererComponent->getSprite()->getPosition(), newpos, window, bg);

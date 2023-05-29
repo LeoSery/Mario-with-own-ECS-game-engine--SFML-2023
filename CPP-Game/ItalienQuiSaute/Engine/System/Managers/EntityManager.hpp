@@ -26,20 +26,7 @@ public:
 		entity->UUID = UUID;
 		livingEntityList.push_back(entity);
 	}
-	Entity* CreateEntity(std::string Name)
-	{
-		std::uint32_t UUID = livingEntityList.size() + 1;
-		Entity* currentEntity = new Entity(UUID, Name, "");
-		livingEntityList.push_back(currentEntity);
-		return currentEntity;
-	}
-	Entity* CreateEntity(std::string Name, std::string Tag)
-	{
-		std::uint32_t UUID = livingEntityList.size() + 1;
-		Entity* currentEntity = new Entity(UUID, Name, Tag);
-		livingEntityList.push_back(currentEntity);
-		return currentEntity;
-	}
+
 	Entity* GetEntity(std::uint32_t UUID)
 	{
 		for (Entity* currentEntity : livingEntityList)
@@ -51,8 +38,7 @@ public:
 		}
 	}
 
-
-
+	//Get all entities of a category
 	std::vector<Entity*> GetAllEntityByTag(std::string Tag)
 	{
 		std::vector<Entity*> allEntities;
@@ -67,22 +53,7 @@ public:
 	}
 
 
-	void DestroyEntity(std::uint32_t UUID)
-	{
-		std::uint32_t index = 0;
-		std::uint32_t itemToRemove = 0;
-		for (Entity* currentEntity : livingEntityList)
-		{
-			index++;
-			if (currentEntity->UUID == UUID)
-			{
-				itemToRemove = index;
-				delete currentEntity;
-			}
-		}
-		livingEntityList.erase(livingEntityList.begin() + itemToRemove);
-	}
-
+	//Destroy any entities in the destroy queue
 	void Purge()
 	{
 
@@ -125,6 +96,7 @@ public:
 
 	}
 
+	//Destroy all entities and components
 	void PurgeAll() {
 		for (Entity* ent : livingEntityList)
 		{
@@ -135,23 +107,8 @@ public:
 #pragma endregion
 
 #pragma region Component
-	Component* CreateComponent()
-	{
-		std::uint32_t UUID = livingComponentList.size() + 1;
-		Component* currentComponent = new Component(UUID, "");
-		livingComponentList.push_back(currentComponent);
-		return currentComponent;
-	}
 
 
-
-	Component* CreateComponent(std::string Name)
-	{
-		std::uint32_t UUID = livingComponentList.size() + 1;
-		Component* currentComponent = new Component(UUID, Name);
-		livingComponentList.push_back(currentComponent);
-		return currentComponent;
-	}
 
 	void CreateComponent(std::string Name, Component* currentComponent)
 	{
@@ -160,6 +117,11 @@ public:
 
 		currentComponent->UUID = UUID;
 		currentComponent->Name = Name;
+	}
+
+	void AddComponent(Entity* entity, Component* component)
+	{
+		componentMapping[entity].push_back(component);
 	}
 
 	Component* GetComponent(Entity* entity, std::uint32_t componentUUID)
@@ -190,40 +152,6 @@ public:
 		return NULL;
 	}
 
-	void DestroyComponent(std::uint32_t UUID)
-	{
-		std::uint32_t index = 0;
-		std::uint32_t itemToRemove = 0;
-		for (Component* currentComponent : livingComponentList)
-		{
-			index++;
-			if (currentComponent->UUID == UUID)
-			{
-				itemToRemove = index;
-				delete currentComponent;
-			}
-		}
-		livingComponentList.erase(livingComponentList.begin() + itemToRemove);
-	}
-	void AddComponent(Entity* entity, Component* component)
-	{
-		componentMapping[entity].push_back(component);
-	}
-
-	void RemoveComponent(Entity* entity, Component* component)
-	{
-		std::uint32_t index = 0;
-		std::uint32_t componentToRemove = 0;
-		for (Component* currentComponent : componentMapping[entity])
-		{
-			index++;
-			if (currentComponent->UUID == component->UUID)
-			{
-				componentToRemove = index;
-			}
-			componentMapping[entity].erase(livingComponentList.begin() + componentToRemove);
-		}
-	}
 #pragma endregion
 
 private:

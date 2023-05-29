@@ -16,6 +16,7 @@ public:
 	SpriteRendererComponent* spriteRendererComponent;
 	ColliderComponent* colliderComponent = new ColliderComponent(spriteRendererComponent->getSprite());
 
+	//GameObject with only Sprite and Collider
 	Flag(EntityManager* EM, Vector2<int> startPos, int texture)
 	{
 
@@ -38,9 +39,5 @@ public:
 
 	}
 
-	void Move(sf::Time deltaTime)
-	{
-		colliderComponent->activeDirections.clear();
-	}
 
 };
