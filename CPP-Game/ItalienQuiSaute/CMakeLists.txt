@@ -7,12 +7,12 @@ set(CMAKE_CXX_STANDARD 20)
 
 # Tell CMake to use Vcpkg for package management
 set(VCPKG_TARGET_TRIPLET "x64-windows-debug")
-set(CMAKE_TOOLCHAIN_FILE D:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
+set(CMAKE_TOOLCHAIN_FILE C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
-set(SFML_DIR D:/vcpkg/vcpkg/installed/x64-windows/share/sfml)
-set(CURL_INCLUDE_DIR D:/vcpkg/vcpkg/installed/x64-windows/share/curl)
-set(libcurl-simple-https_DIR D:/vcpkg/vcpkg/installed/x64-windows/share/libcurl-simple-https)
-set(jsoncpp_DIR D:/vcpkg/vcpkg/installed/x64-windows/share/jsoncpp)
+set(SFML_DIR C:/vcpkg/installed/x64-windows/share/sfml)
+set(CURL_INCLUDE_DIR C:/vcpkg/installed/x64-windows/share/curl)
+set(libcurl-simple-https_DIR C:/vcpkg/installed/x64-windows/share/libcurl-simple-https)
+set(jsoncpp_DIR C:/vcpkg/installed/x64-windows/share/jsoncpp)
 
 # Find SFML
 find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
