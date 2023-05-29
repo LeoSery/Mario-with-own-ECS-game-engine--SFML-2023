@@ -2,10 +2,11 @@
 #define REQUESTMANAGER_H
 
 #include <curl/curl.h>
-#include <json/json.h>
+
 #include <iostream>
 #include <string>
 #include <vector>
+#include "nlohmann/json.hpp"
 
 class RequestManager {
 public:
@@ -140,14 +141,14 @@ public:
 		}
 	}
 
-	std::string Scorelist() {
+	using json = nlohmann::json;
 
+	std::string Scorelist() {
 		struct PseudoScore {
 			std::string pseudo;
 			int score;
 		};
 		std::vector<PseudoScore> arr;
-
 
 		// Initialize libcurl
 		CURL* curl = curl_easy_init();
@@ -167,36 +168,40 @@ public:
 			else {
 				std::cerr << "Failed to fetch player score list: " << curl_easy_strerror(res) << std::endl;
 			}
+
 			// Clean up libcurl resources
 			curl_easy_cleanup(curl);
 
-			//Parse Results
-			Json::Value root;
-			Json::Reader reader;
-			bool parsingSuccessful = reader.parse(score_list_response, root);
-			if (parsingSuccessful) {
-				for (int i = 0; i < root.size(); i++) {
-
-					std::string pseudo = root[i]["user"].asString();
-					int score = root[i]["score"].asInt();
-					PseudoScore ps = { pseudo, score };
-					arr.push_back(ps);
+			// Parse Results
+			if (!score_list_response.empty()) {
+				try {
+					json root = json::parse(score_list_response);
+					for (const auto& item : root) {
+						std::string pseudo = item["user"].get<std::string>();
+						int score = item["score"].get<int>();
+						PseudoScore ps = { pseudo, score };
+						arr.push_back(ps);
+					}
+				}
+				catch (const json::parse_error& e) {
+					std::cerr << "Failed to parse JSON string: " << e.what() << std::endl;
 				}
 			}
-			else {
-				std::cout << "Failed to parse JSON string" << std::endl;
+
+			std::string result = "";
+			for (const auto& ps : arr) {
+				result += "Pseudo: " + ps.pseudo + ", Score: " + std::to_string(ps.score) + "\n";
 			}
 
-			score_list_response = "";
-
-			for (int i = 0; i < arr.size(); i++) {
-				score_list_response += "Pseudo: " + arr[i].pseudo + ", Score: " + std::to_string(arr[i].score) + "\n";
+			if (arr.empty()) {
+				result = "Error parsing JSON, raw data response:\n" + score_list_response;
 			}
 
+			std::cout << result;
 
-
-			return score_list_response;
+			return result;
 		}
+
 		return "no curl";
 	}
 

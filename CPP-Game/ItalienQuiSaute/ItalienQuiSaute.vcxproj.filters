@@ -21,6 +21,12 @@
     <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\API\RequestManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\API\nlohmann\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\API\nlohmann\json_fwd.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\CameraComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

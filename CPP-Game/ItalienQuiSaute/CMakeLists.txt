@@ -12,7 +12,6 @@ set(CMAKE_TOOLCHAIN_FILE C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
 set(SFML_DIR C:/vcpkg/installed/x64-windows/share/sfml)
 set(CURL_INCLUDE_DIR C:/vcpkg/installed/x64-windows/share/curl)
 set(libcurl-simple-https_DIR C:/vcpkg/installed/x64-windows/share/libcurl-simple-https)
-set(jsoncpp_DIR C:/vcpkg/installed/x64-windows/share/jsoncpp)
 
 # Find SFML
 find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
@@ -23,8 +22,6 @@ find_package(CURL REQUIRED)
 # Find libcurl-simple-https
 find_package(libcurl-simple-https REQUIRED)
 
-# Find jsoncpp
-find_package(jsoncpp REQUIRED)
 
 
 # Add source files
@@ -36,6 +33,8 @@ set(SOURCES
     Game/Source/Menu.hpp
     
     Engine/API/RequestManager.hpp
+    Engine/API/nlohmann/json.hpp
+    Engine/API/nlohmann/json_fwd.hpp
     
     Engine/Components/CameraComponent.hpp
     Engine/Components/ColliderComponent.hpp
@@ -67,9 +66,6 @@ add_executable(ItalienQuiSaute ${SOURCES})
 
 # Link SFML libraries
 target_link_libraries(ItalienQuiSaute sfml-graphics sfml-window sfml-system)
-
-# Link jsoncpp library
-target_link_libraries(ItalienQuiSaute jsoncpp)
 
 # Link libcurl-simple-https library
 target_link_libraries(ItalienQuiSaute libcurl-simple-https)

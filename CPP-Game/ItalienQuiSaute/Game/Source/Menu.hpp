@@ -15,7 +15,7 @@ public:
 
 
 
-	RequestManager* requestManager = new RequestManager();
+	RequestManager requestManager;
 
 	sf::Clock clock2;
 
@@ -37,6 +37,7 @@ public:
 	
 
 	Menu() {
+
 		//Setting base values
 		if (!TextFont.loadFromFile("Game/Assets/Fonts/FORCED_SQUARE.ttf"))
 		{
@@ -55,9 +56,6 @@ public:
 		quitButton.setSize(sf::Vector2f(200, 60));
 	}
 
-	~Menu() {
-		delete requestManager;
-	}
 
 
 	void scoreMenu(sf::RenderWindow& window, sf::Event& event, int score) {
@@ -110,11 +108,11 @@ public:
 						pseudo.erase(std::remove(pseudo.begin(), pseudo.end(), '\r'), pseudo.end());
 						password.erase(std::remove(password.begin(), password.end(), '\r'), password.end());
 
-						requestManager->signIn(pseudo, email, password);
-						token = requestManager->login(pseudo, email, password);
-						requestManager->newscore(score, "MARIO", token);
+						requestManager.signIn(pseudo, email, password);
+						token = requestManager.login(pseudo, email, password);
+						requestManager.newscore(score, "MARIO", token);
 
-						playerText.setString(requestManager->Scorelist());
+						playerText.setString(requestManager.Scorelist());
 						std::cout << token << "\n";
 						count++;
 					}

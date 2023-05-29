@@ -1,5 +1,5 @@
 {
   "name": "cours-cpp",
   "description": "Cours de cpp Ynov B3",
-  "dependencies": ["sfml","libcurl-simple-https","jsoncpp"]
+  "dependencies": ["sfml","libcurl-simple-https"]
 }
