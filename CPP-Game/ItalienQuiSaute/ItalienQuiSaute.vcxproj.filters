@@ -1,197 +1,96 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Maths\Vector2.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\API\RequestManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\AudioComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\CameraComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\ColliderComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\Component.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\GravityComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\HealthComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\PlayerControllerComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\PlayerStateComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\SpriteRendererComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Components\TransformComponent.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entities\Enemy.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entities\Entity.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entities\Flag.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entities\GameObject.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entities\PlayerEntity.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\System\Libraries\Maths\Vector2.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\System\Managers\AnimationsManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\System\Managers\EntityManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\System\Managers\InputManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\System\Managers\TexturesManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entities\Background.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\FileReader.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Level.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Sprites\background.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\BlueContainer.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\brick.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\flag_1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\flag_2.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\goomba.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\ground.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\mario_idle.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\mario_jump.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\mario_walk_1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\mario_walk_2.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\mario_walk_3.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\mario_win.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\rat.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Assets\Sprites\super_block.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Character\mario_idle.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Character\mario_jump.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Character\mario_walk_1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Character\mario_walk_2.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Character\mario_walk_3.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Character\mario_win.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Enemies\goomba.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Map\background.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Map\brick.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Map\flag_1.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Map\flag_2.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Map\ground.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Game\Assets\Sprites\Map\super_block.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Game\ItalienQuiSaute.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Game\Source\ItalienQuiSaute.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Game\Assets\Resources\MapPatern.txt" />
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Game\Source\FileReader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Game\Source\GameManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Game\Source\Level.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Game\Source\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\API\RequestManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\CameraComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\ColliderComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\Component.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\GravityComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\HealthComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\PlayerControllerComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\PlayerStateComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\SpriteRendererComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Components\TransformComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Entities\Background.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Entities\Enemy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Entities\Entity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Entities\Flag.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Entities\GameObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\Entities\PlayerEntity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\System\Libraries\Maths\Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\System\Managers\AnimationsManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\System\Managers\EntityManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\System\Managers\InputManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\Engine\System\Managers\TexturesManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Game\Assets\Fonts\FORCED_SQUARE.ttf" />
+    <CustomBuild Include="D:\projects\ItalienQuiSaute\CPP-Game\ItalienQuiSaute\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{38C56F38-417F-30D6-8CDF-F63CD6CBAA3C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{31CEA035-1618-39F4-90BB-DB05917B6CBF}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

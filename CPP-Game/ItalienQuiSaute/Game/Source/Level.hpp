@@ -1,19 +1,19 @@
 #pragma once
 
-#include "../Engine/Components/PlayerControllerComponent.hpp"
-#include "../Engine/Components/SpriteRendererComponent.hpp"
-#include "../Engine/Components/ColliderComponent.hpp"
-#include "../Engine/Components/HealthComponent.hpp"
+#include "../../Engine/Components/PlayerControllerComponent.hpp"
+#include "../../Engine/Components/SpriteRendererComponent.hpp"
+#include "../../Engine/Components/ColliderComponent.hpp"
+#include "../../Engine/Components/HealthComponent.hpp"
 
-#include "../Engine/System/Managers/TexturesManager.hpp"
-#include "../Engine/System/Managers/EntityManager.hpp"
-#include "../Engine/System/Managers/InputManager.hpp"
+#include "../../Engine/System/Managers/TexturesManager.hpp"
+#include "../../Engine/System/Managers/EntityManager.hpp"
+#include "../../Engine/System/Managers/InputManager.hpp"
 
-#include "../Engine/Entities/PlayerEntity.hpp"
-#include "../Engine/Entities/Enemy.hpp"
+#include "../../Engine/Entities/PlayerEntity.hpp"
+#include "../../Engine/Entities/Enemy.hpp"
 
-#include "../Engine/System/Libraries/Maths/Vector2.h"
-#include "../Engine/API/RequestManager.hpp"
+#include "../../Engine/System/Libraries/Maths/Vector2.h"
+#include "../../Engine/API/RequestManager.hpp"
 
 #include "FileReader.hpp"
 

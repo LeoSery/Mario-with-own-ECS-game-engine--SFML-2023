@@ -14,7 +14,7 @@ public:
 	{
 		speed = 700.0f;
 		jumptime = 0.0f;
-		jumpforce = -5.0f;
+		jumpforce = -2000.0f; //get overwriten, to change it go to InputManager
 		playerDirection = { 0.0f, 0.0f };
 		
 	}
@@ -41,11 +41,8 @@ public:
 
 		}
 		else {
-			jumping = false;
 			playerDirection.y = 0.0f;
 		}
-		std::cout << jumptime << "\n";
-
 		
 
 
