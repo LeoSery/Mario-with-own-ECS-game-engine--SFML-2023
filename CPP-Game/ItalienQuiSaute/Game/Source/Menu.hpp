@@ -63,7 +63,6 @@ public:
 
 					playerInput.erase(playerInput.getSize() - 1, 1);
 					playerText.setString(playerInput);
-					window.draw(playerText);
 
 				}
 				//Any other keys 
@@ -73,7 +72,6 @@ public:
 					playerInput = playerText.getString();
 					playerInput += event.text.unicode;
 					playerText.setString(playerInput);
-					window.draw(playerText);
 
 				}
 
@@ -93,7 +91,6 @@ public:
 						token = requestManager.login(pseudo, email, password);
 						requestManager.newscore(score, "MARIO", token);
 						playerText.setString(requestManager.Scorelist());
-						window.draw(playerText);
 						std::cout << token << "\n";
 						count++;
 
@@ -103,7 +100,6 @@ public:
 						pseudo = (std::string)playerText.getString().toAnsiString();
 						pseudo.erase(0, baseTextSize);
 						playerText.setString("Password: ");
-						window.draw(playerText);
 						baseTextSize = playerText.getString().getSize();
 						count++;
 
@@ -113,7 +109,6 @@ public:
 						email = (std::string)playerText.getString().toAnsiString();
 						email.erase(0, baseTextSize);
 						playerText.setString("Name: ");
-						window.draw(playerText);
 						baseTextSize = playerText.getString().getSize();
 						count++;
 
@@ -124,10 +119,10 @@ public:
 				}
 				
 			}
-			window.draw(playerText);
-			window.display();
+			
 		}
-		
+		window.draw(playerText);
+		window.display();
 	}
 
 	void mainMenu(sf::RenderWindow& window)
