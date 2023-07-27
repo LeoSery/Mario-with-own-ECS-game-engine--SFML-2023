@@ -84,6 +84,8 @@ public:
 					if (ent->Tag == "FLAG" && player->colliderComponent->collided)
 					{
 						gameWin = true;
+						sf::View mainMenuView;
+						window.setView(mainMenuView);
 						ingame = false;
 						std::cout << "win";
 						EM->PurgeAll();

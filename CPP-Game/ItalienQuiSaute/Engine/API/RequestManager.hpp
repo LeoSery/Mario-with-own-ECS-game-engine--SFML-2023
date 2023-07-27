@@ -36,7 +36,7 @@ public:
 		CURL* curl = curl_easy_init();
 		if (curl)
 		{
-			curl_easy_setopt(curl, CURLOPT_URL, "http://mathistitouan.com:45635/login");
+			curl_easy_setopt(curl, CURLOPT_URL, "https://api.mathistitouan.com/login");
 			curl_easy_setopt(curl, CURLOPT_POST, 1L);
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonBody.c_str());
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, jsonBody.size());
@@ -80,7 +80,7 @@ public:
 		CURL* curl = curl_easy_init();
 		if (curl)
 		{
-			curl_easy_setopt(curl, CURLOPT_URL, "http://mathistitouan.com:45635/signin");
+			curl_easy_setopt(curl, CURLOPT_URL, "https://api.mathistitouan.com/signin");
 			curl_easy_setopt(curl, CURLOPT_POST, 1L);
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonBody.c_str());
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, jsonBody.size());
@@ -111,7 +111,7 @@ public:
 		CURL* curl = curl_easy_init();
 		if (curl)
 		{
-			std::string newscoreUrl = "http://mathistitouan.com:45635/newscore";
+			std::string newscoreUrl = "https://api.mathistitouan.com/newscore";
 
 			//Request body
 			std::string requestBody = "{\"score\":" + std::to_string(score) + ",\"game\":\"" + game + "\"}";
@@ -160,7 +160,7 @@ public:
 		if (curl)
 		{
 			// Fetch the player score list
-			std::string score_list_url = "http://mathistitouan.com:45635/scoreboard/MARIO";
+			std::string score_list_url = "https://api.mathistitouan.com/scoreboard/MARIO";
 			std::string score_list_response;
 			curl_easy_setopt(curl, CURLOPT_URL, score_list_url.c_str());
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);

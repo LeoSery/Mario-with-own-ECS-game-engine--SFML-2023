@@ -52,22 +52,23 @@ public:
 
 		while (window.isOpen())
 		{
-			//Remove entities in destroy queue just in case
-			EM->Purge();
+			
+			
+			//Score Menu loop
+			if (level->gameWin) {
 
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-					window.close();
+
+				menu.scoreMenu(window, event, level->score);
 			}
 
 			//Game loop
-			if (level->ingame)
+			else if (level->ingame) {
+				
 				level->UpdateLevel(window, event, inputManager);
-
-			//Score Menu loop
-			else if (level->gameWin)
-				menu.scoreMenu(window, event, level->score);
+				//Remove entities in destroy queue just in case
+				EM->Purge();
+			}
+			
 
 			//Main menu / Game Over loop
 			else
@@ -83,6 +84,11 @@ public:
 					if (menu.onClick(window))
 						StartGame(window);
 				}
+			}
+			while (window.pollEvent(event) && !level->gameWin)
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
 			}
 		}
 		//clean all when window is closed

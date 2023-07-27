@@ -15,7 +15,6 @@ public:
 
 	RequestManager requestManager;
 
-	sf::Clock clock2;
 
 	int count = 0;
 
@@ -47,43 +46,45 @@ public:
 
 	void scoreMenu(sf::RenderWindow& window, sf::Event& event, int score)
 	{
-		//cooldown for key input to avoid many duplicates input
-		bool cd = false;
-		sf::Time cooldown = sf::Time(sf::seconds(0.1f));
-		sf::View mainMenuView;
+		
 		window.clear();
-		window.setView(mainMenuView);
+		
 
-		if (event.type == sf::Event::TextEntered)
-		{
-			if (clock2.getElapsedTime() < cooldown)
-				cd = true;
-			else
-				cd = false;
-
-			//Delete Key
-			if (event.text.unicode == 8)
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (event.type == sf::Event::TextEntered)
 			{
-				if (!cd)
+				//Delete Key
+				if (event.text.unicode == 8)
 				{
 					playerInput = playerText.getString();
 					if (playerInput.getSize() <= baseTextSize) { return; }
 
 					playerInput.erase(playerInput.getSize() - 1, 1);
 					playerText.setString(playerInput);
-					clock2.restart();
-				}
-			}
+					window.draw(playerText);
 
-			//Enter key (submit)
-			else if (event.text.unicode == 13)
-			{
-				//switch on all steps of login
-				switch (count)
+				}
+				//Any other keys 
+				else if (event.text.unicode < 128 && event.text.unicode != 13)
 				{
-				case 2:
-					if (!cd)
+
+					playerInput = playerText.getString();
+					playerInput += event.text.unicode;
+					playerText.setString(playerInput);
+					window.draw(playerText);
+
+				}
+
+				//Enter key (submit)
+				else if (event.text.unicode == 13)
+				{
+					//switch on all steps of login
+					switch (count)
 					{
+					case 2:
+
 						password = (std::string)playerText.getString().toAnsiString();
 						password.erase(0, baseTextSize);
 						pseudo.erase(std::remove(pseudo.begin(), pseudo.end(), '\r'), pseudo.end());
@@ -92,49 +93,41 @@ public:
 						token = requestManager.login(pseudo, email, password);
 						requestManager.newscore(score, "MARIO", token);
 						playerText.setString(requestManager.Scorelist());
+						window.draw(playerText);
 						std::cout << token << "\n";
 						count++;
-					}
-					break;
-				case 1:
-					if (!cd)
-					{
+
+						break;
+					case 1:
+
 						pseudo = (std::string)playerText.getString().toAnsiString();
 						pseudo.erase(0, baseTextSize);
 						playerText.setString("Password: ");
+						window.draw(playerText);
 						baseTextSize = playerText.getString().getSize();
 						count++;
-					}
-					break;
-				case 0:
-					if (!cd)
-					{
+
+						break;
+					case 0:
+
 						email = (std::string)playerText.getString().toAnsiString();
 						email.erase(0, baseTextSize);
 						playerText.setString("Name: ");
+						window.draw(playerText);
 						baseTextSize = playerText.getString().getSize();
 						count++;
+
+						break;
+					default:
+						break;
 					}
-					break;
-				default:
-					break;
 				}
-				clock2.restart();
+				
 			}
-			//Any other keys 
-			else if (event.text.unicode < 128)
-			{
-				if (!cd)
-				{
-					playerInput = playerText.getString();
-					playerInput += event.text.unicode;
-					playerText.setString(playerInput);
-					clock2.restart();
-				}
-			}
+			window.draw(playerText);
+			window.display();
 		}
-		window.draw(playerText);
-		window.display();
+		
 	}
 
 	void mainMenu(sf::RenderWindow& window)
